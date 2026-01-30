@@ -1,0 +1,159 @@
+<div class="login-page">
+  <div class="login-card">
+
+    <!-- Back -->
+    <button class="back-btn" (click)="goBack()">←</button>
+
+    <!-- Title -->
+    <h2 class="title">
+      {{ isRegister ? 'Registrarse' : 'Iniciar sesión' }}
+    </h2>
+
+    <!-- Social -->
+    <div class="social-buttons">
+      <button class="btn google" (click)="loginGoogle()">
+        Continuar con Google
+      </button>
+
+      <button class="btn apple">
+        Continuar con Apple
+      </button>
+    </div>
+
+    <div class="divider"><span>o</span></div>
+
+    <!-- FORM -->
+    <div class="form-group">
+
+      <!-- LOGIN -->
+      @if (!isRegister) {
+
+        <input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="Correo electrónico"
+        >
+
+        <div class="password-field">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            placeholder="Contraseña"
+          >
+
+          <button
+            type="button"
+            class="eye-btn"
+            (click)="togglePassword()"
+          >
+            👁
+          </button>
+        </div>
+
+      }
+
+      <!-- REGISTRO PASO 1 -->
+      @if (isRegister && registerStep === 1) {
+
+        <input
+          type="text"
+          [(ngModel)]="name"
+          placeholder="Nombre completo"
+        >
+
+        <input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="Correo electrónico"
+        >
+
+        <button
+          class="btn primary"
+          (click)="nextRegisterStep()"
+        >
+          Continuar
+        </button>
+
+      }
+
+      <!-- REGISTRO PASO 2 -->
+      @if (isRegister && registerStep === 2) {
+
+        <div class="password-field">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            placeholder="Crear contraseña"
+          >
+
+          <button
+            type="button"
+            class="eye-btn"
+            (click)="togglePassword()"
+          >
+            👁
+          </button>
+        </div>
+
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="confirmPassword"
+          placeholder="Repetir contraseña"
+        >
+
+      }
+
+    </div>
+
+    <!-- ERROR -->
+    @if (errorMessage) {
+      <p class="error">{{ errorMessage }}</p>
+    }
+
+    <!-- BOTON LOGIN -->
+    @if (!isRegister) {
+
+      <button
+        class="btn primary"
+        (click)="submit()"
+        [disabled]="loading"
+      >
+        @if (!loading) {
+          <span>Entrar</span>
+        }
+        @if (loading) {
+          <span class="loader"></span>
+        }
+      </button>
+
+    }
+
+    <!-- BOTON REGISTRO FINAL -->
+    @if (isRegister && registerStep === 2) {
+
+      <button
+        class="btn primary"
+        (click)="submit()"
+        [disabled]="loading"
+      >
+        @if (!loading) {
+          <span>Crear cuenta</span>
+        }
+        @if (loading) {
+          <span class="loader"></span>
+        }
+      </button>
+
+    }
+
+    <!-- TOGGLE -->
+    <p class="register-text">
+      {{ isRegister ? '¿Ya tienes cuenta?' : '¿No tienes cuenta?' }}
+
+      <span (click)="toggleMode()">
+        {{ isRegister ? 'Entrar' : 'Regístrate' }}
+      </span>
+    </p>
+
+  </div>
+</div>

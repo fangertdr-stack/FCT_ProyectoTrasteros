@@ -1,0 +1,272 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* PAGE */
+
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #5a5752, #0b3b0f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+/* CARD */
+
+.login-card {
+  position: relative;
+  background: #f9faf8;
+  padding: 38px 34px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35),
+    0 0 0 1px rgba(255,255,255,.35);
+  animation: fadeInUp .6s ease;
+}
+
+@media (min-width: 900px) {
+  .login-card {
+    max-width: 460px;
+  }
+}
+
+/* BACK */
+
+.back-btn {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #3e8f46;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-4px);
+  opacity: .7;
+}
+
+/* TITLE */
+
+.title {
+  text-align: center;
+  margin-bottom: 26px;
+  font-size: clamp(22px,5vw,26px);
+  color: #243124;
+}
+
+/* SOCIAL */
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all .25s ease;
+}
+
+.btn.google {
+  background: #fff;
+  color: #3d3d3d;
+  border: 1px solid #d6dcd4;
+}
+
+.btn.google:hover {
+  background: #eceeea;
+}
+
+.btn.apple {
+  background: #1b1b1b;
+  color: #fff;
+}
+
+.btn.apple:hover {
+  background: #333;
+}
+
+/* DIVIDER */
+
+.divider {
+  margin: 24px 0;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #7a8078;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #d3d8d1;
+}
+
+.divider span {
+  padding: 0 12px;
+}
+
+/* FORM */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid #cfd6cc;
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border .2s ease, box-shadow .2s ease;
+}
+
+input:focus {
+  border-color: #4ead53;
+  box-shadow: 0 0 0 2px rgba(78,173,83,.15);
+}
+
+/* PASSWORD */
+
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  padding-right: 46px;
+}
+
+.eye-btn {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #7a8279;
+  padding: 0;
+  font-size: 16px;
+  opacity: 0.6;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.eye-btn:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* MAIN BUTTON */
+
+.btn.primary {
+  margin-top: 22px;
+  background: #4ead53;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #43c56e;
+}
+
+.btn.primary:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+/* REGISTER */
+
+.register-text {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+  color: #5e665d;
+}
+
+.register-text span {
+  color: #3e8f46;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.register-text span:hover {
+  text-decoration: underline;
+}
+
+/* ERROR */
+
+.error {
+  color: #d9534f;
+  text-align: center;
+  margin-top: 15px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+}
+
+/* LOADER */
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,.4);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ANIMATION */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SMALL SCREENS */
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 28px 22px;
+    border-radius: 18px;
+  }
+
+  .btn, input {
+    padding: 14px;
+  }
+}
