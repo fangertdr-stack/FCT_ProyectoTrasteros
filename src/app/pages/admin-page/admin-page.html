@@ -1,0 +1,82 @@
+<h2>Administración de Trasteros</h2>
+
+<table class="trasteros-table">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Usuario</th>
+      <th>Estado</th>
+      <th>Tamaño</th>
+      <th>Precio</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (t of trasteros; track t.id_trastero) {
+      <tr>
+        <td>{{ t.codigo }}</td>
+
+        <td>{{ t.usuario || '-' }}</td>
+
+        <td>
+          <span 
+            [class.ocupado]="t.estado === 'OCUPADO'"
+            [class.libre]="t.estado === 'LIBRE'">
+            {{ t.estado }}
+          </span>
+        </td>
+
+        <td>{{ t.tamanio }}</td>
+        <td>{{ t.precio }} €</td>
+
+        <td>
+          <button (click)="seleccionar(t)">Asignar / Editar</button>
+
+          @if (t.estado === 'OCUPADO') {
+            <button (click)="liberar(t)">Liberar</button>
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<!-- Editor -->
+
+@if (trasteroSeleccionado) {
+  <div class="editor">
+
+    <h3>{{ trasteroSeleccionado.codigo }}</h3>
+
+    <label>
+      Usuario:
+      <input 
+        placeholder="Nombre del usuario"
+        [(ngModel)]="trasteroSeleccionado.usuario">
+    </label>
+
+    <label>
+      Estado:
+      <select [(ngModel)]="trasteroSeleccionado.estado">
+        <option value="LIBRE">LIBRE</option>
+        <option value="OCUPADO">OCUPADO</option>
+      </select>
+    </label>
+
+    <p>
+      <strong>Tamaño:</strong> {{ trasteroSeleccionado.tamanio }}
+    </p>
+
+    <label>
+      Precio:
+      <input type="number" [(ngModel)]="trasteroSeleccionado.precio">
+    </label>
+
+    <div class="buttons">
+      <button (click)="guardar()">Guardar</button>
+      <button (click)="trasteroSeleccionado = null">Cancelar</button>
+    </div>
+
+  </div>
+}
