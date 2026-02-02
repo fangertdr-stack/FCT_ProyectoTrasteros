@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+
+import { Login } from '../../services/login';
+
 
 import {
   Auth,
@@ -10,10 +15,16 @@ import {
 } from '@angular/fire/auth';
 
 
+
+
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [
+    FormsModule,
+    MatSnackBarModule,
+    
+  ],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
@@ -31,8 +42,14 @@ export class LoginComponent {
   showPassword = false;
   loading = false;
   errorMessage = '';
+  isAdmin = false; 
 
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth,
+              private snackBar: MatSnackBar,
+              private serviceLogin: Login,
+              private router: Router
+
+  ) {}
 
   // Volver atrás
   goBack() {
@@ -126,22 +143,25 @@ export class LoginComponent {
     this.loading = false;
 
     if (err.code?.includes('weak-password')) {
-      this.errorMessage = 'Contraseña muy débil';
+      this.snackBar.open('Contraseña muy débil', 'Error', { duration: 3000 }) ;
     }
     else if (err.code?.includes('email-already')) {
-      this.errorMessage = 'Ese correo ya está registrado';
+      this.snackBar.open ('Ese correo ya está registrado', 'Cerrar', { duration: 3000 }) ;
     }
     else if (err.code?.includes('user-not-found')) {
-      this.errorMessage = 'Usuario no encontrado';
+      this.snackBar.open('Usuario no encontrado', 'Cerrar', { duration: 3000 });
+
     }
     else if (err.code?.includes('wrong-password')) {
-      this.errorMessage = 'Contraseña incorrecta';
+      this.snackBar.open('Contraseña incorrecta', 'Error', { duration: 3000 }) ;
+    
     }
     else if (err.code?.includes('email')) {
-      this.errorMessage = 'Correo inválido';
+      this.snackBar.open('Correo inválido', 'Error', { duration: 3000 })
+      
     }
     else {
-      this.errorMessage = 'Error al autenticar';
+      this.snackBar.open ('Error al autenticar', 'Error', { duration: 3000 });
     }
   }
 }

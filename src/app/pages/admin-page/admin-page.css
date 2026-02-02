@@ -1,0 +1,373 @@
+/* PAGINA */
+
+.admin-page {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #5a5752, #0b3b0f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* TARJETA PRINCIPAL */
+
+.admin-card {
+  background: #f9faf8;
+  width: 100%;
+  max-width: 1100px;
+  padding: 28px 30px;
+  border-radius: 22px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35),
+    0 0 0 1px rgba(255,255,255,.35);
+  animation: fadeInUp .6s ease;
+}
+
+/* TITULO */
+
+.admin-title {
+  font-size: clamp(22px, 4vw, 28px);
+  margin-bottom: 24px;
+  color: #243124;
+  text-align: center;
+}
+
+/* TABLA DE TRASTEROS */
+
+.trasteros-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+/* Cabecera de la tabla */
+
+.trasteros-table thead th {
+  text-align: center; /* Títulos centrados */
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #6f776e;
+  font-weight: 600;
+}
+
+/* Filas */
+
+.trasteros-table tbody tr {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.06);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.trasteros-table tbody tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.12);
+}
+
+/* Celdas */
+
+.trasteros-table td {
+  padding: 14px;
+  font-size: 14px;
+  color: #2e332e;
+  text-align: center; /* Datos centrados */
+  vertical-align: middle;
+}
+
+/* Bordes redondeados en las filas */
+
+.trasteros-table tbody tr td:first-child {
+  border-radius: 14px 0 0 14px;
+}
+
+.trasteros-table tbody tr td:last-child {
+  border-radius: 0 14px 14px 0;
+}
+
+/* ESTADO (LIBRE / OCUPADO / MANTENIMIENTO) */
+
+.ocupado {
+  background: #e35d5b;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.libre {
+  background: #4ead53;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mantenimiento {
+  background: #f0ad4e;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* SELECTOR DE ESTADO */
+
+.estado-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.estado-botones {
+  display: flex;
+  gap: 10px;
+}
+
+/* Botón base */
+
+.estado-btn {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  opacity: .5;
+  transition: all .2s ease;
+  background: #f1f3ef;
+  color: #2e332e;
+}
+
+/* Colores por estado */
+
+.estado-btn.libre {
+  border-color: #4ead53;
+}
+
+.estado-btn.ocupado {
+  border-color: #e35d5b;
+}
+
+.estado-btn.mantenimiento {
+  border-color: #f0ad4e;
+}
+
+/* Activo */
+
+.estado-btn.activo {
+  opacity: 1;
+  color: white;
+}
+
+.estado-btn.libre.activo {
+  background: #4ead53;
+}
+
+.estado-btn.ocupado.activo {
+  background: #e35d5b;
+}
+
+.estado-btn.mantenimiento.activo {
+  background: #f0ad4e;
+}
+
+/* Hover suave */
+
+.estado-btn:hover {
+  opacity: .85;
+}
+
+/* BOTONES DE LA TABLA */
+
+.trasteros-table button {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.trasteros-table button:first-child {
+  background: #4ead53;
+  color: white;
+}
+
+.trasteros-table button:first-child:hover {
+  background: #43c56e;
+}
+
+.trasteros-table button:last-child {
+  background: #e35d5b;
+  color: white;
+}
+
+.trasteros-table button:last-child:hover {
+  background: #c94b49;
+}
+
+/* Columna de acciones centrada */
+
+.trasteros-table td:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+/* DESTACAR NÚMEROS */
+
+.trasteros-table td:nth-child(4),
+.trasteros-table td:nth-child(5) {
+  font-weight: 500;
+}
+
+/* EDITOR DE TRASTEROS */
+
+.editor {
+  margin-top: 26px;
+  padding: 22px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  max-width: 420px;
+}
+
+.editor h3 {
+  margin-bottom: 16px;
+  color: #243124;
+}
+
+/* FORMULARIO */
+
+.editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  margin-bottom: 14px;
+  color: #5e665d;
+}
+
+.editor input,
+.editor select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #cfd6cc;
+  font-size: 14px;
+  outline: none;
+  transition: border .2s ease, box-shadow .2s ease;
+}
+
+.editor input:focus,
+.editor select:focus {
+  border-color: #4ead53;
+  box-shadow: 0 0 0 2px rgba(78,173,83,.15);
+}
+
+/* Texto informativo */
+
+.editor p {
+  margin: 10px 0 16px;
+  color: #2e332e;
+}
+
+/* BOTONES DEL EDITOR */
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.buttons button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.buttons button:first-child {
+  background: #4ead53;
+  color: white;
+}
+
+.buttons button:first-child:hover {
+  background: #43c56e;
+}
+
+.buttons button:last-child {
+  background: #eceeea;
+  color: #2e332e;
+}
+
+.buttons button:last-child:hover {
+  background: #dfe4dc;
+}
+
+/* ANIMACIÓN */
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* RESPONSIVE */
+
+
+@media (max-width: 900px) {
+
+  .admin-card {
+    padding: 22px;
+  }
+
+  /* Ocultar cabecera en móvil */
+
+  .trasteros-table thead {
+    display: none;
+  }
+
+  /* Filas en vertical */
+
+  .trasteros-table tbody tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Celdas alineadas a la izquierda en móvil */
+
+  .trasteros-table td {
+    text-align: left;
+    padding: 10px 14px;
+  }
+
+  /* Botones alineados a la izquierda en móvil */
+
+  .trasteros-table td:last-child {
+    justify-content: flex-start;
+  }
+}

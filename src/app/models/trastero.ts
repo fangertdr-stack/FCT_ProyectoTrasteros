@@ -1,9 +1,9 @@
 export interface Trastero {
     id_trastero: number;
     codigo: string;
-    estado: 'OCUPADO' | 'LIBRE';
+    estado: 'OCUPADO' | 'LIBRE' | 'MANTENIMIENTO';
     precio: number;
-    tamanio: 'P' | 'M' | 'G';
+    tamanio: 'PEQUEÑO' | 'MEDIANO' | 'GRANDE';
 
     usuario?: string; // temporal hasta backend real
 

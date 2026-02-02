@@ -1,0 +1,20 @@
+<div style="max-width: 300px; margin: 2rem auto;">
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha de inicio de alquiler</mat-label>
+    <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate">
+    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+    <mat-datepicker #startPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha de fin de alquiler</mat-label>
+    <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate">
+    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+    <mat-datepicker #endPicker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="showDates()">Confirmar fechas</button>
+  <button (click)="logout()">logout</button>
+  <button>Contratar</button>
+  <button (click)="login()">Login</button>
+</div>

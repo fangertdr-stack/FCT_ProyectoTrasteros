@@ -12,62 +12,63 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminPage {
 
-
-  // Datos de ejemplo
   trasteros: Trastero[] = [
     {
       id_trastero: 1,
       codigo: 'T01',
       estado: 'OCUPADO',
       precio: 30,
-      tamanio: 'P',
-
-      usuario: 'usuario1' // temporal hasta backend real
+      tamanio: 'PEQUEÑO',
+      usuario: 'usuario1'
     },
-
     {
       id_trastero: 2,
       codigo: 'T02',
-      estado: 'OCUPADO',
+      estado: 'LIBRE',
       precio: 40,
-      tamanio: 'M'
+      tamanio: 'MEDIANO',
     },
-
     {
       id_trastero: 3,
       codigo: 'T03',
-      estado: 'LIBRE',
+      estado: 'OCUPADO',
       precio: 50,
-      tamanio: 'G',
-
-      usuario: 'usuario2' // temporal hasta backend real
+      tamanio: 'GRANDE',
+      usuario: 'usuario2'
     }
-
   ];
 
   trasteroSeleccionado: Trastero | null = null;
 
   seleccionar(t: Trastero) {
-    this.trasteroSeleccionado =  {...t};
+    // copia para no modificar la tabla directo
+    this.trasteroSeleccionado = { ...t };
+  }
+
+  cambiarEstado(estado: 'LIBRE' | 'OCUPADO' | 'MANTENIMIENTO') {
+    if (!this.trasteroSeleccionado) return;
+
+    this.trasteroSeleccionado.estado = estado;
+
+    // lógica automática
+    if (estado !== 'OCUPADO') {
+      this.trasteroSeleccionado.usuario = undefined;
+    }
   }
 
   guardar() {
     if (!this.trasteroSeleccionado) return;
 
-    if (this.trasteroSeleccionado.usuario) {
-      this.trasteroSeleccionado.estado = 'OCUPADO';
-    }
-
     const index = this.trasteros.findIndex(
       t => t.id_trastero === this.trasteroSeleccionado!.id_trastero
     );
 
-    this.trasteros[index] = this.trasteroSeleccionado!;
+    this.trasteros[index] = { ...this.trasteroSeleccionado };
     this.trasteroSeleccionado = null;
   }
 
   liberar(t: Trastero) {
     t.estado = 'LIBRE';
-    t.usuario = undefined; // temporal hasta backend real
+    t.usuario = undefined;
   }
 }
