@@ -6,9 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { LoginComponent } from '../login/login';
 import { Auth, signOut } from '@angular/fire/auth';
-import { Login } from '../../services/login';
 import { Trastero } from '../../models/trastero';
 
 
