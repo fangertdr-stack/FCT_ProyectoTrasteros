@@ -1,1 +1,20 @@
-<p>errors works!</p>
+<div class="h-screen flex flex-column justify-content-center align-items-center text-center p-5">
+  <mat-card class="p-5 shadow-5 border-round-xl surface-100 w-full sm:w-30rem">
+    <h1 class="text-6xl text-red-600 mb-3">404</h1>
+    <h2 class="text-xl mb-2">¡Mala suerte! Página no encontrada</h2>
+    <p class="mb-4 text-sm text-gray-600">
+      La ruta que intentas visitar no existe o ha sido modificada
+    </p>
+
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM7kO4vShUNGRB6yiXJpnrIN3xAKR105ETNQ&s"
+         alt="Error icon"
+         width="80"
+         class="mb-4 mx-auto"
+    />
+
+    <button (click)="irAlMain()">
+      <mat-icon class="mr-2">home</mat-icon>
+      Volver al inicio
+    </button>
+  </mat-card>
+</div>
