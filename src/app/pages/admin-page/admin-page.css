@@ -1,4 +1,4 @@
-/* RESET BÁSICO */
+/* BASICO */
 
 * {
   box-sizing: border-box;
@@ -6,10 +6,10 @@
 
 body {
   margin: 0;
-  overflow-x: hidden; /* Evita scroll lateral */
+  overflow-x: hidden;
 }
 
-/* PÁGINA */
+/* PAGINA */
 
 .admin-page {
   min-height: 100vh;
@@ -27,7 +27,7 @@ body {
   position: relative;
   background: #f9faf8;
   width: 100%;
-  max-width: 1150px;
+  max-width: 1200px;
   padding: 28px 30px;
   border-radius: 22px;
   box-shadow:
@@ -55,8 +55,7 @@ body {
   opacity: .7;
 }
 
-
-/* TÍTULO */
+/* TITULO */
 
 .admin-title {
   font-size: clamp(22px, 4vw, 28px);
@@ -82,7 +81,7 @@ body {
   padding-right: 6px;
 }
 
-/* Scroll bonito */
+/* Scroll */
 
 .tabla-wrapper::-webkit-scrollbar {
   width: 8px;
@@ -340,7 +339,115 @@ body {
   background: #dfe4dc;
 }
 
-/* ANIMACIÓN */
+/* Contrato/Fechas */
+
+.contrato-section {
+  margin: 18px 0 10px;
+  padding-top: 14px;
+  border-top: 1px solid #e3e7e1;
+}
+
+.contrato-section h4 {
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #243124;
+  font-weight: 600;
+}
+
+/* fila horizontal */
+
+.contrato-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* cada campo */
+
+.contrato-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #5e665d;
+}
+
+/* inputs y select */
+
+.contrato-field input,
+.contrato-field select {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid #cfd6cc;
+  font-size: 14px;
+  outline: none;
+  background: #f9faf8;
+  transition: all .2s ease;
+}
+
+/* hover suave */
+
+.contrato-field input:hover,
+.contrato-field select:hover {
+  border-color: #b8c7b8;
+}
+
+/* focus bonito */
+
+.contrato-field input:focus,
+.contrato-field select:focus {
+  border-color: #4ead53;
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(78,173,83,.15);
+}
+
+/* select flechita mas limpia */
+
+.contrato-field select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #4ead53 50%),
+    linear-gradient(135deg, #4ead53 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 55%,
+    calc(100% - 12px) 55%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.fecha-contrato {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 95px;
+  text-align: center;
+}
+
+/* lejos de vencer */
+
+.fecha-contrato.verde {
+  background: #4ead53;
+  color: white;
+}
+
+/* cerca */
+
+.fecha-contrato.amarillo {
+  background: #f0ad4e;
+  color: white;
+}
+
+/* venciendo */
+
+.fecha-contrato.rojo {
+  background: #e35d5b;
+  color: white;
+}
+
+/* ANIMACION */
 
 @keyframes fadeInUp {
   from {
@@ -354,6 +461,12 @@ body {
 }
 
 /* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .contrato-row {
+    flex-direction: column;
+  }
+}
 
 @media (max-width: 900px) {
 
