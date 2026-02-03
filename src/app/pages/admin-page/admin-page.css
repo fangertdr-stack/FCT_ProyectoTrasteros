@@ -1,4 +1,15 @@
-/* PAGINA */
+/* RESET BÁSICO */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden; /* Evita scroll lateral */
+}
+
+/* PÁGINA */
 
 .admin-page {
   min-height: 100vh;
@@ -10,18 +21,10 @@
   padding: 20px;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    overflow-x: hidden;
-}
-
 /* TARJETA PRINCIPAL */
 
 .admin-card {
+  position: relative;
   background: #f9faf8;
   width: 100%;
   max-width: 1100px;
@@ -33,13 +36,66 @@ body {
   animation: fadeInUp .6s ease;
 }
 
-/* TITULO */
+/* BACK */
+
+.back-btn {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  color: #3e8f46;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-4px);
+  opacity: .7;
+}
+
+
+/* TÍTULO */
 
 .admin-title {
   font-size: clamp(22px, 4vw, 28px);
   margin-bottom: 24px;
   color: #243124;
   text-align: center;
+}
+
+/* CONTENEDOR TABLA + EDITOR */
+
+.contenido-admin {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ZONA DE TABLA CON SCROLL INTERNO */
+
+.tabla-wrapper {
+  flex: 1;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Scroll bonito */
+
+.tabla-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tabla-wrapper::-webkit-scrollbar-track {
+  background: #eceeea;
+  border-radius: 10px;
+}
+
+.tabla-wrapper::-webkit-scrollbar-thumb {
+  background: #4ead53;
+  border-radius: 10px;
 }
 
 /* TABLA DE TRASTEROS */
@@ -50,10 +106,10 @@ body {
   border-spacing: 0 10px;
 }
 
-/* Cabecera de la tabla */
+/* Cabecera */
 
 .trasteros-table thead th {
-  text-align: center; /* Títulos centrados */
+  text-align: center;
   padding: 12px 14px;
   font-size: 14px;
   color: #6f776e;
@@ -80,11 +136,11 @@ body {
   padding: 14px;
   font-size: 14px;
   color: #2e332e;
-  text-align: center; /* Datos centrados */
+  text-align: center;
   vertical-align: middle;
 }
 
-/* Bordes redondeados en las filas */
+/* Bordes redondeados */
 
 .trasteros-table tbody tr td:first-child {
   border-radius: 14px 0 0 14px;
@@ -94,7 +150,7 @@ body {
   border-radius: 0 14px 14px 0;
 }
 
-/* ESTADO (LIBRE / OCUPADO / MANTENIMIENTO) */
+/* ESTADOS */
 
 .ocupado {
   background: #e35d5b;
@@ -123,76 +179,13 @@ body {
   font-weight: 600;
 }
 
-/* SELECTOR DE ESTADO */
+/* BOTONES TABLA */
 
-.estado-selector {
+.trasteros-table td:last-child {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   gap: 8px;
-  margin-bottom: 14px;
 }
-
-.estado-botones {
-  display: flex;
-  gap: 10px;
-}
-
-/* Botón base */
-
-.estado-btn {
-  flex: 1;
-  padding: 10px 0;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 600;
-  opacity: .5;
-  transition: all .2s ease;
-  background: #f1f3ef;
-  color: #2e332e;
-}
-
-/* Colores por estado */
-
-.estado-btn.libre {
-  border-color: #4ead53;
-}
-
-.estado-btn.ocupado {
-  border-color: #e35d5b;
-}
-
-.estado-btn.mantenimiento {
-  border-color: #f0ad4e;
-}
-
-/* Activo */
-
-.estado-btn.activo {
-  opacity: 1;
-  color: white;
-}
-
-.estado-btn.libre.activo {
-  background: #4ead53;
-}
-
-.estado-btn.ocupado.activo {
-  background: #e35d5b;
-}
-
-.estado-btn.mantenimiento.activo {
-  background: #f0ad4e;
-}
-
-/* Hover suave */
-
-.estado-btn:hover {
-  opacity: .85;
-}
-
-/* BOTONES DE LA TABLA */
 
 .trasteros-table button {
   padding: 8px 14px;
@@ -221,31 +214,16 @@ body {
   background: #c94b49;
 }
 
-/* Columna de acciones centrada */
-
-.trasteros-table td:last-child {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-/* DESTACAR NÚMEROS */
-
-.trasteros-table td:nth-child(4),
-.trasteros-table td:nth-child(5) {
-  font-weight: 500;
-}
-
-/* EDITOR DE TRASTEROS */
+/* EDITOR FIJO */
 
 .editor {
-  margin-top: 26px;
+  width: 340px;
   padding: 22px;
   border-radius: 18px;
   background: #ffffff;
   box-shadow: 0 6px 14px rgba(0,0,0,.08);
-  max-width: 420px;
+  position: sticky;
+  top: 20px;
 }
 
 .editor h3 {
@@ -264,8 +242,7 @@ body {
   color: #5e665d;
 }
 
-.editor input,
-.editor select {
+.editor input {
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid #cfd6cc;
@@ -274,20 +251,60 @@ body {
   transition: border .2s ease, box-shadow .2s ease;
 }
 
-.editor input:focus,
-.editor select:focus {
+.editor input:focus {
   border-color: #4ead53;
   box-shadow: 0 0 0 2px rgba(78,173,83,.15);
 }
 
-/* Texto informativo */
+/* SELECTOR DE ESTADO */
 
-.editor p {
-  margin: 10px 0 16px;
-  color: #2e332e;
+.estado-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
 }
 
-/* BOTONES DEL EDITOR */
+.estado-botones {
+  display: flex;
+  gap: 10px;
+}
+
+.estado-btn {
+  flex: 1;
+  padding: 10px 0;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  opacity: .5;
+  background: #f1f3ef;
+  border: 1px solid transparent;
+  transition: all .2s ease;
+}
+
+.estado-btn.activo {
+  opacity: 1;
+  color: white;
+}
+
+.estado-btn.libre.activo {
+  background: #4ead53;
+}
+
+.estado-btn.ocupado.activo {
+  background: #e35d5b;
+}
+
+.estado-btn.mantenimiento.activo {
+  background: #f0ad4e;
+}
+
+.estado-btn:hover {
+  opacity: .85;
+}
+
+/* BOTONES EDITOR */
 
 .buttons {
   display: flex;
@@ -326,46 +343,46 @@ body {
 /* ANIMACIÓN */
 
 @keyframes fadeInUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 /* RESPONSIVE */
 
-
 @media (max-width: 900px) {
 
-  .admin-card {
-    padding: 22px;
+  .contenido-admin {
+    flex-direction: column;
   }
 
-  /* Ocultar cabecera en móvil */
+  .tabla-wrapper {
+    max-height: 400px;
+  }
+
+  .editor {
+    width: 100%;
+    position: relative;
+  }
 
   .trasteros-table thead {
     display: none;
   }
-
-  /* Filas en vertical */
 
   .trasteros-table tbody tr {
     display: flex;
     flex-direction: column;
   }
 
-  /* Celdas alineadas a la izquierda en móvil */
-
   .trasteros-table td {
     text-align: left;
     padding: 10px 14px;
   }
-
-  /* Botones alineados a la izquierda en móvil */
 
   .trasteros-table td:last-child {
     justify-content: flex-start;

@@ -1,104 +1,125 @@
 <div class="admin-page">
   <div class="admin-card">
-    <!-- TÍTULO -->
+
+    <!-- Back -->
+    <button class="back-btn" (click)="irAlMain()">←</button>
+
     <h2 class="admin-title">Administración de Trasteros</h2>
 
-    <!-- TABLA DE TRASTEROS -->
-    <table class="trasteros-table">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Usuario</th>
-          <th>Estado</th>
-          <th>Tamaño</th>
-          <th>Precio</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (t of trasteros; track t.id_trastero) {
-          <tr>
-            <td>{{ t.codigo }}</td>
-            <td>{{ t.usuario || '-' }}</td>
-            <td>
-              <span
-                [class.ocupado]="t.estado === 'OCUPADO'"
-                [class.libre]="t.estado === 'LIBRE'"
-                [class.mantenimiento]="t.estado === 'MANTENIMIENTO'">
-                {{ t.estado }}
-              </span>
-            </td>
-            <td>{{ t.tamanio }}</td>
-            <td>{{ t.precio }} €</td>
-            <td>
-              <button (click)="seleccionar(t)">Asignar / Editar</button>
-              @if (t.estado === 'OCUPADO') {
-                <button (click)="liberar(t)">Liberar</button>
-              }
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    <div class="contenido-admin">
 
-    <!-- EDITOR DE TRASTERO -->
-    @if (trasteroSeleccionado) {
-      <div class="editor">
-        <h3>{{ trasteroSeleccionado.codigo }}</h3>
+      <!-- TABLA CON SCROLL -->
+      <div class="tabla-wrapper">
+        <table class="trasteros-table">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Usuario</th>
+              <th>Estado</th>
+              <th>Tamaño</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
 
-        <!-- USUARIO -->
-        <label>
-          Usuario:
-          <input
-            placeholder="Nombre del usuario"
-            [(ngModel)]="trasteroSeleccionado.usuario">
-        </label>
+          <tbody>
+            @for (t of trasteros; track t.id_trastero) {
+              <tr>
+                <td>{{ t.codigo }}</td>
+                <td>{{ t.usuario || '-' }}</td>
 
-        <!-- ESTADO -->
-        <div class="estado-selector">
-          <span>Estado:</span>
-          <div class="estado-botones">
-            <button
-              type="button"
-              class="estado-btn libre"
-              [class.activo]="trasteroSeleccionado.estado === 'LIBRE'"
-              (click)="cambiarEstado('LIBRE')">
-              Libre
-            </button>
-            <button
-              type="button"
-              class="estado-btn ocupado"
-              [class.activo]="trasteroSeleccionado.estado === 'OCUPADO'"
-              (click)="cambiarEstado('OCUPADO')">
-              Ocupado
-            </button>
-            <button
-              type="button"
-              class="estado-btn mantenimiento"
-              [class.activo]="trasteroSeleccionado.estado === 'MANTENIMIENTO'"
-              (click)="cambiarEstado('MANTENIMIENTO')">
-              Mantenimiento
+                <td>
+                  <span
+                    [class.ocupado]="t.estado === 'OCUPADO'"
+                    [class.libre]="t.estado === 'LIBRE'"
+                    [class.mantenimiento]="t.estado === 'MANTENIMIENTO'">
+                    {{ t.estado }}
+                  </span>
+                </td>
+
+                <td>{{ t.tamanio }}</td>
+                <td>{{ t.precio }} €</td>
+
+                <td>
+                  <button class="btn-edit" (click)="seleccionar(t)">
+                    Editar
+                  </button>
+
+                  @if (t.estado === 'OCUPADO') {
+                    <button class="btn-liberar" (click)="liberar(t)">
+                      Liberar
+                    </button>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- EDITOR FIJO -->
+
+      @if (trasteroSeleccionado) {
+        <div class="editor">
+
+          <h3>{{ trasteroSeleccionado.codigo }}</h3>
+
+          <label>
+            Usuario:
+            <input
+              placeholder="Nombre del usuario"
+              [(ngModel)]="trasteroSeleccionado.usuario">
+          </label>
+
+          <div class="estado-selector">
+            <span>Estado:</span>
+
+            <div class="estado-botones">
+
+              <button
+                class="estado-btn libre"
+                [class.activo]="trasteroSeleccionado.estado === 'LIBRE'"
+                (click)="cambiarEstado('LIBRE')">
+                Libre
+              </button>
+
+              <button
+                class="estado-btn ocupado"
+                [class.activo]="trasteroSeleccionado.estado === 'OCUPADO'"
+                (click)="cambiarEstado('OCUPADO')">
+                Ocupado
+              </button>
+
+              <button
+                class="estado-btn mantenimiento"
+                [class.activo]="trasteroSeleccionado.estado === 'MANTENIMIENTO'"
+                (click)="cambiarEstado('MANTENIMIENTO')">
+                Mantenimiento
+              </button>
+
+            </div>
+          </div>
+
+          <label>
+            <strong>Tamaño:</strong> {{ trasteroSeleccionado.tamanio }}
+          </label>
+
+          <label>
+            Precio:
+            <input type="number" [(ngModel)]="trasteroSeleccionado.precio">
+          </label>
+
+          <div class="buttons">
+            <button class="btn-guardar" (click)="guardar()">Guardar</button>
+            <button class="btn-cancelar" (click)="trasteroSeleccionado = null">
+              Cancelar
             </button>
           </div>
+
         </div>
+      }
 
-        <!-- TAMAÑO (INFORMATIVO) -->
-        <label>
-          <strong>Tamaño:</strong> {{ trasteroSeleccionado.tamanio }}
-        </label>
+    </div>
 
-        <!-- PRECIO -->
-        <label>
-          Precio:
-          <input type="number" [(ngModel)]="trasteroSeleccionado.precio">
-        </label>
-
-        <!-- BOTONES DE ACCIÓN -->
-        <div class="buttons">
-          <button (click)="guardar()">Guardar</button>
-          <button (click)="trasteroSeleccionado = null">Cancelar</button>
-        </div>
-      </div>
-    }
   </div>
 </div>
