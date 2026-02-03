@@ -5,6 +5,9 @@ export interface Trastero {
     precio: number;
     tamanio: 'PEQUEÑO' | 'MEDIANO' | 'GRANDE';
 
-    usuario?: string; // temporal hasta backend real
+    // temporal hasta backend real
+    usuario?: string; 
+    fechaInicio?: string;
+    mesesContrato?: number;
 
 }

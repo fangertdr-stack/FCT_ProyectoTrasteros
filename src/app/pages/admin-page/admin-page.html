@@ -1,22 +1,22 @@
 <div class="admin-page">
   <div class="admin-card">
 
-    <!-- Back -->
     <button class="back-btn" (click)="irAlMain()">←</button>
     <br>
     <h2 class="admin-title">Administración de Trasteros</h2>
 
     <div class="contenido-admin">
 
-      <!-- TABLA CON SCROLL -->
       <div class="tabla-wrapper">
         <table class="trasteros-table">
+
           <thead>
             <tr>
-              <th>Código</th>
+              <th>Codigo</th>
               <th>Usuario</th>
               <th>Estado</th>
-              <th>Tamaño</th>
+              <th>Fecha Fin</th>
+              <th>Tamanio</th>
               <th>Precio</th>
               <th>Acciones</th>
             </tr>
@@ -25,7 +25,9 @@
           <tbody>
             @for (t of trasteros; track t.id_trastero) {
               <tr>
+
                 <td>{{ t.codigo }}</td>
+
                 <td>{{ t.usuario || '-' }}</td>
 
                 <td>
@@ -37,7 +39,27 @@
                   </span>
                 </td>
 
+                <td>
+
+                  @if (t.estado === 'OCUPADO' && calcularFechaFin(t.fechaInicio, t.mesesContrato)) {
+
+                    <span
+                      class="fecha-contrato"
+                      [class.verde]="estadoContrato(calcularFechaFin(t.fechaInicio, t.mesesContrato)) === 'verde'"
+                      [class.amarillo]="estadoContrato(calcularFechaFin(t.fechaInicio, t.mesesContrato)) === 'amarillo'"
+                      [class.rojo]="estadoContrato(calcularFechaFin(t.fechaInicio, t.mesesContrato)) === 'rojo'">
+
+                      {{ calcularFechaFin(t.fechaInicio, t.mesesContrato) }}
+                    </span>
+
+                  } @else {
+                    -
+                  }
+
+                </td>
+
                 <td>{{ t.tamanio }}</td>
+
                 <td>{{ t.precio }} €</td>
 
                 <td>
@@ -51,15 +73,16 @@
                     </button>
                   }
                 </td>
+
               </tr>
             }
           </tbody>
+
         </table>
       </div>
 
-      <!-- EDITOR FIJO -->
-
       @if (trasteroSeleccionado) {
+
         <div class="editor">
 
           <h3>{{ trasteroSeleccionado.codigo }}</h3>
@@ -101,7 +124,7 @@
           </div>
 
           <label>
-            <strong>Tamaño:</strong> {{ trasteroSeleccionado.tamanio }}
+            <strong>Tamanio:</strong> {{ trasteroSeleccionado.tamanio }}
           </label>
 
           <label>
@@ -109,17 +132,45 @@
             <input type="number" [(ngModel)]="trasteroSeleccionado.precio">
           </label>
 
+          @if (trasteroSeleccionado.estado === 'OCUPADO') {
+
+            <div class="contrato-section">
+              <h4>Contrato</h4>
+              <div class="contrato-row">
+                <label class="contrato-field">
+                  <span>Fecha inicio</span>
+                  <input
+                    type="date"
+                    [(ngModel)]="trasteroSeleccionado.fechaInicio">
+                </label>
+
+                <label class="contrato-field">
+                  <span>Meses</span>
+
+                  <select [(ngModel)]="trasteroSeleccionado.mesesContrato">
+                    <option [ngValue]="null">---</option>
+
+                    @for (m of mesesDisponibles; track m) {
+                      <option [value]="m">
+                        {{ m }}
+                      </option>
+                    }
+                  </select>
+                </label>
+              </div>
+            </div>
+          }
+
           <div class="buttons">
             <button class="btn-guardar" (click)="guardar()">Guardar</button>
+
             <button class="btn-cancelar" (click)="trasteroSeleccionado = null">
               Cancelar
             </button>
           </div>
-
         </div>
       }
 
     </div>
-
   </div>
 </div>

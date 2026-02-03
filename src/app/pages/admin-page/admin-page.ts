@@ -22,6 +22,8 @@ export class AdminPage {
   gestionUsuarios() {
     this.nav.goTo('users');
   }
+  // array de meses
+  mesesDisponibles = [1, 2, 3, 4, 5, 6, 9, 12];
 
   // ejemplos visuales hasta tener backend
   trasteros: Trastero[] = [
@@ -50,11 +52,44 @@ export class AdminPage {
 
     this.trasteroSeleccionado.estado = estado;
 
-    // logica automática
     if (estado !== 'OCUPADO') {
       this.trasteroSeleccionado.usuario = undefined;
+      this.trasteroSeleccionado.fechaInicio = undefined;
+      this.trasteroSeleccionado.mesesContrato = undefined;
     }
   }
+
+  calcularFechaFin(fechaInicio?: string, meses?: number): string | null {
+    if (!fechaInicio || !meses) return null;
+
+    const inicio = new Date(fechaInicio);
+
+    const dias = meses * 30;
+
+    const fin = new Date(inicio);
+    fin.setDate(fin.getDate() + dias);
+
+    return fin.toISOString().split('T')[0]; // yyyy-mm-dd
+  }
+
+  estadoContrato(fechaFin: string | null): 'verde' | 'amarillo' | 'rojo' | null {
+    if (!fechaFin) return null;
+
+    const hoy = new Date();
+    const fin = new Date(fechaFin);
+
+    const diffMs = fin.getTime() - hoy.getTime();
+    const diffDias = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffDias > 15) {
+      return 'verde';       // queda bastante
+    } else if (diffDias > 5) {
+      return 'amarillo';    // cerca
+    } else {
+      return 'rojo';        // a punto de vencer o vencido
+    }
+  }
+
 
   guardar() {
   if (!this.trasteroSeleccionado) return;
