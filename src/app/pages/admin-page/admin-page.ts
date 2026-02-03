@@ -19,7 +19,7 @@ export class AdminPage {
     this.nav.goTo('');
   }
 
-  // Ejemplos visuales hasta tener backend
+  // ejemplos visuales hasta tener backend
   trasteros: Trastero[] = [
   { id_trastero: 1, codigo: 'T01', estado: 'OCUPADO', precio: 30, tamanio: 'PEQUEÑO', usuario: 'usuario1' },
   { id_trastero: 2, codigo: 'T02', estado: 'LIBRE', precio: 40, tamanio: 'MEDIANO' },
@@ -55,7 +55,7 @@ export class AdminPage {
   guardar() {
   if (!this.trasteroSeleccionado) return;
 
-  // 👉 Si hay usuario, pasa a OCUPADO (salvo mantenimiento)
+  // si hay usuario, pasa a OCUPADO (salvo mantenimiento)
   if (this.trasteroSeleccionado.estado !== 'MANTENIMIENTO') {
 
     if (
@@ -76,7 +76,6 @@ export class AdminPage {
 
   this.trasteroSeleccionado = null;
 }
-
 
   liberar(t: Trastero) {
     t.estado = 'LIBRE';
