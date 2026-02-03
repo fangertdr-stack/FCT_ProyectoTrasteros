@@ -471,7 +471,7 @@ body {
 
 /* modelado pop-up confirmacion */
 
-.modal-overlay {
+.confirm-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.55);
@@ -482,7 +482,7 @@ body {
   animation: fadeIn .2s ease;
 }
 
-.modal-box {
+.confirm-box {
   background: white;
   padding: 26px 28px;
   border-radius: 18px;
@@ -493,29 +493,29 @@ body {
   animation: scaleIn .25s ease;
 }
 
-.modal-box h3 {
+.confirm-box h3 {
   margin-bottom: 12px;
   color: #243124;
 }
 
-.modal-box p {
+.confirm-box p {
   font-size: 14px;
   color: #444;
   margin-bottom: 10px;
 }
 
-.modal-warning {
+.confirm-warning {
   color: #e35d5b;
   font-weight: 600;
 }
 
-.modal-buttons {
+.confirm-buttons {
   display: flex;
   gap: 12px;
   margin-top: 18px;
 }
 
-.modal-buttons button {
+.confirm-buttons button {
   flex: 1;
   padding: 12px;
   border-radius: 14px;

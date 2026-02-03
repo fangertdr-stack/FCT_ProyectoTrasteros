@@ -150,12 +150,12 @@
   </div>
 </div>
 
-<!-- MODAL PROFESIONAL -->
+<!-- Confirmacion Liberar -->
 
 @if (mostrarModal) {
-  <div class="modal-overlay">
+  <div class="confirm-overlay">
 
-    <div class="modal-box">
+    <div class="confirm-box">
 
       <h3>Confirmar liberacion</h3>
 
@@ -164,11 +164,11 @@
         <strong>{{ trasteroALiberar?.codigo }}</strong>?
       </p>
 
-      <p class="modal-warning">
+      <p class="confirm-warning">
         Se perderan los datos del alquiler actual.
       </p>
 
-      <div class="modal-buttons">
+      <div class="confirm-buttons">
 
         <button class="btn-cancelar" (click)="cerrarModal()">
           Cancelar
