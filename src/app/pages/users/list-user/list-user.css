@@ -45,6 +45,29 @@ h1 {
   margin-bottom: 20px;
 }
 
+.button1 {
+  background-color: #c4b250;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.button2 {
+  background-color: #e0350a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+
 /* Estilo para las celdas de la tabla */
 .table td {
   font-family: 'Arial', sans-serif;
