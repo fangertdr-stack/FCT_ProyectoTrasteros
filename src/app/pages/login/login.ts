@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
+import { NavigationService } from '../../services/navigation';
 import { Login } from '../../services/login';
-
 
 import {
   Auth,
@@ -13,8 +12,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from '@angular/fire/auth';
-
-
 
 
 @Component({
@@ -47,15 +44,16 @@ export class LoginComponent {
   constructor(private auth: Auth,
               private snackBar: MatSnackBar,
               private serviceLogin: Login,
-              private router: Router
+              private router: Router,
+              private nav: NavigationService
 
   ) {}
 
   // Volver atrás
-  goBack() {
-    window.history.back();
+  volver() {
+    this.nav.goBack();
   }
-
+  
   // Google login
   loginGoogle() {
     const provider = new GoogleAuthProvider();

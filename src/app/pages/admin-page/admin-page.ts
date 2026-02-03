@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Trastero } from '../../models/trastero';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NavigationService } from '../../services/navigation';
 
 @Component({
   selector: 'app-admin-page',
@@ -12,36 +13,31 @@ import { FormsModule } from '@angular/forms';
 })
 export class AdminPage {
 
+  constructor(private nav: NavigationService) {}
+
+  irAlMain() {
+    this.nav.goTo('');
+  }
+
+  // Ejemplos visuales hasta tener backend
   trasteros: Trastero[] = [
-    {
-      id_trastero: 1,
-      codigo: 'T01',
-      estado: 'OCUPADO',
-      precio: 30,
-      tamanio: 'PEQUEÑO',
-      usuario: 'usuario1'
-    },
-    {
-      id_trastero: 2,
-      codigo: 'T02',
-      estado: 'LIBRE',
-      precio: 40,
-      tamanio: 'MEDIANO',
-    },
-    {
-      id_trastero: 3,
-      codigo: 'T03',
-      estado: 'OCUPADO',
-      precio: 50,
-      tamanio: 'GRANDE',
-      usuario: 'usuario2'
-    }
-  ];
+  { id_trastero: 1, codigo: 'T01', estado: 'OCUPADO', precio: 30, tamanio: 'PEQUEÑO', usuario: 'usuario1' },
+  { id_trastero: 2, codigo: 'T02', estado: 'LIBRE', precio: 40, tamanio: 'MEDIANO' },
+  { id_trastero: 3, codigo: 'T03', estado: 'OCUPADO', precio: 50, tamanio: 'GRANDE', usuario: 'usuario2' },
+  { id_trastero: 4, codigo: 'T04', estado: 'LIBRE', precio: 25, tamanio: 'PEQUEÑO' },
+  { id_trastero: 5, codigo: 'T05', estado: 'MANTENIMIENTO', precio: 35, tamanio: 'MEDIANO' },
+  { id_trastero: 6, codigo: 'T06', estado: 'OCUPADO', precio: 60, tamanio: 'GRANDE', usuario: 'usuario3' },
+  { id_trastero: 7, codigo: 'T07', estado: 'LIBRE', precio: 28, tamanio: 'PEQUEÑO' },
+  { id_trastero: 8, codigo: 'T08', estado: 'OCUPADO', precio: 42, tamanio: 'MEDIANO', usuario: 'usuario4' },
+  { id_trastero: 9, codigo: 'T09', estado: 'MANTENIMIENTO', precio: 55, tamanio: 'GRANDE' },
+  { id_trastero: 10, codigo: 'T10', estado: 'LIBRE', precio: 33, tamanio: 'PEQUEÑO' },
+  { id_trastero: 11, codigo: 'T11', estado: 'OCUPADO', precio: 45, tamanio: 'MEDIANO', usuario: 'usuario5' },
+  { id_trastero: 12, codigo: 'T12', estado: 'LIBRE', precio: 70, tamanio: 'GRANDE' }
+];
 
   trasteroSeleccionado: Trastero | null = null;
 
   seleccionar(t: Trastero) {
-    // copia para no modificar la tabla directo
     this.trasteroSeleccionado = { ...t };
   }
 
@@ -50,22 +46,37 @@ export class AdminPage {
 
     this.trasteroSeleccionado.estado = estado;
 
-    // lógica automática
+    // logica automática
     if (estado !== 'OCUPADO') {
       this.trasteroSeleccionado.usuario = undefined;
     }
   }
 
   guardar() {
-    if (!this.trasteroSeleccionado) return;
+  if (!this.trasteroSeleccionado) return;
 
-    const index = this.trasteros.findIndex(
-      t => t.id_trastero === this.trasteroSeleccionado!.id_trastero
-    );
+  // 👉 Si hay usuario, pasa a OCUPADO (salvo mantenimiento)
+  if (this.trasteroSeleccionado.estado !== 'MANTENIMIENTO') {
 
-    this.trasteros[index] = { ...this.trasteroSeleccionado };
-    this.trasteroSeleccionado = null;
+    if (
+      this.trasteroSeleccionado.usuario &&
+      this.trasteroSeleccionado.usuario.trim() !== ''
+    ) {
+      this.trasteroSeleccionado.estado = 'OCUPADO';
+    } else {
+      this.trasteroSeleccionado.estado = 'LIBRE';
+    }
   }
+
+  const index = this.trasteros.findIndex(
+    t => t.id_trastero === this.trasteroSeleccionado!.id_trastero
+  );
+
+  this.trasteros[index] = { ...this.trasteroSeleccionado };
+
+  this.trasteroSeleccionado = null;
+}
+
 
   liberar(t: Trastero) {
     t.estado = 'LIBRE';
