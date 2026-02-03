@@ -30,8 +30,11 @@ export class LoginComponent {
   // Campos
   name = '';
   email = '';
+  dni = '';
   password = '';
   confirmPassword = '';
+  telefono = '';
+  direccion = '';
 
   // Estados
   isRegister = false;

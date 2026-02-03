@@ -19,6 +19,10 @@ export class AdminPage {
     this.nav.goTo('');
   }
 
+  gestionUsuarios() {
+    this.nav.goTo('users');
+  }
+
   // ejemplos visuales hasta tener backend
   trasteros: Trastero[] = [
   { id_trastero: 1, codigo: 'T01', estado: 'OCUPADO', precio: 30, tamanio: 'PEQUEÑO', usuario: 'usuario1' },
