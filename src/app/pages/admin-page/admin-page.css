@@ -27,7 +27,7 @@ body {
   position: relative;
   background: #f9faf8;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   padding: 28px 30px;
   border-radius: 22px;
   box-shadow:
@@ -53,6 +53,28 @@ body {
 .back-btn:hover {
   transform: translateX(-4px);
   opacity: .7;
+}
+
+
+/* USERS BUTTON */
+
+.users-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: #2e5e30;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.users-btn:hover {
+  background: #37a15b;
+  transform: translateY(-2px);
 }
 
 /* TITULO */
@@ -445,6 +467,89 @@ body {
 .fecha-contrato.rojo {
   background: #e35d5b;
   color: white;
+}
+
+/* modelado pop-up confirmacion */
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn .2s ease;
+}
+
+.confirm-box {
+  background: white;
+  padding: 26px 28px;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+  animation: scaleIn .25s ease;
+}
+
+.confirm-box h3 {
+  margin-bottom: 12px;
+  color: #243124;
+}
+
+.confirm-box p {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.confirm-warning {
+  color: #e35d5b;
+  font-weight: 600;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.confirm-buttons button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.btn-cancelar {
+  background: #eceeea;
+}
+
+.btn-cancelar:hover {
+  background: #dfe4dc;
+}
+
+.btn-confirmar {
+  background: #e35d5b;
+  color: white;
+}
+
+.btn-confirmar:hover {
+  background: #c94b49;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 /* ANIMACION */
