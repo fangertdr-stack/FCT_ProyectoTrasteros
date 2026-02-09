@@ -12,7 +12,7 @@ import { Trastero } from '../../models/trastero';
 
 @Component({
   selector: 'app-main-page',
-  
+
   imports: [ FormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
@@ -51,21 +51,22 @@ export class MainPage {
 
   trasteroSeleccionado: Trastero | null = null;
 
-
   constructor(
               private snackBar: MatSnackBar,
               private router: Router,
               private auth: Auth,
-              
+
   ) {}
 
   startDate: Date | null = null;
   endDate: Date | null = null;
-  
-
 
   login(){
     this.router.navigate(['/login']);
+  }
+
+  get isLoggedIn(): boolean {
+    return !!this.auth.currentUser;
   }
 
   // funcion para mostrar fechas seleccionadas
@@ -96,7 +97,5 @@ export class MainPage {
     this.router.navigate(['/login']);
   }
 }
-
-
 
 }
