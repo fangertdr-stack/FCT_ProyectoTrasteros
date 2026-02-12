@@ -1,0 +1,190 @@
+/* PAGE */
+
+.main-page {
+  min-height: 100vh;
+  background: #f4f6f3;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* HEADER */
+
+.main-header {
+  height: 70px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9faf8;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #243124;
+}
+
+.logo span {
+  font-size: 22px;
+}
+
+/* NAV */
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-btn {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all .25s ease;
+}
+
+.nav-btn.ghost {
+  background: transparent;
+  color: #3e8f46;
+}
+
+.nav-btn.ghost:hover {
+  background: rgba(62,143,70,.1);
+}
+
+.nav-btn.primary {
+  background: #4ead53;
+  color: #fff;
+}
+
+.nav-btn.primary:hover {
+  background: #43c56e;
+}
+
+.nav-btn.danger {
+  background: #d9534f;
+  color: #fff;
+}
+
+.nav-btn.danger:hover {
+  background: #c94440;
+}
+
+/* HERO BANNER COMPLEJO */
+
+.hero-banner {
+  position: relative;
+  margin: 24px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0b3b0f, #1e5c2a);
+  overflow: hidden;
+  color: #fff;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,.35),
+    rgba(0,0,0,.1)
+  );
+}
+
+.hero-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 48px;
+  gap: 40px;
+}
+
+/* IZQUIERDA */
+
+.hero-left {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-left h1 {
+  font-size: clamp(28px, 3vw);
+  margin-bottom: 12px;
+}
+
+.hero-left p {
+  font-size: 16px;
+  opacity: .9;
+  margin-bottom: 28px;
+}
+
+/* FEATURES */
+
+.hero-features {
+  display: flex;
+  gap: 18px;
+  font-size: 14px;
+  opacity: .9;
+}
+
+/* DERECHA */
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-right img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;
+    padding: 32px;
+  }
+
+  .hero-right {
+    display: none;
+  }
+}
+
+
+/* ANIMATION */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .nav-buttons {
+    gap: 8px;
+  }
+
+  .nav-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+}
