@@ -4,6 +4,7 @@ import { URL_API } from '../../environments/environment.prod';
 import { Observable } from 'rxjs';
 
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,7 +28,7 @@ export class LoginService {
     const body = JSON.stringify(data);
 
     return this.http.post(`${URL_API}/login.php`,body, {
-      headers: {'content-Type': 'application/json'}
+      headers: {'Content-Type': 'application/json'}
     })
   }
 

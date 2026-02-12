@@ -8,5 +8,5 @@ export const environment = {
   production: false
 };
 
-export const URL_BASE = 'http://195.248.230.30';
+export const URL_BASE = 'http://dev2.datarush.es/BackTrasteRush';
 export const URL_API = `${URL_BASE}/api`;

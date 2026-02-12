@@ -45,12 +45,34 @@ export class LoginComponent {
   isAdmin = false; 
 
   constructor(private auth: Auth,
+              
               private snackBar: MatSnackBar,
               private serviceLogin: LoginService,
               private router: Router,
               private nav: NavigationService
 
   ) {}
+
+  private showMessage(message: string, success: boolean = true): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: success ? ['snackbar-success'] : ['snackbar-error']
+    });
+  }
+
+  siguientePaso(){
+      if(this.email && this.email.length > 5 && this.email.includes('@')) {
+        this.loading = true;
+        // viene de una libreria
+        setTimeout(() =>{
+          this.loading = false;
+          this.registerStep = 2;
+        }, 1500 )  //este es el delay
+
+      }
+    }
 
   // Volver atrás
   volver() {
@@ -165,4 +187,48 @@ export class LoginComponent {
       this.snackBar.open ('Error al autenticar', 'Error', { duration: 3000 });
     }
   }
+
+  login() {
+    const username = this.email;
+    const password = this.password;
+
+    this.serviceLogin.login({ username, password }).subscribe({
+      next: (resp) => {
+
+        console.log(' RESPUESTA DEL BACKEND COMPLETA:', resp);
+
+        // GuardO la respuesta cruda para depurar si algo falla
+        localStorage.setItem('DEBUG_RESP', JSON.stringify(resp));
+
+        //  Validacion correcta (acepta `status:true` o `ok:true`)
+        if ((resp.status || resp.ok) && resp.data) {
+
+          //  Guarda token desde resp o resp.data (cubre ambas variantes)
+          localStorage.setItem('token', resp.data.token ?? resp.token ?? '');
+
+          //  Guarda usuario si existe
+          localStorage.setItem('usuario', resp.data.usuario ?? resp.usuario ?? '');
+
+          //  Guarda nombre público
+          localStorage.setItem('nombre_publico',
+            resp.data.nombre_publico ?? resp.data.nombrePublico ?? '');
+
+          localStorage.setItem('rol', String(resp.data.id_rol ?? 0));
+
+          this.router.navigate(['']);
+
+        } else {
+          console.warn(' Backend respondió pero sin status válido:', resp);
+          this.showMessage('Credenciales incorrectas', false);
+        }
+
+      },
+      error: (err) => {
+        console.error(' Error de login:', err);
+        this.showMessage('Error de conexión con el servidor', false);
+      }
+    });
+  }
+
+
 }
