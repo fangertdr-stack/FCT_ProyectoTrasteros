@@ -1,20 +1,57 @@
-<div style="max-width: 300px; margin: 2rem auto;">
-  <mat-form-field appearance="fill">
-    <mat-label>Fecha de inicio de alquiler</mat-label>
-    <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate">
-    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-    <mat-datepicker #startPicker></mat-datepicker>
-  </mat-form-field>
+<div class="main-page">
 
-  <mat-form-field appearance="fill">
-    <mat-label>Fecha de fin de alquiler</mat-label>
-    <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate">
-    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-    <mat-datepicker #endPicker></mat-datepicker>
-  </mat-form-field>
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="logo">
+      <span>🟩</span> TrasteRush
+    </div>
 
-  <button mat-raised-button color="primary" (click)="showDates()">Confirmar fechas</button>
-  <button (click)="logout()">logout</button>
-  <button>Contratar Ahora</button>
-  <button (click)="login()">Login</button>
+    <nav class="nav-buttons">
+      <button class="nav-btn ghost">Boton 1</button>
+      <button class="nav-btn ghost">Contacto</button>
+
+      @if (!isLoggedIn) {
+        <button class="nav-btn primary" (click)="login()">
+          Login
+        </button>
+    } @else {
+      <button class="nav-btn danger" (click)="logout()">
+        Logout
+      </button>
+    }
+
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-banner">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-container">
+
+    <!-- IZQUIERDA -->
+    <div class="hero-left">
+      <h1>Alquila tu trastero 100% online</h1>
+      <p>Sin visitas, sin papeles, sin complicaciones.</p>
+
+      <!-- FEATURES -->
+      <div class="hero-features">
+        <span>✔ Acceso inmediato</span>
+        <span>✔ Contrato digital</span>
+        <span>✔ Pago seguro</span>
+      </div>
+    </div>
+
+    <!-- DERECHA -->
+    <div class="hero-right">
+      <img
+        src="https://images.unsplash.com/photo-1590247813693-55431f2a0a6a"
+        alt="Trasteros"
+      />
+    </div>
+
+  </div>
+</section>
+
+
 </div>
