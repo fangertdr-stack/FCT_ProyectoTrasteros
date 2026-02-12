@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../services/navigation';
-import { Login } from '../../services/login';
+import { LoginService } from '../../services/loginService';
 
 import {
   Auth,
@@ -46,7 +46,7 @@ export class LoginComponent {
 
   constructor(private auth: Auth,
               private snackBar: MatSnackBar,
-              private serviceLogin: Login,
+              private serviceLogin: LoginService,
               private router: Router,
               private nav: NavigationService
 
