@@ -1,33 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NavigationService } from '../../services/navigation';
 import { LoginService } from '../../services/loginService';
+import { RegisterService } from '../../services/registerService';
 
-import {
-  Auth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from '@angular/fire/auth';
 
+
+// Si sigues usando Google login, deja esto. Si no, bórralo.
+import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    FormsModule,
-    MatSnackBarModule,
-    
-  ],
+  imports: [FormsModule, MatSnackBarModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
 
-  // Campos
   name = '';
   email = '';
   dni = '';
@@ -36,21 +28,21 @@ export class LoginComponent {
   telefono = '';
   direccion = '';
 
-  // Estados
   isRegister = false;
   registerStep = 1;
   showPassword = false;
   loading = false;
   errorMessage = '';
-  isAdmin = false; 
 
-  constructor(private auth: Auth,
-              
-              private snackBar: MatSnackBar,
-              private serviceLogin: LoginService,
-              private router: Router,
-              private nav: NavigationService
 
+  constructor(
+    private auth: Auth, // solo si usas Google login
+    private snackBar: MatSnackBar,
+    private serviceLogin: LoginService,
+    private registro: RegisterService,
+    private router: Router,
+    private nav: NavigationService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   private showMessage(message: string, success: boolean = true): void {
@@ -62,85 +54,51 @@ export class LoginComponent {
     });
   }
 
-  siguientePaso(){
-      if(this.email && this.email.length > 5 && this.email.includes('@')) {
-        this.loading = true;
-        // viene de una libreria
-        setTimeout(() =>{
-          this.loading = false;
-          this.registerStep = 2;
-        }, 1500 )  //este es el delay
-
-      }
-    }
-
-  // Volver atrás
   volver() {
     this.nav.goBack();
   }
-  
-  // Google login
-  loginGoogle() {
-    const provider = new GoogleAuthProvider();
 
-    this.loading = true;
-    this.errorMessage = '';
-
-    signInWithPopup(this.auth, provider)
-      .then(() => this.loading = false)
-      .catch(err => this.handleError(err));
-  }
-
-  // Mostrar / ocultar contraseña
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
 
-  // Cambiar login / registro
   toggleMode() {
     this.isRegister = !this.isRegister;
     this.registerStep = 1;
     this.errorMessage = '';
   }
 
-  // Paso 1 registro → continuar
-  nextRegisterStep() {
-
-    if (!this.name || !this.email) {
-      this.errorMessage = 'Completa nombre y correo';
-      return;
-    }
-
-    this.errorMessage = '';
-    this.registerStep = 2;
+  // Google login (opcional)
+  loginGoogle() {
+    const provider = new GoogleAuthProvider();
+    this.loading = true;
+    signInWithPopup(this.auth, provider)
+      .then(() => this.loading = false)
+      .catch(err => this.handleError(err));
   }
 
-  // Enviar (login o registro final)
+  // SUBMIT: decide si login o register
   submit() {
-
     this.errorMessage = '';
 
-    // LOGIN
     if (!this.isRegister) {
-
+      // ✅ LOGIN BACKEND
       if (!this.email || !this.password) {
         this.errorMessage = 'Completa todos los campos';
         return;
       }
-
+      if (!this.isValidEmail(this.email)) {
+        this.errorMessage = 'Email inválido';
+        return;
+      }
       this.loading = true;
-
-      signInWithEmailAndPassword(this.auth, this.email, this.password)
-        .then(() => this.loading = false)
-        .catch(err => this.handleError(err));
-
+      this.loginBackend();
       return;
     }
 
-    // REGISTRO PASO 2
-
-    if (!this.password || !this.confirmPassword) {
-      this.errorMessage = 'Completa las contraseñas';
+    // ✅ REGISTRO BACKEND
+    if (!this.name || !this.email || !this.dni || !this.password || !this.confirmPassword) {
+      this.errorMessage = 'Completa todos los campos';
       return;
     }
 
@@ -149,86 +107,93 @@ export class LoginComponent {
       return;
     }
 
+    if (!this.isValidEmail(this.email)) {
+      this.errorMessage = 'Email inválido';
+      return;
+    }
+
+    if (this.password.length < 6) {
+      this.errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+      return;
+    }
+
     this.loading = true;
 
-    createUserWithEmailAndPassword(this.auth, this.email, this.password)
-      .then(() => {
+    this.registro.create({
+      nombre: this.name,
+      email: this.email,
+      password: this.password,
+      dni: this.dni,
+      telefono: this.telefono,
+      direccion: this.direccion
+    }).subscribe({
+      next: (resp: any) => {
         this.loading = false;
-          
-        // Aca se guarda el nombre en la base de datos si es necesario
-      })
-      .catch(err => this.handleError(err));
+        this.cdr.markForCheck();
+
+        if (resp.ok || resp.status) {
+          this.showMessage('Usuario creado correctamente');
+          this.isRegister = false;
+          this.registerStep = 1;
+        } else {
+          this.showMessage(resp.message ?? 'No se pudo registrar', false);
+        }
+      },
+      error: (err: any) => {
+        this.loading = false;
+        this.cdr.markForCheck();
+        console.error('Error de registro completo:', err);
+        console.error('Respuesta del servidor:', err.error);
+
+        // Intentar obtener mensaje del servidor
+        const mensaje = err.error?.message || err.error?.error || err.message || 'Error de conexión';
+        this.showMessage(mensaje, false);
+      }
+    });
   }
 
-  // Errores amigables
-  handleError(err: any) {
-
-    this.loading = false;
-
-    if (err.code?.includes('weak-password')) {
-      this.snackBar.open('Contraseña muy débil', 'Error', { duration: 3000 }) ;
-    }
-    else if (err.code?.includes('email-already')) {
-      this.snackBar.open ('Ese correo ya está registrado', 'Cerrar', { duration: 3000 }) ;
-    }
-    else if (err.code?.includes('user-not-found')) {
-      this.snackBar.open('Usuario no encontrado', 'Cerrar', { duration: 3000 });
-
-    }
-    else if (err.code?.includes('wrong-password')) {
-      this.snackBar.open('Contraseña incorrecta', 'Error', { duration: 3000 }) ;
-    
-    }
-    else if (err.code?.includes('email')) {
-      this.snackBar.open('Correo inválido', 'Error', { duration: 3000 })
-      
-    }
-    else {
-      this.snackBar.open ('Error al autenticar', 'Error', { duration: 3000 });
-    }
-  }
-
-  login() {
-    const username = this.email;
+  private loginBackend() {
+    const email = this.email;
     const password = this.password;
 
-    this.serviceLogin.login({ username, password }).subscribe({
-      next: (resp) => {
+    this.serviceLogin.login({ email, password }).subscribe({
+      next: (resp: any) => {
+        this.loading = false;
+        this.cdr.markForCheck();
+        console.log('RESPUESTA:', resp);
 
-        console.log(' RESPUESTA DEL BACKEND COMPLETA:', resp);
-
-        // GuardO la respuesta cruda para depurar si algo falla
-        localStorage.setItem('DEBUG_RESP', JSON.stringify(resp));
-
-        //  Validacion correcta (acepta `status:true` o `ok:true`)
         if ((resp.status || resp.ok) && resp.data) {
+          // ✅ Importante en SSR: solo si existe window
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('token', resp.data.token ?? '');
+            localStorage.setItem('usuario', resp.data.usuario ?? '');
+            localStorage.setItem('rol', String(resp.data.rol ?? ''));
+            localStorage.setItem('nombre_publico', resp.data.nombre_publico ?? '');
+          }
 
-          //  Guarda token desde resp o resp.data (cubre ambas variantes)
-          localStorage.setItem('token', resp.data.token ?? resp.token ?? '');
-
-          //  Guarda usuario si existe
-          localStorage.setItem('usuario', resp.data.usuario ?? resp.usuario ?? '');
-
-          //  Guarda nombre público
-          localStorage.setItem('nombre_publico',
-            resp.data.nombre_publico ?? resp.data.nombrePublico ?? '');
-
-          localStorage.setItem('rol', String(resp.data.id_rol ?? 0));
-
-          this.router.navigate(['']);
-
+          // ✅ navega a una ruta que exista
+          this.router.navigate(['/']); // o ['/main'] o la que tengas
         } else {
-          console.warn(' Backend respondió pero sin status válido:', resp);
-          this.showMessage('Credenciales incorrectas', false);
+          this.showMessage(resp.message ?? 'Credenciales incorrectas', false);
         }
-
       },
       error: (err) => {
-        console.error(' Error de login:', err);
+        this.loading = false;
+        this.cdr.markForCheck();
+        console.error(err);
         this.showMessage('Error de conexión con el servidor', false);
       }
     });
   }
 
+  private handleError(err: any) {
+    this.loading = false;
+    console.error(err);
+    this.showMessage('Error de autenticación', false);
+  }
 
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 }

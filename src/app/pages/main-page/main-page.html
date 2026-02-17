@@ -15,6 +15,9 @@
           Login
         </button>
     } @else {
+      <span class="welcome">
+          Hola, <strong>{{ nombrePublico }}</strong>
+      </span>
       <button class="nav-btn danger" (click)="logout()">
         Logout
       </button>

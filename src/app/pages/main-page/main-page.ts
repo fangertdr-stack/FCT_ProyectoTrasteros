@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,8 @@ import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Trastero } from '../../models/trastero';
+import { URL_BASE } from '../../../environments/environment';
+
 
 
 @Component({
@@ -21,7 +23,13 @@ import { Trastero } from '../../models/trastero';
   templateUrl: './main-page.html',
   styleUrl: './main-page.css',
 })
-export class MainPage {
+export class MainPage implements OnInit {
+
+  nombrePublico: string = '';
+  private token: string = '';
+
+
+
 
   trasteros: Trastero[] = [
     {
@@ -57,16 +65,25 @@ export class MainPage {
               private auth: Auth,
 
   ) {}
+  ngOnInit(): void {
+    if (!this.isBrowser()) return;
+    this.token = localStorage.getItem('token') ?? '';
+    this.nombrePublico = localStorage.getItem('nombre_publico') ?? '';
+  }
 
   startDate: Date | null = null;
   endDate: Date | null = null;
 
   login(){
+
     this.router.navigate(['/login']);
   }
 
+
+
   get isLoggedIn(): boolean {
-    return !!this.auth.currentUser;
+    if (!this.isBrowser()) return false;
+    return !!(localStorage.getItem('token'));
   }
 
   // funcion para mostrar fechas seleccionadas
@@ -79,23 +96,19 @@ export class MainPage {
   }
 
   logout() {
-  // Aqui se comprueba  si hay un usuario logueado
-  if (this.auth.currentUser) {
-    // si hay usuario, se cierra la sesión
-    signOut(this.auth)
-      .then(() => {
-        this.snackBar.open('Cierre de sesión exitoso', 'Cerrar', { duration: 3000 });
-        //this.router.navigate(['/login']); // Redirige al login
-      })
-      .catch(err => {
-        console.error('Error al cerrar sesión:', err);
-        this.snackBar.open('Error al cerrar sesión', 'Cerrar', { duration: 3000 });
-      });
-  } else {
-    // Si no hay usuario, avisar y redirigir
-    this.snackBar.open('No hay sesión iniciada', 'Cerrar', { duration: 3000 });
-    this.router.navigate(['/login']);
-  }
+
+    if (!this.isBrowser()) return;
+  localStorage.removeItem('token');
+  localStorage.removeItem('usuario');
+  localStorage.removeItem('nombre_publico');
+  localStorage.removeItem('rol');
+
+  this.snackBar.open('Cierre de sesión exitoso', 'Cerrar', { duration: 3000 });
+  // this.router.navigate(['/login']);
+}
+
+private isBrowser(): boolean {
+  return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
 }
 
 }
