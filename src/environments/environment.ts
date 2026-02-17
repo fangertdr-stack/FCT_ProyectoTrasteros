@@ -4,5 +4,9 @@ export const environment = {
     authDomain: "traste-rush.firebaseapp.com",
     projectId: "traste-rush",
     appId: "1:973417909062:web:8a68c117a77a02fcd2b347"
-  }
+  },
+  production: false
 };
+
+export const URL_BASE = 'http://dev2.datarush.es/BackTrasteRush';
+export const URL_API = `${URL_BASE}/api`;

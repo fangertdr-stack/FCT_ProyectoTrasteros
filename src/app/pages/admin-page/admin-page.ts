@@ -29,7 +29,7 @@ export class AdminPage {
   // datos de ejemplo hasta backend
   trasteros: Trastero[] = [
     { id_trastero: 1, codigo: 'T01', estado: 'OCUPADO', precio: 30, tamanio: 'PEQUEÑO', usuario: 'usuario1', fechaInicio: '2026-05-01', mesesContrato: 1 },
-    { id_trastero: 2, codigo: 'T02', estado: 'OCUPADO', precio: 40, tamanio: 'MEDIANO', usuario: 'Mastantuono', fechaInicio: '2026-1-1', mesesContrato: 1},
+    { id_trastero: 2, codigo: 'T02', estado: 'OCUPADO', precio: 40, tamanio: 'MEDIANO', usuario: 'ASD1', fechaInicio: '2026-1-1', mesesContrato: 1},
     { id_trastero: 3, codigo: 'T03', estado: 'OCUPADO', precio: 50, tamanio: 'GRANDE', usuario: 'usuario2', fechaInicio: '2026-01-15', mesesContrato: 1 },
     { id_trastero: 4, codigo: 'T04', estado: 'LIBRE', precio: 25, tamanio: 'PEQUEÑO' },
     { id_trastero: 5, codigo: 'T05', estado: 'MANTENIMIENTO', precio: 35, tamanio: 'MEDIANO' },
