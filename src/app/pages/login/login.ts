@@ -1,7 +1,7 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef,  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { NavigationService } from '../../services/navigation';
 import { LoginService } from '../../services/loginService';
 import { RegisterService } from '../../services/registerService';
@@ -54,6 +54,8 @@ export class LoginComponent {
       panelClass: success ? ['snackbar-success'] : ['snackbar-error']
     });
   }
+
+
 
   volver() {
     this.nav.goBack();
@@ -172,9 +174,15 @@ export class LoginComponent {
             localStorage.setItem('nombre_publico', resp.data.nombre_publico ?? '');
           }
 
+          //  aqui se comprueba si el rol es admin o no va a un sitio u a otro de la aplicacion
+          const rol = String(resp.data.rol ?? '');
 
-          // ✅ navega a una ruta que exista
-          this.router.navigate(['/']);
+          if (rol === 'admin' || rol === '1') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/']);
+          }
+
         } else {
           this.showMessage(resp.message ?? 'Credenciales incorrectas', false);
         }

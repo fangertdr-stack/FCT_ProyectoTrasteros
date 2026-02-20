@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class PermissionService {
-  
+
   constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {

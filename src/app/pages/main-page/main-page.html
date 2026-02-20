@@ -7,8 +7,9 @@
     </div>
 
     <nav class="nav-buttons">
-      <button class="nav-btn ghost">Boton 1</button>
+      <button class="nav-btn ghost">contratar</button>
       <button class="nav-btn ghost">Contacto</button>
+      <button class="nav-btn ghost" (click)="admin()">Admin</button>
 
       @if (!isLoggedIn) {
         <button class="nav-btn primary" (click)="login()">
