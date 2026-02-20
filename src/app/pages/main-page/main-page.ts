@@ -79,6 +79,10 @@ export class MainPage implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  admin(){
+    this.router.navigate(['/admin']);
+  }
+
 
 
   get isLoggedIn(): boolean {
