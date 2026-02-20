@@ -12,12 +12,9 @@ import { PLATFORM_ID,inject } from '@angular/core';
 })
 export class PermissionService {
 
-<<<<<<< HEAD
 
   private platformId = inject(PLATFORM_ID);
 
-=======
->>>>>>> 5ed046ca9e184f1e192f711b7927d3ffd21b6e65
   constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
