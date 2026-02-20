@@ -54,5 +54,5 @@ export class LoginService {
 
     return this.http.post(`${URL_API}/logout.php`,body)
   }
-  
+
 }
