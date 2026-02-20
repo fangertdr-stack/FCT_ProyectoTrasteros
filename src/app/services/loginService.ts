@@ -24,7 +24,7 @@ export class LoginService {
 
 
  // envio las credenciales y me responde si son correctas o no
-  login(data: {username: string; password: string}): Observable<any>{
+  login(data: {email: string; password: string}): Observable<any>{
     const body = JSON.stringify(data);
 
     return this.http.post(`${URL_API}/login.php`,body, {

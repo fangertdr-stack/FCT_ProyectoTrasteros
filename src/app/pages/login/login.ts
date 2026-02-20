@@ -106,8 +106,8 @@ export class LoginComponent {
   // Paso 1 registro → continuar
   nextRegisterStep() {
 
-    if (!this.name || !this.email) {
-      this.errorMessage = 'Completa nombre y correo';
+    if (!this.name || !this.email || this.email.length <= 5 || !this.email.includes('@') || this.dni || this.direccion || this.telefono) {
+      this.errorMessage = 'Completa los campos correctamente';
       return;
     }
 
@@ -175,10 +175,10 @@ export class LoginComponent {
       this.snackBar.open('Usuario no encontrado', 'Cerrar', { duration: 3000 });
 
     }
-    else if (err.code?.includes('wrong-password')) {
-      this.snackBar.open('Contraseña incorrecta', 'Error', { duration: 3000 }) ;
+    //else if (err.code?.includes('wrong-password')) {
+      //this.snackBar.open('Contraseña incorrecta', 'Error', { duration: 3000 }) ;
     
-    }
+    //}
     else if (err.code?.includes('email')) {
       this.snackBar.open('Correo inválido', 'Error', { duration: 3000 })
       
@@ -189,10 +189,10 @@ export class LoginComponent {
   }
 
   login() {
-    const username = this.email;
+    const email = this.email;
     const password = this.password;
 
-    this.serviceLogin.login({ username, password }).subscribe({
+    this.serviceLogin.login({ email, password }).subscribe({
       next: (resp) => {
 
         console.log(' RESPUESTA DEL BACKEND COMPLETA:', resp);
@@ -201,10 +201,10 @@ export class LoginComponent {
         localStorage.setItem('DEBUG_RESP', JSON.stringify(resp));
 
         //  Validacion correcta (acepta `status:true` o `ok:true`)
-        if ((resp.status || resp.ok) && resp.data) {
+        if ( (resp.status || resp.ok) && resp.data) {
 
-          //  Guarda token desde resp o resp.data (cubre ambas variantes)
-          localStorage.setItem('token', resp.data.token ?? resp.token ?? '');
+          // //  Guarda token desde resp o resp.data (cubre ambas variantes)
+          // localStorage.setItem('token', resp.data.token ?? resp.token ?? '');
 
           //  Guarda usuario si existe
           localStorage.setItem('usuario', resp.data.usuario ?? resp.usuario ?? '');
