@@ -1,26 +1,44 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+// src/app/core/admin-guard.ts
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { PermissionService } from '../services/permission-service';
-import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
-export const adminGuard: CanActivateFn = () => {
-  const perm = inject(PermissionService);
-  const router = inject(Router);
+@Injectable({ providedIn: 'root' })
+export class adminGuard implements CanActivate {
+  private platformId = inject(PLATFORM_ID);
 
-  return perm.isAdmin().pipe(
-    map(isAdmin => {
+  constructor(private router: Router, private permissionService: PermissionService) {}
 
+  async canActivate(): Promise<boolean> {
+    // SSR: No bloquear en el servidor
+    if (!isPlatformBrowser(this.platformId)) {
+      return true;
+    }
 
-      if (isAdmin) return true;
+    const token = localStorage.getItem('token');
+    const rol = localStorage.getItem('rol');
 
-      router.navigate(['/']);
+    console.log('Admin Guard: Token encontrado:', !!token, 'Rol:', rol);
+
+    if (!token) {
+      console.log('Admin Guard: No hay token, redirigiendo al login');
+      this.router.navigate(['/login']);
       return false;
-    }),
-    catchError(err => {
-      console.error('adminGuard error', err);
-      router.navigate(['/']);
-      return of(false);
-    })
-  );
-};
+    }
+
+    // Usar el rol guardado por el login en localStorage en vez de llamar al backend
+    const isAdmin = rol === 'admin' || rol === '1';
+    console.log('Admin Guard: ¿Es admin? (basado en rol guardado)', isAdmin);
+
+    if (!isAdmin) {
+      console.log('Admin Guard: No es admin, redirigiendo al login');
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    console.log('Admin Guard: ✓ Usuario admin permitido');
+    return true;
+  }
+}

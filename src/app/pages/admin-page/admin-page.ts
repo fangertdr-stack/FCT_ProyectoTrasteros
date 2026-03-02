@@ -9,7 +9,7 @@ import { NavigationService } from '../../services/navigation';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin-page.html',
-  styleUrl: './admin-page.css',
+  styleUrls: ['./admin-page.css'],
 })
 export class AdminPage {
 

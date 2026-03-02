@@ -2,6 +2,7 @@ import { PermissionService } from './../services/permission-service';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class Auth implements CanActivate {
@@ -27,8 +28,8 @@ export class Auth implements CanActivate {
 
   async canActivate(): Promise<boolean | UrlTree> {
 
-  // ✅ EN SSR: permitir navegación (NO bloquear)
-  if (typeof window === 'undefined') {
+  // SSR → no bloquear
+  if (!this.isBrowser()) {
     return true;
   }
 
@@ -38,8 +39,7 @@ export class Auth implements CanActivate {
   }
 
   try {
-    const response = await this.permissionService.isAdmin();
-    const isAdmin = !!response?.data?.is_admin;
+    const isAdmin = await firstValueFrom(this.permissionService.isAdmin());
 
     if (!isAdmin) {
       return this.router.createUrlTree(['/login']);

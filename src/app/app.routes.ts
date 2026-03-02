@@ -6,6 +6,8 @@ import { Errors } from './pages/errors/errors';
 import { UsersCrud } from './services/users-crud';
 import { ListUser } from './pages/users/list-user/list-user';
 import { adminGuard } from './core/admin-guard';
+import { RouterModule, Route } from '@angular/router';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
