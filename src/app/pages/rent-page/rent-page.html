@@ -1,0 +1,96 @@
+<div class="rent-container">
+
+  <div class="rent-card">
+    <h2>Contratar Trastero</h2>
+
+    <form>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" placeholder="Nombre">
+      </div>
+
+      <div class="form-group">
+        <label>Apellidos</label>
+        <input type="text" placeholder="Apellidos">
+      </div>
+
+      <div class="form-group">
+        <label>DNI</label>
+        <input type="text" placeholder="DNI/NIE">
+      </div>
+
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text" placeholder="Calle, número...">
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" placeholder="teléfono">
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="correo electrónico">
+      </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Duración del alquiler</mat-label>
+
+      <mat-select [(value)]="duracionSeleccionada">
+
+        <mat-option value="1">
+          1 mes
+        </mat-option>
+
+        <mat-option value="3">
+          3 meses
+        </mat-option>
+
+        <mat-option value="6">
+          6 meses
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Elección de trastero</mat-label>
+
+      <mat-select [(value)]="tamanioSeleccionado">
+
+        <mat-option value="pequeño">
+          Pequeño
+        </mat-option>
+
+        <mat-option value="mediano">
+          Mediano
+        </mat-option>
+
+        <mat-option value="grande">
+          Grande
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+    <br>
+
+      <button class="btn-volver" (click)="volver()">Volver</button>
+
+      <button class="rent-btn" (click)="pagar()">Continuar y Pagar</button>
+
+
+    </form>
+    <mat-checkbox [(ngModel)]="aceptaNormas">
+  He leído y acepto las
+  <a href="/contrato.html" target="_blank" rel="noopener">
+    normas de uso
+  </a>
+</mat-checkbox>
+
+  </div>
+
+</div>

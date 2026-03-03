@@ -74,6 +74,8 @@ export class MainPage implements OnInit {
   startDate: Date | null = null;
   endDate: Date | null = null;
 
+
+
   login(){
 
     this.router.navigate(['/login']);
@@ -83,6 +85,9 @@ export class MainPage implements OnInit {
     this.router.navigate(['/admin']);
   }
 
+  rent() {
+    this.router.navigate(['/rent']);
+  }
 
 
   get isLoggedIn(): boolean {
