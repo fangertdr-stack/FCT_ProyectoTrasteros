@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Trastero } from '../../models/trastero';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavigationService } from '../../services/navigation';
+import { TrasteroService } from '../../services/trastero';
+
 
 @Component({
   selector: 'app-admin-page',
@@ -11,9 +13,40 @@ import { NavigationService } from '../../services/navigation';
   templateUrl: './admin-page.html',
   styleUrls: ['./admin-page.css'],
 })
-export class AdminPage {
+export class AdminPage implements OnInit {
 
-  constructor(private nav: NavigationService) {}
+  constructor(
+    private nav: NavigationService,
+    private trasteroService: TrasteroService
+  ) {}
+
+  // Array viene del backend
+  trasteros: Trastero[] = [];
+
+  // array de meses
+  mesesDisponibles = [1, 2, 3, 4, 5, 6, 9, 12];
+
+  trasteroSeleccionado: Trastero | null = null;
+
+  // control del modal de confirmacion
+  mostrarModal = false;
+  trasteroALiberar: Trastero | null = null;
+
+  // Se ejecuta al cargar la página
+  ngOnInit() {
+    this.cargarTrasteros();
+  }
+
+  cargarTrasteros() {
+    this.trasteroService.getTrasteros().subscribe({
+      next: (data) => {
+        this.trasteros = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar trasteros', err);
+      }
+    });
+  }
 
   irAlMain() {
     this.nav.goTo('');
@@ -23,41 +56,16 @@ export class AdminPage {
     this.nav.goTo('users');
   }
 
-  // array de meses
-  mesesDisponibles = [1, 2, 3, 4, 5, 6, 9, 12];
-
-  // datos de ejemplo hasta backend
-  trasteros: Trastero[] = [
-    { id_trastero: 1, codigo: 'T01', estado: 'OCUPADO', precio: 30, tamanio: 'PEQUEÑO', usuario: 'usuario1', fechaInicio: '2026-05-01', mesesContrato: 1 },
-    { id_trastero: 2, codigo: 'T02', estado: 'OCUPADO', precio: 40, tamanio: 'MEDIANO', usuario: 'ASD1', fechaInicio: '2026-1-1', mesesContrato: 1},
-    { id_trastero: 3, codigo: 'T03', estado: 'OCUPADO', precio: 50, tamanio: 'GRANDE', usuario: 'usuario2', fechaInicio: '2026-01-15', mesesContrato: 1 },
-    { id_trastero: 4, codigo: 'T04', estado: 'LIBRE', precio: 25, tamanio: 'PEQUEÑO' },
-    { id_trastero: 5, codigo: 'T05', estado: 'MANTENIMIENTO', precio: 35, tamanio: 'MEDIANO' },
-    { id_trastero: 6, codigo: 'T06', estado: 'OCUPADO', precio: 60, tamanio: 'GRANDE', usuario: 'usuario3', fechaInicio: '2026-02-20', mesesContrato: 12 },
-    { id_trastero: 7, codigo: 'T07', estado: 'LIBRE', precio: 28, tamanio: 'PEQUEÑO' },
-    { id_trastero: 8, codigo: 'T08', estado: 'OCUPADO', precio: 42, tamanio: 'MEDIANO', usuario: 'usuario4', fechaInicio: '2026-02-5', mesesContrato: 9 },
-    { id_trastero: 9, codigo: 'T09', estado: 'MANTENIMIENTO', precio: 55, tamanio: 'GRANDE' },
-    { id_trastero: 10, codigo: 'T10', estado: 'LIBRE', precio: 33, tamanio: 'PEQUEÑO' },
-    { id_trastero: 11, codigo: 'T11', estado: 'OCUPADO', precio: 45, tamanio: 'MEDIANO', usuario: 'usuario5', fechaInicio: '2026-07-05', mesesContrato: 1 },
-    { id_trastero: 12, codigo: 'T12', estado: 'LIBRE', precio: 70, tamanio: 'GRANDE' }
-  ];
-
-  trasteroSeleccionado: Trastero | null = null;
-
-  // control del modal de confirmacion
-  mostrarModal = false;
-  trasteroALiberar: Trastero | null = null;
-
   seleccionar(t: Trastero) {
     this.trasteroSeleccionado = { ...t };
   }
 
-  cambiarEstado(estado: 'LIBRE' | 'OCUPADO' | 'MANTENIMIENTO') {
+  cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
     if (!this.trasteroSeleccionado) return;
 
     this.trasteroSeleccionado.estado = estado;
 
-    if (estado !== 'OCUPADO') {
+    if (estado !== 'ocupado') {
       this.trasteroSeleccionado.usuario = undefined;
       this.trasteroSeleccionado.fechaInicio = undefined;
       this.trasteroSeleccionado.mesesContrato = undefined;
@@ -93,15 +101,16 @@ export class AdminPage {
   guardar() {
     if (!this.trasteroSeleccionado) return;
 
-    if (this.trasteroSeleccionado.estado !== 'MANTENIMIENTO') {
+    // 🔹 Solo lógica visual por ahora (update real lo hacemos después)
+    if (this.trasteroSeleccionado.estado !== 'mantenimiento') {
 
       if (
         this.trasteroSeleccionado.usuario &&
         this.trasteroSeleccionado.usuario.trim() !== ''
       ) {
-        this.trasteroSeleccionado.estado = 'OCUPADO';
+        this.trasteroSeleccionado.estado = 'ocupado';
       } else {
-        this.trasteroSeleccionado.estado = 'LIBRE';
+        this.trasteroSeleccionado.estado = 'libre';
       }
     }
 
@@ -109,21 +118,22 @@ export class AdminPage {
       t => t.id_trastero === this.trasteroSeleccionado!.id_trastero
     );
 
-    this.trasteros[index] = { ...this.trasteroSeleccionado };
+    if (index !== -1) {
+      this.trasteros[index] = { ...this.trasteroSeleccionado };
+    }
+
     this.trasteroSeleccionado = null;
   }
 
-  // abrir modal profesional
   liberar(t: Trastero) {
     this.trasteroALiberar = t;
     this.mostrarModal = true;
   }
 
-  // confirmar liberacion
   confirmarLiberar() {
     if (!this.trasteroALiberar) return;
 
-    this.trasteroALiberar.estado = 'LIBRE';
+    this.trasteroALiberar.estado = 'libre';
     this.trasteroALiberar.usuario = undefined;
     this.trasteroALiberar.fechaInicio = undefined;
     this.trasteroALiberar.mesesContrato = undefined;
