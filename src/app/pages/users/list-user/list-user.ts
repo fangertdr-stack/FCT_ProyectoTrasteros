@@ -4,6 +4,9 @@ import { Usuario } from '../../../models/usuario';
 import { UsersCrud } from '../../../services/users-crud';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { NavigationService } from '../../../services/navigation';
+
+
 
 @Component({
   selector: 'app-list-user',
@@ -17,7 +20,8 @@ export class ListUser implements OnInit {
   usuario: Usuario[] = [];
 
   constructor(private usersCrud: UsersCrud,
-              private route: Router
+              private route: Router,
+              private navigate: NavigationService
   ) {} // solo el servicio
 
   usuario$: Observable<Usuario[]> | undefined;
@@ -37,8 +41,9 @@ ngOnInit(): void {
     });
   }
 
+
   volver() {
-    this.route.navigate(['/']);
+    this.navigate.goTo('/admin');
   }
 
 }
