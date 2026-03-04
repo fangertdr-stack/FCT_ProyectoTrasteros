@@ -1,10 +1,11 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef,  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { NavigationService } from '../../services/navigation';
 import { LoginService } from '../../services/loginService';
 import { RegisterService } from '../../services/registerService';
+
 
 
 
@@ -36,7 +37,7 @@ export class LoginComponent {
 
 
   constructor(
-    private auth: Auth, // solo si usas Google login
+    private auth: Auth, // solo si se usa google login
     private snackBar: MatSnackBar,
     private serviceLogin: LoginService,
     private registro: RegisterService,
@@ -53,6 +54,8 @@ export class LoginComponent {
       panelClass: success ? ['snackbar-success'] : ['snackbar-error']
     });
   }
+
+
 
   volver() {
     this.nav.goBack();
@@ -171,8 +174,15 @@ export class LoginComponent {
             localStorage.setItem('nombre_publico', resp.data.nombre_publico ?? '');
           }
 
-          // ✅ navega a una ruta que exista
-          this.router.navigate(['/']); // o ['/main'] o la que tengas
+          //  aqui se comprueba si el rol es admin o no va a un sitio u a otro de la aplicacion
+          const rol = String(resp.data.rol ?? '');
+
+          if (rol === 'admin' || rol === '1') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/']);
+          }
+
         } else {
           this.showMessage(resp.message ?? 'Credenciales incorrectas', false);
         }

@@ -1,26 +1,32 @@
-<br>
-<h1>Usuarios Registrados</h1>
-<table class="table">
+<table class="table" *ngIf="usuario$ | async as usuarios; else cargando">
   <thead>
     <tr>
       <th>ID</th>
       <th>Nombre</th>
       <th>Email</th>
       <th>DNI</th>
-      <th>Teléfono</th>
+      <th>Rol</th>
       <th>Dirección</th>
+      <th>Teléfono</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of usuario">
+    <tr *ngFor="let user of usuarios">
       <td>{{ user.id_usuario }}</td>
       <td>{{ user.nombre }}</td>
       <td>{{ user.email }}</td>
       <td>{{ user.dni }}</td>
-      <td>{{ user.telefono }}</td>
+      <td>{{ user.rol }}</td>
       <td>{{ user.direccion }}</td>
+      <td>{{ user.telefono }}</td>
     </tr>
-    <button class="button1">Editar Usuario</button>
-    <button class="button2">Borrar Usuario</button>
   </tbody>
 </table>
+
+<ng-template #cargando>
+  <p>Cargando usuarios...</p>
+</ng-template>
+
+<button class="button1">Editar Usuario</button>
+<button class="button2">Borrar Usuario</button>
+<button (click)="volver()">Volver</button>

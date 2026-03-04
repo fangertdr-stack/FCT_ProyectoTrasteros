@@ -74,11 +74,20 @@ export class MainPage implements OnInit {
   startDate: Date | null = null;
   endDate: Date | null = null;
 
+
+
   login(){
 
     this.router.navigate(['/login']);
   }
 
+  admin(){
+    this.router.navigate(['/admin']);
+  }
+
+  rent() {
+    this.router.navigate(['/rent']);
+  }
 
 
   get isLoggedIn(): boolean {
@@ -109,6 +118,12 @@ export class MainPage implements OnInit {
 
 private isBrowser(): boolean {
   return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+}
+
+isAdmin(): boolean {
+  if (!this.isBrowser()) return false;
+  const rol = localStorage.getItem('rol');
+  return rol === 'admin';
 }
 
 }

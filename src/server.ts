@@ -30,8 +30,7 @@ const angularApp = new AngularNodeAppEngine();
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
-    index: false,
-    redirect: false,
+    index: 'index.html',
   }),
 );
 
@@ -45,6 +44,13 @@ app.use((req, res, next) => {
       response ? writeResponseToNodeResponse(response, res) : next(),
     )
     .catch(next);
+});
+
+/**
+ * Fallback: serve index.html for any unmatched routes
+ */
+app.use((req, res) => {
+  res.sendFile(join(browserDistFolder, 'index.html'));
 });
 
 /**

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Normas de Contrato</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f6fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .contenedor {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    ul {
+      line-height: 1.8;
+    }
+
+    .aceptacion {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #f0f4ff;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #125ea2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="contenedor">
+  <h1>Normas Básicas de Contratación</h1>
+
+  <ul>
+    <li>El cliente se compromete a utilizar el trastero únicamente para almacenamiento legal.</li>
+    <li>Queda prohibido almacenar materiales peligrosos, inflamables o ilegales.</li>
+    <li>El pago deberá realizarse antes del inicio del alquiler.</li>
+    <li>El acceso al trastero es personal e intransferible.</li>
+    <li>La empresa no se responsabiliza de objetos no declarados o de alto valor.</li>
+    <li>El contrato se renovará automáticamente salvo cancelación previa.</li>
+    <li>El incumplimiento de las normas podrá suponer la cancelación del servicio.</li>
+  </ul>
+
+  <div class="aceptacion">
+    <input type="checkbox" id="acepto">
+    <label for="acepto">Estoy de acuerdo con las normas del contrato</label>
+  </div>
+
+  <button onclick="continuar()">Continuar</button>
+</div>
+
+<script>
+function continuar() {
+  const check = document.getElementById('acepto');
+  if (!check.checked) {
+    alert("Debes aceptar las normas para continuar");
+  } else {
+    window.location.href = "/finContrato.html";
+  }
+}
+</script>
+
+</body>
+</html>
