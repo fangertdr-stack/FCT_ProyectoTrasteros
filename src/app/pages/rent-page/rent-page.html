@@ -84,8 +84,10 @@
 
 
     </form>
-    <mat-checkbox [(ngModel)]="aceptaNormas">He leído y aceptooo las
-          <a href="/contrato.html" target="_blank" rel="noopener"> normas de uso</a>
+    <mat-checkbox  [(ngModel)]="aceptaNormas">He leído y acepto el
+        <a href="/contrato.html" target="_blank" (click)="contratoAbierto = true">
+          contrato
+        </a>
     </mat-checkbox>
 
   </div>
