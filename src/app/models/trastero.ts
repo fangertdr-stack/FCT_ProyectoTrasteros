@@ -1,6 +1,6 @@
 export interface Trastero {
   id_trastero: number;
-  codigo: number; // ⚠️ es INT en tu BD
+  codigo: number; 
   tamanio: 'pequeño' | 'mediano' | 'grande';
   precio: number;
   estado: 'libre' | 'ocupado' | 'mantenimiento';
