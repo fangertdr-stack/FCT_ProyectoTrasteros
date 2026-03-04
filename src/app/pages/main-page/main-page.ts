@@ -120,4 +120,10 @@ private isBrowser(): boolean {
   return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
 }
 
+isAdmin(): boolean {
+  if (!this.isBrowser()) return false;
+  const rol = localStorage.getItem('rol');
+  return rol === 'admin';
+}
+
 }

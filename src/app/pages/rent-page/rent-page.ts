@@ -32,6 +32,7 @@ export class RentPage {
   duracionSeleccionada: number = 1;
   tamanioSeleccionado: string = 'pequeño';
   aceptaNormas: boolean = false;
+  contratoAbierto: boolean = false;
 
   constructor(
     private router: Router,
@@ -69,15 +70,22 @@ export class RentPage {
   }
 
   pagar() {
-    if (!this.aceptaNormas) {
-    this.snackBar.open('Debes aceptar las normas antes de pagar', 'Cerrar', { duration: 3000 });
+    if (!this.contratoAbierto){
+      this.snackBar.open('Debes leer el contrato antes de pagar', 'Cerrar', { duration: 3000 });
+      return;
+    }
+    if (!this.aceptaNormas ) {
+    this.snackBar.open('Debes aceptar las normas  antes de pagar', 'Cerrar', { duration: 3000 });
     return;
     }
 
-   // this.router.navigate(['/payment']);
+
+    this.router.navigate(['/']);
 
 
   }
+
+
 
 
 
