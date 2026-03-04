@@ -13,7 +13,7 @@ import { NavigationService } from '../../../services/navigation';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './list-user.html',
-  styleUrls: ['./list-user.css'], // ojo: es styleUrls, no styleUrl
+  styleUrls: ['./list-user.css'],
 })
 export class ListUser implements OnInit {
 
@@ -26,19 +26,8 @@ export class ListUser implements OnInit {
 
   usuario$: Observable<Usuario[]> | undefined;
 
-ngOnInit(): void {
-  this.usuario$ = this.usersCrud.getUsuarios();
-}
-
-  getUsuarios(): void {
-    this.usersCrud.getUsuarios().subscribe({
-      next: (usuarios) => {
-        this.usuario = usuarios;
-      },
-      error: (err) => {
-        console.error('Error al obtener usuarios:', err);
-      }
-    });
+  ngOnInit(): void {
+    this.usuario$ = this.usersCrud.getUsuarios();
   }
 
 

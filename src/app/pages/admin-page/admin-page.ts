@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavigationService } from '../../services/navigation';
 import { TrasteroService } from '../../services/trastero';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -20,6 +21,10 @@ export class AdminPage implements OnInit {
     private trasteroService: TrasteroService
   ) {}
 
+  trackByTrasteroId(index: number, item: any) {
+    return item.id_trastero;
+  }
+
   // Array viene del backend
   trasteros: Trastero[] = [];
 
@@ -32,13 +37,19 @@ export class AdminPage implements OnInit {
   mostrarModal = false;
   trasteroALiberar: Trastero | null = null;
 
-  // Se ejecuta al cargar la página
-  ngOnInit() {
-    this.cargarTrasteros();
+  trastero$: Observable<Trastero[]> | undefined;
+
+  ngOnInit(): void {
+    this.trastero$ = this.trasteroService.getTrasteros();
+
+
   }
 
+  // Se ejecuta al cargar la página
+
+
   cargarTrasteros() {
-    
+
     this.trasteroService.getTrasteros().subscribe({
       next: (data) => {
         this.trasteros = data;
