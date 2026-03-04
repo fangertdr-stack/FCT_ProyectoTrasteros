@@ -31,31 +31,31 @@ export class MainPage implements OnInit {
 
 
 
-  trasteros: Trastero[] = [
-    {
-      id_trastero: 1,
-      codigo: 'T01',
-      estado: 'OCUPADO',
-      precio: 30,
-      tamanio: 'PEQUEÑO',
-      usuario: 'usuario1'
-    },
-    {
-      id_trastero: 2,
-      codigo: 'T02',
-      estado: 'LIBRE',
-      precio: 40,
-      tamanio: 'MEDIANO',
-    },
-    {
-      id_trastero: 3,
-      codigo: 'T03',
-      estado: 'OCUPADO',
-      precio: 50,
-      tamanio: 'GRANDE',
-      usuario: 'usuario2'
-    }
-  ];
+  // trasteros: Trastero[] = [
+  //   {
+  //     id_trastero: 1,
+  //     codigo: 'T01',
+  //     estado: 'OCUPADO',
+  //     precio: 30,
+  //     tamanio: 'PEQUEÑO',
+  //     usuario: 'usuario1'
+  //   },
+  //   {
+  //     id_trastero: 2,
+  //     codigo: 'T02',
+  //     estado: 'LIBRE',
+  //     precio: 40,
+  //     tamanio: 'MEDIANO',
+  //   },
+  //   {
+  //     id_trastero: 3,
+  //     codigo: 'T03',
+  //     estado: 'OCUPADO',
+  //     precio: 50,
+  //     tamanio: 'GRANDE',
+  //     usuario: 'usuario2'
+  //   }
+  // ];
 
   trasteroSeleccionado: Trastero | null = null;
 

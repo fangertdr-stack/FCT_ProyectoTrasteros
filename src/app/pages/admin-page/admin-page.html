@@ -14,7 +14,8 @@
 
           <thead>
             <tr>
-              <th>Codigo</th>
+              <th>ID Trastero</th>
+              <th>Codigo Acceso</th>
               <th>Usuario</th>
               <th>Estado</th>
               <th>Fecha Fin</th>
@@ -28,20 +29,21 @@
             @for (t of trasteros; track t.id_trastero) {
               <tr>
 
+                <td>T{{ t.id_trastero }}</td>
                 <td>{{ t.codigo }}</td>
                 <td>{{ t.usuario || '-' }}</td>
 
                 <td>
                   <span
-                    [class.ocupado]="t.estado === 'OCUPADO'"
-                    [class.libre]="t.estado === 'LIBRE'"
-                    [class.mantenimiento]="t.estado === 'MANTENIMIENTO'">
+                    [class.ocupado]="t.estado === 'ocupado'"
+                    [class.libre]="t.estado === 'libre'"
+                    [class.mantenimiento]="t.estado === 'mantenimiento'">
                     {{ t.estado }}
                   </span>
                 </td>
 
                 <td>
-                  @if (t.estado === 'OCUPADO' && calcularFechaFin(t.fechaInicio, t.mesesContrato)) {
+                  @if (t.estado === 'ocupado' && calcularFechaFin(t.fechaInicio, t.mesesContrato)) {
                     <span
                       class="fecha-contrato"
                       [class.verde]="estadoContrato(calcularFechaFin(t.fechaInicio, t.mesesContrato)) === 'verde'"
@@ -59,11 +61,13 @@
                 <td>{{ t.precio }} €</td>
 
                 <td>
-                  <button class="btn-edit" (click)="seleccionar(t)">Editar</button>
+                  <div class="acciones">
+                    <button class="btn-edit" (click)="seleccionar(t)">Editar</button>
 
-                  @if (t.estado === 'OCUPADO') {
-                    <button class="btn-liberar" (click)="liberar(t)">Liberar</button>
-                  }
+                    @if (t.estado === 'ocupado') {
+                      <button class="btn-liberar" (click)="liberar(t)">Liberar</button>
+                    }
+                  </div>
                 </td>
 
               </tr>
@@ -77,7 +81,7 @@
 
         <div class="editor">
 
-          <h3>{{ trasteroSeleccionado.codigo }}</h3>
+          <h3>{{ trasteroSeleccionado.id_trastero }}</h3>
 
           <label>
             Usuario:
@@ -91,16 +95,16 @@
             <div class="estado-botones">
 
               <button class="estado-btn libre"
-                [class.activo]="trasteroSeleccionado.estado === 'LIBRE'"
-                (click)="cambiarEstado('LIBRE')">Libre</button>
+                [class.activo]="trasteroSeleccionado.estado === 'libre'"
+                (click)="cambiarEstado('libre')">Libre</button>
 
               <button class="estado-btn ocupado"
-                [class.activo]="trasteroSeleccionado.estado === 'OCUPADO'"
-                (click)="cambiarEstado('OCUPADO')">Ocupado</button>
+                [class.activo]="trasteroSeleccionado.estado === 'ocupado'"
+                (click)="cambiarEstado('ocupado')">Ocupado</button>
 
               <button class="estado-btn mantenimiento"
-                [class.activo]="trasteroSeleccionado.estado === 'MANTENIMIENTO'"
-                (click)="cambiarEstado('MANTENIMIENTO')">Mantenimiento</button>
+                [class.activo]="trasteroSeleccionado.estado === 'mantenimiento'"
+                (click)="cambiarEstado('mantenimiento')">Mantenimiento</button>
 
             </div>
           </div>
@@ -110,7 +114,7 @@
             <input type="number" [(ngModel)]="trasteroSeleccionado.precio">
           </label>
 
-          @if (trasteroSeleccionado.estado === 'OCUPADO') {
+          @if (trasteroSeleccionado.estado === 'ocupado') {
 
             <div class="contrato-section">
 
@@ -162,7 +166,7 @@
 
       <p>
         Estas seguro de liberar el trastero
-        <strong>{{ trasteroALiberar?.codigo }}</strong>?
+        <strong>{{ trasteroALiberar?.id_trastero }}</strong>?
       </p>
 
       <p class="confirm-warning">
