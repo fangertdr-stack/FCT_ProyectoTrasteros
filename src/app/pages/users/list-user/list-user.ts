@@ -1,30 +1,44 @@
-import { Component } from '@angular/core';
-import { Usuario } from '../../../models/usuario';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Usuario } from '../../../models/usuario';
+import { UsersCrud } from '../../../services/users-crud';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-user',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './list-user.html',
-  styleUrl: './list-user.css',
+  styleUrls: ['./list-user.css'], // ojo: es styleUrls, no styleUrl
 })
-export class ListUser {
+export class ListUser implements OnInit {
 
-  constructor() {}
+  usuario: Usuario[] = [];
 
+  constructor(private usersCrud: UsersCrud,
+              private route: Router
+  ) {} // solo el servicio
 
-  usuario: Usuario [] = [
-    { id_usuario: 1, nombre: 'Juan Pérez', email: 'juan.perez@example.com', password:'abc', rol: 1, dni: '12345678A', direccion: 'Calle Principal 123', telefono: '600123456' },
-    {
-    id_usuario: 2,nombre: "María García",email: "maria.garcia@example.com",password: "def",
-    rol: 2,dni: "87654321B",direccion: "Avenida de la Libertad 45, 2ºA",
-    telefono: "600654321"
-  },
-  {
-    id_usuario: 3,nombre: "Carlos Rodríguez",email: "carlos.rodriguez@example.com",password: "ghi",
-    rol: 1,dni: "11223344C",direccion: "Calle del Sol 15, Bajo",
-    telefono: "600987654"
+  usuario$: Observable<Usuario[]> | undefined;
+
+ngOnInit(): void {
+  this.usuario$ = this.usersCrud.getUsuarios();
+}
+
+  getUsuarios(): void {
+    this.usersCrud.getUsuarios().subscribe({
+      next: (usuarios) => {
+        this.usuario = usuarios;
+      },
+      error: (err) => {
+        console.error('Error al obtener usuarios:', err);
+      }
+    });
   }
-  ];
+
+  volver() {
+    this.route.navigate(['/']);
+  }
 
 }
