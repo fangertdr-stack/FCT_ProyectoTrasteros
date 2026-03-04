@@ -38,6 +38,7 @@ export class AdminPage implements OnInit {
   }
 
   cargarTrasteros() {
+    
     this.trasteroService.getTrasteros().subscribe({
       next: (data) => {
         this.trasteros = data;
@@ -101,7 +102,7 @@ export class AdminPage implements OnInit {
   guardar() {
     if (!this.trasteroSeleccionado) return;
 
-    // 🔹 Solo lógica visual por ahora (update real lo hacemos después)
+    // Solo lógica visual por ahora (update real lo hacemos después)
     if (this.trasteroSeleccionado.estado !== 'mantenimiento') {
 
       if (

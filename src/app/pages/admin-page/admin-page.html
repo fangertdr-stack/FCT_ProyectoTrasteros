@@ -14,7 +14,8 @@
 
           <thead>
             <tr>
-              <th>Codigo</th>
+              <th>ID Trastero</th>
+              <th>Codigo Acceso</th>
               <th>Usuario</th>
               <th>Estado</th>
               <th>Fecha Fin</th>
@@ -28,6 +29,7 @@
             @for (t of trasteros; track t.id_trastero) {
               <tr>
 
+                <td>T{{ t.id_trastero }}</td>
                 <td>{{ t.codigo }}</td>
                 <td>{{ t.usuario || '-' }}</td>
 
@@ -59,11 +61,13 @@
                 <td>{{ t.precio }} €</td>
 
                 <td>
-                  <button class="btn-edit" (click)="seleccionar(t)">Editar</button>
+                  <div class="acciones">
+                    <button class="btn-edit" (click)="seleccionar(t)">Editar</button>
 
-                  @if (t.estado === 'ocupado') {
-                    <button class="btn-liberar" (click)="liberar(t)">Liberar</button>
-                  }
+                    @if (t.estado === 'ocupado') {
+                      <button class="btn-liberar" (click)="liberar(t)">Liberar</button>
+                    }
+                  </div>
                 </td>
 
               </tr>
@@ -77,7 +81,7 @@
 
         <div class="editor">
 
-          <h3>{{ trasteroSeleccionado.codigo }}</h3>
+          <h3>{{ trasteroSeleccionado.id_trastero }}</h3>
 
           <label>
             Usuario:
@@ -162,7 +166,7 @@
 
       <p>
         Estas seguro de liberar el trastero
-        <strong>{{ trasteroALiberar?.codigo }}</strong>?
+        <strong>{{ trasteroALiberar?.id_trastero }}</strong>?
       </p>
 
       <p class="confirm-warning">

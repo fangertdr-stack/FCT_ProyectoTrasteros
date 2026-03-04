@@ -27,7 +27,7 @@ body {
   position: relative;
   background: #f9faf8;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1500px;
   padding: 28px 30px;
   border-radius: 22px;
   box-shadow:
@@ -54,7 +54,6 @@ body {
   transform: translateX(-4px);
   opacity: .7;
 }
-
 
 /* USERS BUTTON */
 
@@ -94,7 +93,7 @@ body {
   align-items: flex-start;
 }
 
-/* ZONA DE TABLA CON SCROLL INTERNO */
+/* ZONA TABLA */
 
 .tabla-wrapper {
   flex: 1;
@@ -119,12 +118,11 @@ body {
   border-radius: 10px;
 }
 
-/* TABLA DE TRASTEROS */
+/* TABLA */
 
 .trasteros-table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px;
+  border-collapse: collapse;
 }
 
 /* Cabecera */
@@ -135,13 +133,13 @@ body {
   font-size: 14px;
   color: #6f776e;
   font-weight: 600;
+  background: #f3f5f2;
 }
 
 /* Filas */
 
 .trasteros-table tbody tr {
   background: #ffffff;
-  border-radius: 14px;
   box-shadow: 0 4px 10px rgba(0,0,0,.06);
   transition: transform .2s ease, box-shadow .2s ease;
 }
@@ -149,6 +147,12 @@ body {
 .trasteros-table tbody tr:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(0,0,0,.12);
+}
+
+/* separación visual entre filas */
+
+.trasteros-table tbody tr + tr {
+  border-top: 12px solid #f9faf8;
 }
 
 /* Celdas */
@@ -159,16 +163,7 @@ body {
   color: #2e332e;
   text-align: center;
   vertical-align: middle;
-}
-
-/* Bordes redondeados */
-
-.trasteros-table tbody tr td:first-child {
-  border-radius: 14px 0 0 14px;
-}
-
-.trasteros-table tbody tr td:last-child {
-  border-radius: 0 14px 14px 0;
+  word-wrap: break-word;
 }
 
 /* ESTADOS */
@@ -203,6 +198,10 @@ body {
 /* BOTONES TABLA */
 
 .trasteros-table td:last-child {
+  text-align: center;
+}
+
+.trasteros-table td:last-child .acciones {
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -217,25 +216,25 @@ body {
   transition: all .2s ease;
 }
 
-.trasteros-table button:first-child {
+.btn-edit {
   background: #4ead53;
   color: white;
 }
 
-.trasteros-table button:first-child:hover {
+.btn-edit:hover {
   background: #43c56e;
 }
 
-.trasteros-table button:last-child {
+.btn-liberar {
   background: #e35d5b;
   color: white;
 }
 
-.trasteros-table button:last-child:hover {
+.btn-liberar:hover {
   background: #c94b49;
 }
 
-/* EDITOR FIJO */
+/* EDITOR */
 
 .editor {
   width: 340px;
@@ -251,8 +250,6 @@ body {
   margin-bottom: 16px;
   color: #243124;
 }
-
-/* FORMULARIO */
 
 .editor label {
   display: flex;
@@ -277,7 +274,7 @@ body {
   box-shadow: 0 0 0 2px rgba(78,173,83,.15);
 }
 
-/* SELECTOR DE ESTADO */
+/* ESTADO BOTONES */
 
 .estado-selector {
   display: flex;
@@ -309,21 +306,11 @@ body {
   color: white;
 }
 
-.estado-btn.libre.activo {
-  background: #4ead53;
-}
+.estado-btn.libre.activo { background: #4ead53; }
+.estado-btn.ocupado.activo { background: #e35d5b; }
+.estado-btn.mantenimiento.activo { background: #f0ad4e; }
 
-.estado-btn.ocupado.activo {
-  background: #e35d5b;
-}
-
-.estado-btn.mantenimiento.activo {
-  background: #f0ad4e;
-}
-
-.estado-btn:hover {
-  opacity: .85;
-}
+.estado-btn:hover { opacity: .85; }
 
 /* BOTONES EDITOR */
 
@@ -354,233 +341,18 @@ body {
 
 .buttons button:last-child {
   background: #eceeea;
-  color: #2e332e;
 }
 
 .buttons button:last-child:hover {
   background: #dfe4dc;
 }
 
-/* Contrato/Fechas */
-
-.contrato-section {
-  margin: 18px 0 10px;
-  padding-top: 14px;
-  border-top: 1px solid #e3e7e1;
-}
-
-.contrato-section h4 {
-  margin-bottom: 12px;
-  font-size: 15px;
-  color: #243124;
-  font-weight: 600;
-}
-
-/* fila horizontal */
-
-.contrato-row {
-  display: flex;
-  gap: 12px;
-}
-
-/* cada campo */
-
-.contrato-field {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  color: #5e665d;
-}
-
-/* inputs y select */
-
-.contrato-field input,
-.contrato-field select {
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid #cfd6cc;
-  font-size: 14px;
-  outline: none;
-  background: #f9faf8;
-  transition: all .2s ease;
-}
-
-/* hover suave */
-
-.contrato-field input:hover,
-.contrato-field select:hover {
-  border-color: #b8c7b8;
-}
-
-/* focus bonito */
-
-.contrato-field input:focus,
-.contrato-field select:focus {
-  border-color: #4ead53;
-  background: #ffffff;
-  box-shadow: 0 0 0 2px rgba(78,173,83,.15);
-}
-
-/* select flechita mas limpia */
-
-.contrato-field select {
-  appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, #4ead53 50%),
-    linear-gradient(135deg, #4ead53 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) 55%,
-    calc(100% - 12px) 55%;
-  background-size: 6px 6px;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-
-.fecha-contrato {
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  display: inline-block;
-  min-width: 95px;
-  text-align: center;
-}
-
-/* lejos de vencer */
-
-.fecha-contrato.verde {
-  background: #4ead53;
-  color: white;
-}
-
-/* cerca */
-
-.fecha-contrato.amarillo {
-  background: #f0ad4e;
-  color: white;
-}
-
-/* venciendo */
-
-.fecha-contrato.rojo {
-  background: #e35d5b;
-  color: white;
-}
-
-/* modelado pop-up confirmacion */
-
-.confirm-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn .2s ease;
-}
-
-.confirm-box {
-  background: white;
-  padding: 26px 28px;
-  border-radius: 18px;
-  width: 90%;
-  max-width: 380px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,.35);
-  animation: scaleIn .25s ease;
-}
-
-.confirm-box h3 {
-  margin-bottom: 12px;
-  color: #243124;
-}
-
-.confirm-box p {
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 10px;
-}
-
-.confirm-warning {
-  color: #e35d5b;
-  font-weight: 600;
-}
-
-.confirm-buttons {
-  display: flex;
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.confirm-buttons button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 14px;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all .2s ease;
-}
-
-.btn-cancelar {
-  background: #eceeea;
-}
-
-.btn-cancelar:hover {
-  background: #dfe4dc;
-}
-
-.btn-confirmar {
-  background: #e35d5b;
-  color: white;
-}
-
-.btn-confirmar:hover {
-  background: #c94b49;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* ANIMACION */
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* RESPONSIVE */
-
-@media (max-width: 900px) {
-  .contrato-row {
-    flex-direction: column;
-  }
-}
 
 @media (max-width: 900px) {
 
   .contenido-admin {
     flex-direction: column;
-  }
-
-  .tabla-wrapper {
-    max-height: 400px;
   }
 
   .editor {
@@ -595,6 +367,8 @@ body {
   .trasteros-table tbody tr {
     display: flex;
     flex-direction: column;
+    border-top: none;
+    margin-bottom: 14px;
   }
 
   .trasteros-table td {
@@ -602,7 +376,118 @@ body {
     padding: 10px 14px;
   }
 
-  .trasteros-table td:last-child {
+  .trasteros-table td:last-child .acciones {
     justify-content: flex-start;
+  }
+}
+
+/* CONFIRMACION POPUP MODERNA */
+
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.confirm-box {
+  background: #ffffff;
+  padding: 28px 32px;
+  border-radius: 18px;
+  width: 360px;
+  max-width: 90%;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: scaleIn 0.3s ease;
+}
+
+.confirm-box h3 {
+  margin-bottom: 14px;
+  font-size: 20px;
+  color: #243124;
+}
+
+.confirm-box p {
+  font-size: 14px;
+  color: #5e665d;
+  margin-bottom: 18px;
+}
+
+.confirm-box p.confirm-warning {
+  color: #e35d5b;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* BOTONES CONFIRMACION */
+
+.confirm-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirm-buttons button {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancelar {
+  background: #eceeea;
+  color: #5e665d;
+}
+
+.btn-cancelar:hover {
+  background: #dfe4dc;
+}
+
+.btn-confirmar {
+  background: #e35d5b;
+  color: #fff;
+}
+
+.btn-confirmar:hover {
+  background: #c94b49;
+}
+
+/* ANIMACIONES POPUP */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 480px) {
+  .confirm-box {
+    width: 90%;
+    padding: 22px;
+  }
+
+  .confirm-buttons {
+    flex-direction: column;
+  }
+
+  .confirm-buttons button {
+    flex: 1;
   }
 }
