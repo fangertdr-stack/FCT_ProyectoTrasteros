@@ -54,9 +54,7 @@ export class LoginComponent {
       panelClass: success ? ['snackbar-success'] : ['snackbar-error']
     });
   }
-
-
-
+  
   volver() {
     this.nav.goBack();
   }
