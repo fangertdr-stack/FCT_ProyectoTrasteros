@@ -1,1 +1,24 @@
-<p>edit-user works!</p>
+<div *ngIf="usuario">
+  <h2>Editar Usuario: {{ usuario.nombre }}</h2>
+
+  <form (ngSubmit)="guardarCambios()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" [(ngModel)]="usuario.nombre" name="nombre" required />
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" [(ngModel)]="usuario.email" name="email" type="email" required />
+    </div>
+
+    <div>
+      <button type="submit">Guardar Cambios</button>
+      <button type="button" (click)="router.navigate(['/users'])">Cancelar</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!usuario">
+  <p>Cargando usuario...</p>
+</div>
