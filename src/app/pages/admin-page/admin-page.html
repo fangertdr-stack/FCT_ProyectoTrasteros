@@ -1,5 +1,5 @@
 <!-- admin-page.component.html -->
-<div class="admin-page" *ngIf="trastero$ | async as trasteros; else cargando">
+<div class="admin-page">
   <div class="admin-card">
 
     <!-- Botones principales -->
@@ -24,101 +24,218 @@
               <th>Acciones</th>
             </tr>
           </thead>
+
           <tbody>
             <tr *ngFor="let t of trasteros; trackBy: trackByTrasteroId">
+
               <td>{{ t.id_trastero }}</td>
               <td>{{ t.codigo }}</td>
-              <td>{{ t.usuario || '-' }}</td>
+
+              <td>
+                {{ t.usuario ? t.usuario : '-' }}
+              </td>
+
               <td>
                 <span [ngClass]="{
                   'ocupado': t.estado==='ocupado',
                   'libre': t.estado==='libre',
                   'mantenimiento': t.estado==='mantenimiento'
-                }">{{ t.estado }}</span>
+                }">
+                  {{ t.estado }}
+                </span>
               </td>
-              <td>{{ calcularFechaFin(t.fechaInicio, t.mesesContrato) || '-' }}</td>
+
+              <td>
+                {{ t.fecha_fin ? (t.fecha_fin | date:'dd/MM/yyyy') : '-' }}
+              </td>
+
               <td>{{ t.tamanio }}</td>
               <td>{{ t.precio }} €</td>
+
               <td>
-                <button class="btn-edit" (click)="seleccionar(t)">Editar</button>
-                <button class="btn-liberar" *ngIf="t.estado==='ocupado'" (click)="liberar(t)">Liberar</button>
+                <button class="btn-edit" (click)="seleccionar(t)">
+                  Editar
+                </button>
+
+                <button
+                  class="btn-liberar"
+                  *ngIf="t.estado==='ocupado'"
+                  (click)="liberar(t)">
+                  Liberar
+                </button>
               </td>
+
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Editor de trastero seleccionado -->
+
+      <!-- Editor de trastero -->
       <div *ngIf="trasteroSeleccionado" class="editor">
+
         <h3>Trastero {{ trasteroSeleccionado.id_trastero }}</h3>
 
+        <!-- SELECT USUARIO -->
         <label>
           Usuario:
-          <input [(ngModel)]="trasteroSeleccionado.usuario">
+
+          <select [(ngModel)]="trasteroSeleccionado.id_usuario">
+
+            <option [ngValue]="null">
+              Seleccionar usuario
+            </option>
+
+            <option
+              *ngFor="let u of usuarios"
+              [ngValue]="u.id_usuario">
+
+              {{u.nombre}} - {{u.dni}}
+
+            </option>
+
+          </select>
+
         </label>
 
+
+        <!-- Estado -->
         <div class="estado-selector">
+
           <span>Estado:</span>
+
           <div class="estado-botones">
-            <button class="estado-btn libre"
+
+            <button
+              class="estado-btn libre"
               [class.activo]="trasteroSeleccionado.estado==='libre'"
-              (click)="cambiarEstado('libre')">Libre</button>
-            <button class="estado-btn ocupado"
+              (click)="cambiarEstado('libre')">
+              Libre
+            </button>
+
+            <button
+              class="estado-btn ocupado"
               [class.activo]="trasteroSeleccionado.estado==='ocupado'"
-              (click)="cambiarEstado('ocupado')">Ocupado</button>
-            <button class="estado-btn mantenimiento"
+              (click)="cambiarEstado('ocupado')">
+              Ocupado
+            </button>
+
+            <button
+              class="estado-btn mantenimiento"
               [class.activo]="trasteroSeleccionado.estado==='mantenimiento'"
-              (click)="cambiarEstado('mantenimiento')">Mantenimiento</button>
+              (click)="cambiarEstado('mantenimiento')">
+              Mantenimiento
+            </button>
+
           </div>
+
         </div>
 
+
+        <!-- Precio -->
         <label>
           Precio:
-          <input type="number" [(ngModel)]="trasteroSeleccionado.precio">
+          <input
+            type="number"
+            [(ngModel)]="trasteroSeleccionado.precio">
         </label>
 
-        <!-- Contrato si está ocupado -->
-        <div *ngIf="trasteroSeleccionado.estado==='ocupado'" class="contrato-section">
+
+        <!-- CONTRATO -->
+        <div
+          *ngIf="trasteroSeleccionado.estado==='ocupado'"
+          class="contrato-section">
+
           <h4>Contrato</h4>
+
           <div class="contrato-row">
+
             <label class="contrato-field">
               Fecha inicio
-              <input type="date" [(ngModel)]="trasteroSeleccionado.fechaInicio">
+              <input
+                type="date"
+                [(ngModel)]="trasteroSeleccionado.fechaInicio">
             </label>
+
             <label class="contrato-field">
               Meses
-              <select [(ngModel)]="trasteroSeleccionado.mesesContrato">
-                <option [ngValue]="null">---</option>
-                <option *ngFor="let m of mesesDisponibles" [value]="m">{{ m }}</option>
+
+              <select
+                [(ngModel)]="trasteroSeleccionado.mesesContrato">
+
+                <option [ngValue]="null">
+                  ---
+                </option>
+
+                <option
+                  *ngFor="let m of mesesDisponibles"
+                  [value]="m">
+
+                  {{ m }}
+
+                </option>
+
               </select>
+
             </label>
+
           </div>
+
         </div>
 
+
+        <!-- BOTONES -->
         <div class="buttons">
-          <button (click)="guardar()">Guardar</button>
-          <button (click)="trasteroSeleccionado = null">Cancelar</button>
+
+          <button (click)="guardar()">
+            Guardar
+          </button>
+
+          <button (click)="trasteroSeleccionado = null">
+            Cancelar
+          </button>
+
         </div>
+
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- Template de carga -->
-<ng-template #cargando>
-  <p>Cargando trasteros...</p>
-</ng-template>
 
-<!-- Modal de confirmación -->
+<!-- Modal confirmar liberar -->
 <div *ngIf="mostrarModal" class="confirm-overlay">
+
   <div class="confirm-box">
+
     <h3>Confirmar liberación</h3>
-    <p>¿Estás seguro de liberar el trastero <strong>{{ trasteroALiberar?.id_trastero }}</strong>?</p>
-    <p class="confirm-warning">Se perderán los datos del alquiler actual.</p>
+
+    <p>
+      ¿Estás seguro de liberar el trastero
+      <strong>{{ trasteroALiberar?.id_trastero }}</strong>?
+    </p>
+
+    <p class="confirm-warning">
+      Se perderán los datos del alquiler actual.
+    </p>
+
     <div class="confirm-buttons">
-      <button class="btn-cancelar" (click)="cerrarModal()">Cancelar</button>
-      <button class="btn-confirmar" (click)="confirmarLiberar()">Liberar</button>
+
+      <button
+        class="btn-cancelar"
+        (click)="cerrarModal()">
+        Cancelar
+      </button>
+
+      <button
+        class="btn-confirmar"
+        (click)="confirmarLiberar()">
+        Liberar
+      </button>
+
     </div>
+
   </div>
+
 </div>

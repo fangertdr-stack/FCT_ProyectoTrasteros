@@ -21,6 +21,12 @@ export class TrasteroService {
   }
 
   getUsuarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${URL_API}/usuarios.php`);
+    return this.http.get<any[]>(`${URL_API}/user.php`);
   }
+
+  asignarTrastero(data:any): Observable<any>{
+  return this.http.post(this.apiUrl, data);
+  }
+
+  
 }

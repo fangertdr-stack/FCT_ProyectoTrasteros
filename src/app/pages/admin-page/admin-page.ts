@@ -3,9 +3,7 @@ import { Trastero } from '../../models/trastero';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavigationService } from '../../services/navigation';
-import { TrasteroService } from '../../services/trastero';
-import { Observable } from 'rxjs';
-
+import { TrasteroService } from '../../services/trasteroService';
 
 @Component({
   selector: 'app-admin-page',
@@ -21,31 +19,44 @@ export class AdminPage implements OnInit {
     private trasteroService: TrasteroService
   ) {}
 
-  trackByTrasteroId(index: number, item: any) {
-    return item.id_trastero;
-  }
-
-  // Array viene del backend
+  // Lista de trasteros
   trasteros: Trastero[] = [];
 
-  // array de meses
+  // Lista de usuarios para el select
+  usuarios: any[] = [];
+
+  // meses disponibles contrato
   mesesDisponibles = [1, 2, 3, 4, 5, 6, 9, 12];
 
+  // trastero que se está editando
   trasteroSeleccionado: Trastero | null = null;
 
-  // control del modal de confirmacion
+  // modal liberar
   mostrarModal = false;
   trasteroALiberar: Trastero | null = null;
 
-  trastero$: Observable<Trastero[]> | undefined;
 
   ngOnInit(): void {
-    this.trastero$ = this.trasteroService.getTrasteros();
 
+    // cargar trasteros
+    this.cargarTrasteros();
+
+    // cargar usuarios
+    this.trasteroService.getUsuarios().subscribe({
+      next: (data) => {
+        this.usuarios = data;
+      },
+      error: (err) => {
+        console.error('Error cargando usuarios', err);
+      }
+    });
 
   }
 
-  // Se ejecuta al cargar la página
+
+  trackByTrasteroId(index: number, item: Trastero) {
+    return item.id_trastero;
+  }
 
 
   cargarTrasteros() {
@@ -58,45 +69,65 @@ export class AdminPage implements OnInit {
         console.error('Error al cargar trasteros', err);
       }
     });
+
   }
+
 
   irAlMain() {
     this.nav.goTo('');
   }
 
+
   gestionUsuarios() {
     this.nav.goTo('users');
   }
 
+
   seleccionar(t: Trastero) {
-    this.trasteroSeleccionado = { ...t };
+
+    // copia del objeto
+    this.trasteroSeleccionado = {
+      ...t,
+      id_usuario: t.id_usuario ?? undefined
+    };
+
   }
 
+
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
+
     if (!this.trasteroSeleccionado) return;
 
     this.trasteroSeleccionado.estado = estado;
 
     if (estado !== 'ocupado') {
+
       this.trasteroSeleccionado.usuario = undefined;
+      this.trasteroSeleccionado.id_usuario = undefined;
       this.trasteroSeleccionado.fechaInicio = undefined;
       this.trasteroSeleccionado.mesesContrato = undefined;
+
     }
+
   }
 
+
   calcularFechaFin(fechaInicio?: string, meses?: number): string | null {
+
     if (!fechaInicio || !meses) return null;
 
     const inicio = new Date(fechaInicio);
-    const dias = meses * 30;
-
     const fin = new Date(inicio);
-    fin.setDate(fin.getDate() + dias);
+
+    fin.setMonth(fin.getMonth() + meses);
 
     return fin.toISOString().split('T')[0];
+
   }
 
+
   estadoContrato(fechaFin: string | null): 'verde' | 'amarillo' | 'rojo' | null {
+
     if (!fechaFin) return null;
 
     const hoy = new Date();
@@ -107,54 +138,83 @@ export class AdminPage implements OnInit {
 
     if (diffDias > 15) return 'verde';
     if (diffDias > 5) return 'amarillo';
+
     return 'rojo';
   }
 
+
   guardar() {
+
     if (!this.trasteroSeleccionado) return;
 
-    // Solo lógica visual por ahora (update real lo hacemos después)
-    if (this.trasteroSeleccionado.estado !== 'mantenimiento') {
-
-      if (
-        this.trasteroSeleccionado.usuario &&
-        this.trasteroSeleccionado.usuario.trim() !== ''
-      ) {
-        this.trasteroSeleccionado.estado = 'ocupado';
-      } else {
-        this.trasteroSeleccionado.estado = 'libre';
-      }
+    if (!this.trasteroSeleccionado.id_usuario) {
+      alert("Selecciona un usuario");
+      return;
     }
 
-    const index = this.trasteros.findIndex(
-      t => t.id_trastero === this.trasteroSeleccionado!.id_trastero
+    if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
+      alert("Completa los datos del contrato");
+      return;
+    }
+
+    const fechaFin = this.calcularFechaFin(
+      this.trasteroSeleccionado.fechaInicio,
+      this.trasteroSeleccionado.mesesContrato
     );
 
-    if (index !== -1) {
-      this.trasteros[index] = { ...this.trasteroSeleccionado };
-    }
+    const data = {
+      id_usuario: this.trasteroSeleccionado.id_usuario,
+      id_trastero: this.trasteroSeleccionado.id_trastero,
+      fecha_inicio: this.trasteroSeleccionado.fechaInicio,
+      fecha_fin: fechaFin
+    };
 
-    this.trasteroSeleccionado = null;
+    this.trasteroService.asignarTrastero(data).subscribe({
+
+      next: () => {
+
+        this.cargarTrasteros();
+        this.trasteroSeleccionado = null;
+
+      },
+
+      error: (err) => {
+        console.error("Error guardando alquiler", err);
+      }
+
+    });
+
   }
+
 
   liberar(t: Trastero) {
+
     this.trasteroALiberar = t;
     this.mostrarModal = true;
+
   }
 
+
   confirmarLiberar() {
+
     if (!this.trasteroALiberar) return;
 
     this.trasteroALiberar.estado = 'libre';
     this.trasteroALiberar.usuario = undefined;
+    this.trasteroALiberar.id_usuario = undefined;
     this.trasteroALiberar.fechaInicio = undefined;
     this.trasteroALiberar.mesesContrato = undefined;
 
     this.cerrarModal();
+
   }
 
+
   cerrarModal() {
+
     this.mostrarModal = false;
     this.trasteroALiberar = null;
+
   }
+
 }
