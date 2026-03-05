@@ -78,6 +78,18 @@
   background: #c94440;
 }
 
+.nav-welcome {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: all .25s ease;
+  color: #0d5224;
+  background-color: rgb(230, 228, 228);
+}
+
 /* HERO BANNER COMPLEJO */
 
 .hero-banner {
