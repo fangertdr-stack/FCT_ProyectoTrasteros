@@ -17,6 +17,11 @@ export class UsersCrud {
     return this.http.get<Usuario[]>(this.apiUrl);
   }
 
+  // GET trae usuario por id
+  getUsuarioById(id_usuario: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}?id_usuario=${id_usuario}`);
+  }
+
   // POST crea usuarios
   createUsuario(usuario: Omit<Usuario, 'id_usuario'>): Observable<any> {
     return this.http.post(this.apiUrl, usuario);
@@ -24,8 +29,8 @@ export class UsersCrud {
 
   // PUT actualiza usuario
   updateUsuario(usuario: Usuario): Observable<any> {
-    return this.http.put(this.apiUrl, usuario);
-  }
+  return this.http.put(`${this.apiUrl}?id_usuario=${usuario.id_usuario}`, usuario);
+}
 
   // DELETE borra usuario
   deleteUsuario(id_usuario: number): Observable<any> {

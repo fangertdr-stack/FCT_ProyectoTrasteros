@@ -9,6 +9,7 @@ import { adminGuard } from './core/admin-guard';
 import { RouterModule, Route } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { RentPage } from './pages/rent-page/rent-page';
+import { EditUser } from './pages/users/edit-user/edit-user';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'users', component: ListUser},
   { path: 'rent', component: RentPage},
   { path: '', component: MainPage},
+  { path: 'edit-user/:id', component: EditUser },
 
   { path: '**', component: Errors}
 ];

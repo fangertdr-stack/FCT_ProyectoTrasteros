@@ -83,7 +83,7 @@ export class LoginComponent {
     this.errorMessage = '';
 
     if (!this.isRegister) {
-      // ✅ LOGIN BACKEND
+      //  LOGIN BACKEND
       if (!this.email || !this.password) {
         this.errorMessage = 'Completa todos los campos';
         return;
@@ -97,7 +97,7 @@ export class LoginComponent {
       return;
     }
 
-    // ✅ REGISTRO BACKEND
+    //  REGISTRO BACKEND
     if (!this.name || !this.email || !this.dni || !this.password || !this.confirmPassword) {
       this.errorMessage = 'Completa todos los campos';
       return;
