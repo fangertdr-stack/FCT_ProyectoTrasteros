@@ -1,98 +1,94 @@
-/* Estilos generales para la tabla */
-.table {
+/* Tabla lista de usuarios */
+table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 16px;
-  text-align: left;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  margin-top: 20px;
 }
 
-.table th, .table td {
-  padding: 12px 20px;
+th, td {
   border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
 }
 
-.table th {
-  background-color: #4CAF50;
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.table td {
-  background-color: #f9f9f9;
-}
-
-.table tr:nth-child(even) td {
+th {
   background-color: #f2f2f2;
 }
 
-.table tr:hover td {
-  background-color: #e1e1e1;
-}
-
-.table th, .table td {
-  text-align: center;
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.button1 {
-  background-color: #c4b250;
-  color: white;
+/* Botones de acción */
+button {
+  padding: 6px 12px;
+  margin-right: 5px;
   border: none;
-  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
 }
 
-.button2 {
-  background-color: #e0350a;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+button:hover {
+  opacity: 0.9;
+}
+
+button[type="submit"] { background-color: #4CAF50; color: white; }
+button[type="button"] { background-color: #f44336; color: white; }
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5); /* Fondo oscuro semi-transparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal content */
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease;
+}
+
+/* Grupos de formulario */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  box-sizing: border-box;
 }
 
-
-/* Estilo para las celdas de la tabla */
-.table td {
-  font-family: 'Arial', sans-serif;
-  color: #555;
+/* Botones del modal */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
 }
 
-/* Añadir bordes redondeados a las celdas */
-.table {
-  border-radius: 8px;
-  overflow: hidden;
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-/* Agregar un borde inferior en las celdas para dar un efecto de separación */
-.table td, .table th {
-  border-bottom: 1px solid #ddd;
-}
-
-/* Estilo adicional para que la tabla se vea bien en pantallas pequeñas */
-@media screen and (max-width: 600px) {
-  .table {
-    width: 100%;
-    font-size: 14px;
-  }
-
-  .table th, .table td {
-    padding: 10px;
-  }
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
