@@ -25,23 +25,22 @@ export class AdminPage implements OnInit {
   // Lista de usuarios para el select
   usuarios: any[] = [];
 
-  // meses disponibles contrato
+  // Meses disponibles contrato
   mesesDisponibles = [1, 2, 3, 4, 5, 6, 9, 12];
 
-  // trastero que se está editando
+  // Trastero que se está editando
   trasteroSeleccionado: Trastero | null = null;
 
-  // modal liberar
+  // Modal liberar
   mostrarModal = false;
   trasteroALiberar: Trastero | null = null;
 
-
   ngOnInit(): void {
 
-    // cargar trasteros
+    // Cargar trasteros
     this.cargarTrasteros();
 
-    // cargar usuarios
+    // Cargar usuarios
     this.trasteroService.getUsuarios().subscribe({
       next: (data) => {
         this.usuarios = data;
@@ -53,14 +52,12 @@ export class AdminPage implements OnInit {
 
   }
 
-
   trackByTrasteroId(index: number, item: Trastero) {
     return item.id_trastero;
   }
 
-
+  // Metodo para cargar trasteros desde el servicio
   cargarTrasteros() {
-
     this.trasteroService.getTrasteros().subscribe({
       next: (data) => {
         this.trasteros = data;
@@ -72,20 +69,17 @@ export class AdminPage implements OnInit {
 
   }
 
-
   irAlMain() {
     this.nav.goTo('');
   }
-
 
   gestionUsuarios() {
     this.nav.goTo('users');
   }
 
-
   seleccionar(t: Trastero) {
 
-    // copia del objeto
+    // Copia del objeto
     this.trasteroSeleccionado = {
       ...t,
       id_usuario: t.id_usuario ?? undefined
@@ -93,7 +87,7 @@ export class AdminPage implements OnInit {
 
   }
 
-
+  // Metodo para cambiar el estado del trastero seleccionado
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
 
     if (!this.trasteroSeleccionado) return;
@@ -111,7 +105,7 @@ export class AdminPage implements OnInit {
 
   }
 
-
+  // Metodo para calcular fecha fin del contrato a partir de la fecha de inicio y los meses de contrato
   calcularFechaFin(fechaInicio?: string, meses?: number): string | null {
 
     if (!fechaInicio || !meses) return null;
@@ -125,7 +119,7 @@ export class AdminPage implements OnInit {
 
   }
 
-
+  // Metodo para guardar cambios del trastero seleccionado
   estadoContrato(fechaFin: string | null): 'verde' | 'amarillo' | 'rojo' | null {
 
     if (!fechaFin) return null;
@@ -186,14 +180,12 @@ export class AdminPage implements OnInit {
 
   }
 
-
   liberar(t: Trastero) {
 
     this.trasteroALiberar = t;
     this.mostrarModal = true;
 
   }
-
 
   confirmarLiberar() {
 
@@ -208,7 +200,6 @@ export class AdminPage implements OnInit {
     this.cerrarModal();
 
   }
-
 
   cerrarModal() {
 

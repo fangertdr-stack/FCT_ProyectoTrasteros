@@ -8,9 +8,6 @@ import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Trastero } from '../../models/trastero';
-import { URL_BASE } from '../../../environments/environment';
-
-
 
 @Component({
   selector: 'app-main-page',
@@ -28,8 +25,7 @@ export class MainPage implements OnInit {
   nombrePublico: string = '';
   private token: string = '';
 
-
-
+  // Ejemplo de trasteros
 
   // trasteros: Trastero[] = [
   //   {
@@ -74,28 +70,27 @@ export class MainPage implements OnInit {
   startDate: Date | null = null;
   endDate: Date | null = null;
 
-
-
+  // Metodo para navegar a la pagina de login
   login(){
-
     this.router.navigate(['/login']);
   }
 
+  // Metodo para navegar a la pagina de admin
   admin(){
     this.router.navigate(['/admin']);
   }
 
+  // Metodo para navegar a la pagina de alquiler
   rent() {
     this.router.navigate(['/rent']);
   }
-
 
   get isLoggedIn(): boolean {
     if (!this.isBrowser()) return false;
     return !!(localStorage.getItem('token'));
   }
 
-  // funcion para mostrar fechas seleccionadas
+  // Funcion para mostrar fechas seleccionadas
   showDates() {
     if (this.startDate && this.endDate) {
       this.snackBar.open(`Inicio: ${this.startDate.toLocaleDateString()}\nFin: ${this.endDate.toLocaleDateString()}`);
@@ -104,8 +99,8 @@ export class MainPage implements OnInit {
     }
   }
 
+  // Metodo para cerrar sesion
   logout() {
-
     if (!this.isBrowser()) return;
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');

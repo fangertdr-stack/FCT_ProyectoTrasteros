@@ -7,9 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
-
-
 @Component({
   selector: 'app-edit-user',
   standalone: true,
@@ -19,17 +16,15 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditUser implements OnInit {
 
-
   usuario!: Usuario;
   idUsuario!: number;
 
-  constructor(public route: ActivatedRoute,  // <-- Esto es para leer parámetros
-              public router: Router,         // <-- Esto es para navegar
+  constructor(public route: ActivatedRoute,  // Esto es para leer parámetros
+              public router: Router,         // Esto es para navegar
               private userService: UsersCrud
   ) {}
 
   ngOnInit(): void {
-    // Suscribirse a cambios de paráme
 
     this.route.paramMap.subscribe(params => {
       this.idUsuario = Number(params.get('id'));

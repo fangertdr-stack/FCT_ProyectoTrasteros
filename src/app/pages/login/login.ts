@@ -6,10 +6,7 @@ import { NavigationService } from '../../services/navigation';
 import { LoginService } from '../../services/loginService';
 import { RegisterService } from '../../services/registerService';
 
-
-
-
-// Si sigues usando Google login, deja esto. Si no, bórralo.
+// IMPORTS PARA GOOGLE LOGIN 
 import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 
 @Component({
@@ -34,7 +31,6 @@ export class LoginComponent {
   showPassword = false;
   loading = false;
   errorMessage = '';
-
 
   constructor(
     private auth: Auth, // solo si se usa google login
@@ -69,7 +65,7 @@ export class LoginComponent {
     this.errorMessage = '';
   }
 
-  // Google login (opcional)
+  // Google login
   loginGoogle() {
     const provider = new GoogleAuthProvider();
     this.loading = true;
@@ -78,11 +74,12 @@ export class LoginComponent {
       .catch(err => this.handleError(err));
   }
 
-  // SUBMIT: decide si login o register
+  // SUBMIT: Decide si login o register
   submit() {
     this.errorMessage = '';
 
     if (!this.isRegister) {
+
       //  LOGIN BACKEND
       if (!this.email || !this.password) {
         this.errorMessage = 'Completa todos los campos';
@@ -127,6 +124,7 @@ export class LoginComponent {
       dni: this.dni,
       telefono: this.telefono,
       direccion: this.direccion
+    
     }).subscribe({
       next: (resp: any) => {
         this.loading = false;
@@ -164,7 +162,7 @@ export class LoginComponent {
         console.log('RESPUESTA:', resp);
 
         if ((resp.status || resp.ok) && resp.data) {
-          // ✅ Importante en SSR: solo si existe window
+          // Importante en SSR: solo si existe window
           if (typeof window !== 'undefined') {
             localStorage.setItem('token', resp.data.token ?? '');
             localStorage.setItem('usuario', resp.data.usuario ?? '');
@@ -172,7 +170,7 @@ export class LoginComponent {
             localStorage.setItem('nombre_publico', resp.data.nombre_publico ?? '');
           }
 
-          //  aqui se comprueba si el rol es admin o no va a un sitio u a otro de la aplicacion
+          // Se comprueba si el rol es admin o no va a un sitio u a otro de la aplicacion
           const rol = String(resp.data.rol ?? '');
 
           if (rol === 'admin' || rol === '1') {
