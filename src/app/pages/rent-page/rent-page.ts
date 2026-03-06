@@ -8,11 +8,6 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { FormsModule } from '@angular/forms';
 
-
-
-
-
-
 @Component({
   selector: 'app-rent-page',
   imports: [
@@ -26,6 +21,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './rent-page.html',
   styleUrl: './rent-page.css',
 })
+
 export class RentPage {
 [x: string]: any;
 
@@ -53,7 +49,7 @@ export class RentPage {
   return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
 }
 
-   get isLoggedIn(): boolean {
+  get isLoggedIn(): boolean {
     if (!this.isBrowser()) return false;
     return !!(localStorage.getItem('token'));
   }
@@ -61,14 +57,16 @@ export class RentPage {
   ngOnInit() {
     if (!this.isLoggedIn) {
       this.showMessage("Debes iniciar sesión para alquilar un trastero", "cerrar");
-      this.router.navigate(['/login']);
-    }
-}
+      this.router.navigate(['/login']);  
+  }
 
+}
+  // Metodo para volver a la pagina anterior
   volver() {
     this.router.navigate(['']);
   }
 
+  // Metodo para validar que el usuario ha aceptado las normas y ha abierto el contrato antes de pagar
   pagar() {
     if (!this.contratoAbierto){
       this.snackBar.open('Debes leer el contrato antes de pagar', 'Cerrar', { duration: 3000 });
@@ -79,14 +77,8 @@ export class RentPage {
     return;
     }
 
-
     this.router.navigate(['/']);
 
-
   }
-
-
-
-
 
 }

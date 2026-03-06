@@ -26,6 +26,7 @@ export class RegisterService {
   }
 
   create(data: {nombre: string; email: string; password: string; dni?: string; telefono?: string; direccion?: string}): Observable<any> {
+    
     // Construir payload solo con campos que tienen valor
     const payload: any = {
       nombre: data.nombre,

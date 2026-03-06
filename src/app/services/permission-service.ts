@@ -12,7 +12,6 @@ import { PLATFORM_ID,inject } from '@angular/core';
 })
 export class PermissionService {
 
-
   private platformId = inject(PLATFORM_ID);
 
   constructor(private http: HttpClient) {}

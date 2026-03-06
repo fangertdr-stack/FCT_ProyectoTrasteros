@@ -10,8 +10,6 @@ import { MatSnackBar, } from '@angular/material/snack-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgZone } from '@angular/core';
 
-
-
 @Component({
   selector: 'app-list-user',
   standalone: true,

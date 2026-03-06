@@ -12,21 +12,24 @@ export class TrasteroService {
 
   constructor(private http: HttpClient) {}
 
+  // Traer todos los trasteros
   getTrasteros(): Observable<Trastero[]> {
     return this.http.get<Trastero[]>(this.apiUrl);
   }
 
+  // Actualizar un trastero
   updateTrastero(trastero: Trastero): Observable<any> {
     return this.http.post(`${this.apiUrl}?action=update`, trastero);
   }
 
+  // Traer usuarios para asignar trasteros
   getUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(`${URL_API}/user.php`);
   }
 
+  // Asignar un trastero a un usuarioS
   asignarTrastero(data:any): Observable<any>{
   return this.http.post(this.apiUrl, data);
   }
 
-  
 }
