@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.rent-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rent-card {
+  background: white;
+  padding: 80px;
+  border-radius: 16px;
+  width: 350px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.rent-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.rent-btn {
+  width: 45%;
+  padding: 10px;
+  border: none;
+  background: #b6b303;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+  margin-left: 20px;
+}
+
+.rent-btn:hover {
+  background: #72850b;
+}
+
+.btn-volver {
+  width: 45%;
+  padding: 10px;
+  border: none;
+  background: #3ebe17;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+.btn-volver:hover {
+  background: #339214;
+}

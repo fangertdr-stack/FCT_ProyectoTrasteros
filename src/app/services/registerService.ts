@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 import { URL_API } from '../../environments/environment.prod';
 
 
-
-
 @Injectable({
   providedIn: 'root',
 })

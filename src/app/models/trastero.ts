@@ -1,13 +1,14 @@
 export interface Trastero {
-    id_trastero: number;
-    codigo: string;
-    estado: 'OCUPADO' | 'LIBRE' | 'MANTENIMIENTO';
-    precio: number;
-    tamanio: 'PEQUEÑO' | 'MEDIANO' | 'GRANDE';
+  id_trastero: number;
+  codigo: string;
+  tamanio: 'pequeño' | 'mediano' | 'grande';
+  precio: number;
+  estado: 'libre' | 'ocupado' | 'mantenimiento';
 
-    // temporal hasta backend real
-    usuario?: string; 
-    fechaInicio?: string;
-    mesesContrato?: number;
-
+  // NUEVAS PROPIEDADES para contrato
+  id_usuario?: number;
+  usuario?: string;
+  fechaInicio?: string;
+  fecha_fin?: string;   
+  mesesContrato?: number;
 }

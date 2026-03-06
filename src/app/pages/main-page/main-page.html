@@ -7,27 +7,29 @@
     </div>
 
     <nav class="nav-buttons">
-      <button class="nav-btn ghost">contratar</button>
+      <button class="nav-btn ghost" (click)="rent()">contratar</button>
       <button class="nav-btn ghost">Contacto</button>
-      <button class="nav-btn ghost" (click)="admin()">Admin</button>
 
       @if (!isLoggedIn) {
         <button class="nav-btn primary" (click)="login()">
           Login
         </button>
     } @else {
-      <span class="welcome">
+      <button class="nav-btn ghost" (click)="admin()">Admin</button>
+      <span class="nav-welcome">
           Hola, <strong>{{ nombrePublico }}</strong>
       </span>
+
       <button class="nav-btn danger" (click)="logout()">
         Logout
       </button>
+
     }
 
     </nav>
   </header>
 
-  <!-- HERO -->
+  <!-- hero -->
   <section class="hero-banner">
   <div class="hero-overlay"></div>
 
@@ -56,6 +58,5 @@
 
   </div>
 </section>
-
 
 </div>

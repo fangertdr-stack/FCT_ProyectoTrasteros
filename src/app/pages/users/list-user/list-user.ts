@@ -1,30 +1,87 @@
-import { Component } from '@angular/core';
-import { Usuario } from '../../../models/usuario';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Usuario } from '../../../models/usuario';
+import { UsersCrud } from '../../../services/users-crud';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { NavigationService } from '../../../services/navigation';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBar, } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgZone } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-list-user',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, MatSnackBarModule],
   templateUrl: './list-user.html',
-  styleUrl: './list-user.css',
+  styleUrls: ['./list-user.css'],
+  providers: [UsersCrud]
 })
-export class ListUser {
+export class ListUser implements OnInit {
 
-  constructor() {}
+  usuario: Usuario[] = [];
 
+  constructor(private usersCrud: UsersCrud,
+              private router: Router,
+              private navigate: NavigationService,
+              private snackBar: MatSnackBar,
+              private zone: NgZone
+  ) {} // solo el servicio
 
-  usuario: Usuario [] = [
-    { id_usuario: 1, nombre: 'Juan Pérez', email: 'juan.perez@example.com', password:'abc', rol: 1, dni: '12345678A', direccion: 'Calle Principal 123', telefono: '600123456' },
-    {
-    id_usuario: 2,nombre: "María García",email: "maria.garcia@example.com",password: "def",
-    rol: 2,dni: "87654321B",direccion: "Avenida de la Libertad 45, 2ºA",
-    telefono: "600654321"
-  },
-  {
-    id_usuario: 3,nombre: "Carlos Rodríguez",email: "carlos.rodriguez@example.com",password: "ghi",
-    rol: 1,dni: "11223344C",direccion: "Calle del Sol 15, Bajo",
-    telefono: "600987654"
+  usuario$: Observable<Usuario[]> | undefined;
+  usuarioEditando!: Usuario | null; // Usuario actualmente en edición
+  editVisible = false;
+
+  ngOnInit(): void {
+    this.usuario$ = this.usersCrud.getUsuarios();
   }
-  ];
+
+private showMessage(message: string, success: boolean = true): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: success ? ['snackbar-success'] : ['snackbar-error']
+    });
+  }
+
+  volver() {
+    this.navigate.goTo('/admin');
+  }
+
+ editarUsuario(user: Usuario) {
+    this.usuarioEditando = { ...user }; // Copia para no modificar directamente la lista
+    this.editVisible = true;            // Mostrar formulario
+  }
+
+  guardarCambios() {
+  if (!this.usuarioEditando) return;
+
+  const usuarioParaActualizar = { ...this.usuarioEditando };
+
+  // Cerrar modal inmediatamente
+  this.editVisible = false;
+  this.usuarioEditando = null;
+
+  // Actualizar backend
+  this.usersCrud.updateUsuario(usuarioParaActualizar).subscribe({
+    next: () => {
+      alert('Usuario actualizado correctamente');
+      // Refrescar lista de usuarios
+      this.usuario$ = this.usersCrud.getUsuarios();
+    },
+    error: () => {
+      alert('Error al actualizar el usuario');
+    }
+  });
+}
+
+  cancelarEdicion() {
+    this.usuarioEditando = null;
+    this.editVisible = false;
+  }
 
 }

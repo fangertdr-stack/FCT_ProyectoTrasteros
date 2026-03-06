@@ -31,31 +31,31 @@ export class MainPage implements OnInit {
 
 
 
-  trasteros: Trastero[] = [
-    {
-      id_trastero: 1,
-      codigo: 'T01',
-      estado: 'OCUPADO',
-      precio: 30,
-      tamanio: 'PEQUEÑO',
-      usuario: 'usuario1'
-    },
-    {
-      id_trastero: 2,
-      codigo: 'T02',
-      estado: 'LIBRE',
-      precio: 40,
-      tamanio: 'MEDIANO',
-    },
-    {
-      id_trastero: 3,
-      codigo: 'T03',
-      estado: 'OCUPADO',
-      precio: 50,
-      tamanio: 'GRANDE',
-      usuario: 'usuario2'
-    }
-  ];
+  // trasteros: Trastero[] = [
+  //   {
+  //     id_trastero: 1,
+  //     codigo: 'T01',
+  //     estado: 'OCUPADO',
+  //     precio: 30,
+  //     tamanio: 'PEQUEÑO',
+  //     usuario: 'usuario1'
+  //   },
+  //   {
+  //     id_trastero: 2,
+  //     codigo: 'T02',
+  //     estado: 'LIBRE',
+  //     precio: 40,
+  //     tamanio: 'MEDIANO',
+  //   },
+  //   {
+  //     id_trastero: 3,
+  //     codigo: 'T03',
+  //     estado: 'OCUPADO',
+  //     precio: 50,
+  //     tamanio: 'GRANDE',
+  //     usuario: 'usuario2'
+  //   }
+  // ];
 
   trasteroSeleccionado: Trastero | null = null;
 
@@ -74,6 +74,8 @@ export class MainPage implements OnInit {
   startDate: Date | null = null;
   endDate: Date | null = null;
 
+
+
   login(){
 
     this.router.navigate(['/login']);
@@ -83,6 +85,9 @@ export class MainPage implements OnInit {
     this.router.navigate(['/admin']);
   }
 
+  rent() {
+    this.router.navigate(['/rent']);
+  }
 
 
   get isLoggedIn(): boolean {
@@ -113,6 +118,12 @@ export class MainPage implements OnInit {
 
 private isBrowser(): boolean {
   return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+}
+
+isAdmin(): boolean {
+  if (!this.isBrowser()) return false;
+  const rol = localStorage.getItem('rol');
+  return rol === 'admin';
 }
 
 }
