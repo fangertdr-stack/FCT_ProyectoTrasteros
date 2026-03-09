@@ -75,7 +75,7 @@ export class RentPage {
       return;
     }
     if (!this.aceptaNormas ) {
-    this.snackBar.open('Debes aceptar las normas  antes de pagar', 'Cerrar', { duration: 3000 });
+    this.snackBar.open('Debes marcar la casilla de aceptación', 'Cerrar', { duration: 3000 });
     return;
     }
 

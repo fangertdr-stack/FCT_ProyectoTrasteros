@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavigationService } from '../../services/navigation';
 import { TrasteroService } from '../../services/trasteroService';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-page',
@@ -35,11 +36,12 @@ export class AdminPage implements OnInit {
   mostrarModal = false;
   trasteroALiberar: Trastero | null = null;
 
+  trastero$: Observable<Trastero[]> | undefined;
 
   ngOnInit(): void {
-
+    this.trastero$ = this.trasteroService.getTrasteros();
     // cargar trasteros
-    this.cargarTrasteros();
+
 
     // cargar usuarios
     this.trasteroService.getUsuarios().subscribe({
