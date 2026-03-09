@@ -9,12 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar, } from '@angular/material/snack-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgZone } from '@angular/core';
-<<<<<<< HEAD
-=======
+
 import { Trastero } from '../../../models/trastero';
 import { TrasteroService } from '../../../services/trasteroService';
 
->>>>>>> rafa
 
 @Component({
   selector: 'app-list-user',
@@ -81,11 +79,9 @@ private showMessage(message: string, success: boolean = true): void {
     },
     error: () => {
       alert('Error al actualizar el usuario');
-    }
-  });
-}
-
-
+      }
+    });
+  }
 
   cancelarEdicion() {
     this.usuarioEditando = null;
