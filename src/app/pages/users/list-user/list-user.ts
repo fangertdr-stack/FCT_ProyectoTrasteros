@@ -9,6 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar, } from '@angular/material/snack-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgZone } from '@angular/core';
+<<<<<<< HEAD
+=======
+import { Trastero } from '../../../models/trastero';
+import { TrasteroService } from '../../../services/trasteroService';
+
+>>>>>>> rafa
 
 @Component({
   selector: 'app-list-user',
@@ -22,11 +28,13 @@ export class ListUser implements OnInit {
 
   usuario: Usuario[] = [];
 
+
   constructor(private usersCrud: UsersCrud,
               private router: Router,
               private navigate: NavigationService,
               private snackBar: MatSnackBar,
-              private zone: NgZone
+              private zone: NgZone,
+              private trasteroService: TrasteroService
   ) {} // solo el servicio
 
   usuario$: Observable<Usuario[]> | undefined;
@@ -76,6 +84,8 @@ private showMessage(message: string, success: boolean = true): void {
     }
   });
 }
+
+
 
   cancelarEdicion() {
     this.usuarioEditando = null;

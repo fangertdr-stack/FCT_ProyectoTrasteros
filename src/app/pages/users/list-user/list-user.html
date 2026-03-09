@@ -5,12 +5,15 @@
     <th>ID</th>
     <th>Nombre</th>
     <th>Email</th>
+
     <th>Acciones</th>
   </tr>
   <tr *ngFor="let user of usuario$ | async">
     <td>{{ user.id_usuario }}</td>
     <td>{{ user.nombre }}</td>
+
     <td>{{ user.email }}</td>
+
     <td>
       <button (click)="editarUsuario(user)">Editar</button>
     </td>
