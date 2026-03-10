@@ -6,7 +6,7 @@ import { NavigationService } from '../../services/navigation';
 import { LoginService } from '../../services/loginService';
 import { RegisterService } from '../../services/registerService';
 
-// IMPORTS PARA GOOGLE LOGIN 
+// IMPORTS PARA GOOGLE LOGIN
 import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 
 @Component({
@@ -50,7 +50,7 @@ export class LoginComponent {
       panelClass: success ? ['snackbar-success'] : ['snackbar-error']
     });
   }
-  
+
   volver() {
     this.nav.goBack();
   }
@@ -124,7 +124,7 @@ export class LoginComponent {
       dni: this.dni,
       telefono: this.telefono,
       direccion: this.direccion
-    
+
     }).subscribe({
       next: (resp: any) => {
         this.loading = false;

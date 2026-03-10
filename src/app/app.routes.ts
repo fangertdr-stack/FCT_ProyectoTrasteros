@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { RentPage } from './pages/rent-page/rent-page';
 import { EditUser } from './pages/users/edit-user/edit-user';
 
+
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminPage, canActivate: [adminGuard] },
