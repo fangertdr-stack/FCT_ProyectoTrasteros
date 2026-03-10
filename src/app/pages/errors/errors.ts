@@ -14,8 +14,8 @@ export class Errors {
   constructor(private nav : NavigationService) {}
 
   // Metodo para volver a la pagina principal
-  irAlMain(){
-    this.nav.goTo('');
+  volverAtras(){
+    this.nav.goBack();
   }
 
 }

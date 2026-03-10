@@ -1,0 +1,113 @@
+.error-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff4040, #272727);
+  color: #ffefef;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.error-content h2,
+.error-content p {
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Contenedor para el glitch */
+.glitch-container {
+  position: relative;
+  display: inline-block; /* Para que el h1 ocupe su espacio normal */
+  margin-bottom: 0.5rem;
+}
+
+.error-content h1 {
+  font-size: 10rem;
+  position: relative;
+  margin: 0;
+  line-height: 1;
+}
+
+/* Glitch effect */
+.glitch {
+  position: relative;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  animation: glitch-animation 2s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.glitch::before {
+  animation: glitch-top 2s infinite;
+  color: #000000;
+  clip: rect(0, 900px, 60%, 0);
+}
+
+.glitch::after {
+  animation: glitch-bottom 2s infinite;
+  color: #000000;
+  clip: rect(40%, 900px, 100%, 0);
+}
+
+@keyframes glitch-animation {
+  0% { transform: translate(0); }
+  20% { transform: translate(-5px, 5px); }
+  40% { transform: translate(-5px, -5px); }
+  60% { transform: translate(5px, 5px); }
+  80% { transform: translate(5px, -5px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-top {
+  0%,20%,40%,60%,80%,100% { transform: translate(0); }
+  10% { transform: translate(-5px, -5px); }
+  30% { transform: translate(5px, 5px); }
+  50% { transform: translate(-5px, 0); }
+  70% { transform: translate(5px, -5px); }
+  90% { transform: translate(-5px, 5px); }
+}
+
+@keyframes glitch-bottom {
+  0%,20%,40%,60%,80%,100% { transform: translate(0); }
+  10% { transform: translate(5px, 5px); }
+  30% { transform: translate(-5px, -5px); }
+  50% { transform: translate(5px, 0); }
+  70% { transform: translate(-5px, 5px); }
+  90% { transform: translate(5px, -5px); }
+}
+
+.error-content button {
+  margin: 20px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  background-color: #dfdbdb;
+  color: #0d5f18;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.error-content button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 600px) {
+  .error-content h1 {
+    font-size: 6rem;
+  }
+
+  .error-content h2 {
+    font-size: 1.5rem;
+  }
+}
