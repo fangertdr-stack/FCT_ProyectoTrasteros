@@ -1,35 +1,80 @@
-/* Tabla lista de usuarios */
+/* Título */
+.titulo {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Tabla usuarios */
 table {
-  width: 100%;
+  width: 90%;
+  margin: auto;
   border-collapse: collapse;
   margin-top: 20px;
+  border: 2px solid #2e7d32;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
+/* Cabecera */
 th {
-  background-color: #f2f2f2;
+  background-color: #e8f5e9;
+  color: #1b5e20;
+  padding: 12px;
+  font-weight: 600;
+  border-bottom: 2px solid #2e7d32;
 }
 
-/* Botones de acción */
+/* Celdas */
+td {
+  border: 1px solid #c8e6c9;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Hover filas */
+tr:hover {
+  background-color: #f1f8e9;
+}
+
+/* Botones base */
 button {
-  padding: 6px 12px;
-  margin-right: 5px;
+  padding: 6px 14px;
+  border-radius: 6px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
 }
 
-button:hover {
-  opacity: 0.9;
+/* Botón editar */
+.btn-editar {
+  background-color: #79c36f;
+  color: white;
 }
 
-button[type="submit"] { background-color: #4CAF50; color: white; }
-button[type="button"] { background-color: #f44336; color: white; }
+.btn-editar:hover {
+  background-color: #27aa25;
+  transform: scale(1.05);
+}
+
+/* Botón eliminar */
+.btn-eliminar {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.btn-eliminar:hover {
+  background-color: #9a0007;
+  transform: scale(1.05);
+}
 
 /* Modal overlay */
 .modal-overlay {
@@ -38,7 +83,7 @@ button[type="button"] { background-color: #f44336; color: white; }
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5); /* Fondo oscuro semi-transparente */
+  background: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +93,7 @@ button[type="button"] { background-color: #f44336; color: white; }
 
 /* Modal content */
 .modal-content {
-  background: #fff;
+  background: white;
   padding: 25px;
   border-radius: 12px;
   width: 400px;
@@ -57,7 +102,7 @@ button[type="button"] { background-color: #f44336; color: white; }
   animation: slideIn 0.3s ease;
 }
 
-/* Grupos de formulario */
+/* Formularios */
 .form-group {
   margin-bottom: 15px;
 }
@@ -76,10 +121,155 @@ input {
   box-sizing: border-box;
 }
 
+/* Fondo oscuro semi-transparente */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Contenido del modal */
+.modal-content {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease;
+  transition: transform 0.2s;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Formularios dentro del modal */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c8e6c9;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #2e7d32;
+  outline: none;
+}
+
 /* Botones del modal */
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Botón Guardar */
+.modal-buttons button[type="submit"] {
+  background-color: #1976d2;
+  color: white;
+}
+
+.modal-buttons button[type="submit"]:hover {
+  background-color: #125aa0;
+  transform: scale(1.05);
+}
+
+/* Botón Cancelar */
+.modal-buttons button[type="button"] {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.modal-buttons button[type="button"]:hover {
+  background-color: #9a0007;
+  transform: scale(1.05);
+}
+
+.btn-volver {
+  background-color: #8da1b6;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.btn-volver:hover {
+  background-color: #567a9b;
+  transform: scale(1.05);
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c8e6c9;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+select:focus {
+  border-color: #2e7d32;
+  outline: none;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Botones modal */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 /* Animaciones */

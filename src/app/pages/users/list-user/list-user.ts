@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar, } from '@angular/material/snack-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgZone } from '@angular/core';
-
+import { ChangeDetectorRef } from '@angular/core';
 import { Trastero } from '../../../models/trastero';
 import { TrasteroService } from '../../../services/trasteroService';
 
@@ -32,7 +32,8 @@ export class ListUser implements OnInit {
               private navigate: NavigationService,
               private snackBar: MatSnackBar,
               private zone: NgZone,
-              private trasteroService: TrasteroService
+              private trasteroService: TrasteroService,
+              private cdr: ChangeDetectorRef
   ) {} // solo el servicio
 
   usuario$: Observable<Usuario[]> | undefined;
@@ -73,15 +74,33 @@ private showMessage(message: string, success: boolean = true): void {
   // Actualizar backend
   this.usersCrud.updateUsuario(usuarioParaActualizar).subscribe({
     next: () => {
-      alert('Usuario actualizado correctamente');
-      // Refrescar lista de usuarios
+      this.showMessage('Usuario actualizado correctamente')
       this.usuario$ = this.usersCrud.getUsuarios();
+      this.cdr.detectChanges();
+      Promise.resolve().then(() => this.usuarioEditando = null);
+
     },
     error: () => {
-      alert('Error al actualizar el usuario');
+      this.showMessage('Error al actualizar el usuario')
       }
     });
   }
+
+  eliminarUsuario(user: Usuario) {
+
+  if (!confirm('¿Seguro que quieres eliminar este usuario?')) return;
+
+  this.usersCrud.deleteUsuario(user.id_usuario).subscribe({
+    next: () => {
+      this.showMessage('Usuario eliminado correctamente');
+      this.usuario$ = this.usersCrud.getUsuarios(); // recargar lista
+    },
+    error: () => {
+      this.showMessage('Error al eliminar el usuario');
+    }
+  });
+
+}
 
   cancelarEdicion() {
     this.usuarioEditando = null;

@@ -34,6 +34,6 @@ export class UsersCrud {
 
   // DELETE borra usuario
   deleteUsuario(id_usuario: number): Observable<any> {
-    return this.http.delete(this.apiUrl, { body: { id_usuario } });
-  }
+  return this.http.delete(`${this.apiUrl}?id_usuario=${id_usuario}`);
+}
 }

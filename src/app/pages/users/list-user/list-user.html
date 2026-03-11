@@ -1,38 +1,74 @@
-<h2>Lista de Usuarios</h2>
+<div style="width: 90%; margin: 20px auto; display: flex; align-items: center;">
+  <button class="btn-volver" (click)="volver()">← Volver</button>
+  <h1 class="titulo" style="margin-left: 190px;">Gestión de Usuarios</h1>
+</div>
+
 
 <table>
-  <tr>
-    <th>ID</th>
-    <th>Nombre</th>
-    <th>Email</th>
 
-    <th>Acciones</th>
-  </tr>
-  <tr *ngFor="let user of usuario$ | async">
-    <td>{{ user.id_usuario }}</td>
-    <td>{{ user.nombre }}</td>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>DNI</th>
+      <th>Rol</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
 
-    <td>{{ user.email }}</td>
+  <tbody>
 
-    <td>
-      <button (click)="editarUsuario(user)">Editar</button>
-    </td>
-  </tr>
+    <tr *ngFor="let user of usuario$ | async">
+      <td>{{user.id_usuario}}</td>
+      <td>{{user.nombre}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.dni}}</td>
+      <td>{{ user.rol == 0 ? 'Usuario' : 'Administrador' }}</td>
+      <td>{{user.direccion}}</td>
+      <td>{{user.telefono}}</td>
+      <td>
+        <button class="btn-editar" (click)="editarUsuario(user)">Editar</button>
+
+      </td>
+    </tr>
+  </tbody>
+
 </table>
 
 <!-- Modal de edición -->
-<div *ngIf="editVisible" class="modal-overlay"  (click)="cancelarEdicion()" >
+<div *ngIf="editVisible && usuarioEditando" class="modal-overlay" (click)="cancelarEdicion()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <h3>Editar Usuario: {{ usuarioEditando?.nombre }}</h3>
-    <form (ngSubmit)="guardarCambios()" >
+    <h3>Editar Usuario: {{ usuarioEditando.nombre }}</h3>
+    <form (ngSubmit)="guardarCambios()">
       <div class="form-group">
-        <label>Nombre:</label>
+        <label>Nombre nuevo:</label>
         <input [(ngModel)]="usuarioEditando!.nombre" name="nombre" required />
       </div>
 
       <div class="form-group">
-        <label>Email:</label>
+        <label>Email nuevo:</label>
         <input [(ngModel)]="usuarioEditando!.email" name="email" type="email" required />
+      </div>
+
+      <div class="form-group">
+        <label>Dirección nueva:</label>
+        <input [(ngModel)]="usuarioEditando!.direccion" name="direccion" type="direccion" required />
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono nuevo:</label>
+        <input [(ngModel)]="usuarioEditando!.telefono" name="telefono" type="telefono" required />
+      </div>
+
+      <div class="form-group">
+        <label>Rol nuevo:</label>
+          <select [(ngModel)]="usuarioEditando!.rol" name="rol" required>
+            <option [value]="0">Usuario</option>
+            <option [value]="1">Administrador</option>
+          </select>
       </div>
 
       <div class="modal-buttons">
