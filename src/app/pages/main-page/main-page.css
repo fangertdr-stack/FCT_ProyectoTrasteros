@@ -201,7 +201,6 @@
 }
 
 /* Trasteros */
-
 .trasteros-section{
   padding:80px 20px;
   text-align:center;
@@ -228,6 +227,8 @@
   display:flex;
   align-items:flex-end;
   justify-content:center;
+
+  overflow:hidden; /* IMPORTANTE */
 }
 
 .trastero:hover{
@@ -237,8 +238,11 @@
 
 /* puerta enrollable */
 .puerta{
+  position:absolute;
+  bottom:10px;
   width:85%;
   height:70%;
+
   background:repeating-linear-gradient(
     to bottom,
     #9ca3af,
@@ -246,8 +250,14 @@
     #d1d5db 4px,
     #d1d5db 8px
   );
+
   border:2px solid #6b7280;
-  margin-bottom:10px;
+
+  transition:transform .6s ease;
+}
+
+.trastero:hover .puerta{
+  transform:translateY(-120%);
 }
 
 /* etiqueta */
