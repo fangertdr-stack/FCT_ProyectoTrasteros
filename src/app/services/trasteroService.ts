@@ -32,4 +32,10 @@ export class TrasteroService {
   return this.http.post(this.apiUrl, data);
   }
 
+  liberarTrastero(id_trastero: number) {
+  return this.http.delete(`${this.apiUrl}`, {
+    body: { id_trastero }
+  });
+}
+
 }

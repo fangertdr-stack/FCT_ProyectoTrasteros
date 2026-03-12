@@ -296,7 +296,7 @@ body {
   cursor: pointer;
   font-weight: 600;
   opacity: .5;
-  background: #f1f3ef;
+  background: #8a8f84;
   border: 1px solid transparent;
   transition: all .2s ease;
 }
@@ -340,11 +340,11 @@ body {
 }
 
 .buttons button:last-child {
-  background: #eceeea;
+  background: #829371;
 }
 
 .buttons button:last-child:hover {
-  background: #dfe4dc;
+  background: #708166;
 }
 
 /* RESPONSIVE */
@@ -398,7 +398,7 @@ body {
 }
 
 .confirm-box {
-  background: #ffffff;
+  background: #9f9191;
   padding: 28px 32px;
   border-radius: 18px;
   width: 360px;

@@ -151,6 +151,8 @@ export class LoginComponent {
     });
   }
 
+
+
   private loginBackend() {
     const email = this.email;
     const password = this.password;
@@ -164,10 +166,17 @@ export class LoginComponent {
         if ((resp.status || resp.ok) && resp.data) {
           // Importante en SSR: solo si existe window
           if (typeof window !== 'undefined') {
-            localStorage.setItem('token', resp.data.token ?? '');
-            localStorage.setItem('usuario', resp.data.usuario ?? '');
-            localStorage.setItem('rol', String(resp.data.rol ?? ''));
-            localStorage.setItem('nombre_publico', resp.data.nombre_publico ?? '');
+            const token = resp.data.token;
+
+            localStorage.setItem('token', token);
+
+            // decodifico token
+            const payload = JSON.parse(atob(token.split('.')[1]));
+
+            localStorage.setItem('id_usuario', payload.id_usuario);
+            localStorage.setItem('rol', payload.rol);
+            localStorage.setItem('nombre', resp.data.nombre_publico);
+
           }
 
           // Se comprueba si el rol es admin o no va a un sitio u a otro de la aplicacion

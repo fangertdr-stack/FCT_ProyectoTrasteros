@@ -64,7 +64,7 @@ export class MainPage implements OnInit {
   ngOnInit(): void {
     if (!this.isBrowser()) return;
     this.token = localStorage.getItem('token') ?? '';
-    this.nombrePublico = localStorage.getItem('nombre_publico') ?? '';
+    this.nombrePublico = localStorage.getItem('nombre') ?? '';
   }
 
   startDate: Date | null = null;

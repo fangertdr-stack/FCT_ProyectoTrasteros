@@ -19,6 +19,18 @@ export class LoginService {
 
  }
 
+ getUser(){
+
+    const id = localStorage.getItem("id_usuario");
+
+    if(!id) return null;
+
+    return {
+      id_usuario: Number(id)
+    };
+
+  }
+
   // Envio las credenciales y me responde si son correctas o no
   login(data: {email: string; password: string}): Observable<any>{
     const body = JSON.stringify(data);

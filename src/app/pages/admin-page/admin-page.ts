@@ -35,7 +35,7 @@ export class AdminPage implements OnInit {
     console.log("AdminPage iniciado");
 
     this.trastero$ = this.trasteroService.getTrasteros();
-    
+
     // Cargar usuarios
     this.trasteroService.getUsuarios().subscribe({
       next: (data) => {
@@ -85,6 +85,9 @@ export class AdminPage implements OnInit {
   }
 
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
+
+    //aqui hay que tocar
+    //this.trasteroService.asignarTrastero
     if (!this.trasteroSeleccionado) return;
 
     console.log("Cambiando estado a:", estado);
@@ -203,18 +206,20 @@ export class AdminPage implements OnInit {
   }
 
   confirmarLiberar() {
-    if (!this.trasteroALiberar) return;
+  if (!this.trasteroALiberar) return;
 
-    console.log("Liberando trastero:", this.trasteroALiberar);
+  console.log("Liberando trastero:", this.trasteroALiberar);
 
-    this.trasteroALiberar.estado = 'libre';
-    this.trasteroALiberar.usuario = undefined;
-    this.trasteroALiberar.id_usuario = undefined;
-    this.trasteroALiberar.fechaInicio = undefined;
-    this.trasteroALiberar.mesesContrato = undefined;
-
-    this.cerrarModal();
-  }
+  this.trasteroService.liberarTrastero(this.trasteroALiberar.id_trastero).subscribe({
+    next: () => {
+      this.cargarTrasteros();
+      this.cerrarModal();
+    },
+    error: (err) => {
+      console.error("Error liberando trastero", err);
+    }
+  });
+}
 
   cerrarModal() {
     console.log("Cerrando modal");

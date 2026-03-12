@@ -1,16 +1,14 @@
-import { UsersCrud } from './../../services/users-crud';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PermissionService } from '../../services/permission-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatOption, MatPseudoCheckbox } from "@angular/material/core";
+import { MatOption } from "@angular/material/core";
 import { MatLabel, MatFormField } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TrasteroService } from '../../services/trasteroService';
-import { Trastero } from '../../models/trastero';
 import { LoginService } from '../../services/loginService';
 
 @Component({
@@ -23,41 +21,41 @@ import { LoginService } from '../../services/loginService';
     MatCheckboxModule,
     FormsModule,
     CommonModule
-],
+  ],
   templateUrl: './rent-page.html',
   styleUrl: './rent-page.css',
 })
 
 export class RentPage {
-[x: string]: any;
 
   duracionSeleccionada: number = 1;
   tamanioSeleccionado: string = 'pequeño';
   aceptaNormas: boolean = false;
   contratoAbierto: boolean = false;
 
+  codigoPago!: number;
+  codigoGeneradoVisible = false;
+
   constructor(
     private router: Router,
     private permissionService: PermissionService,
     private snackBar: MatSnackBar,
     private trasteroService: TrasteroService,
-    private login:LoginService,
-    private permission: PermissionService
-
+    private login: LoginService
   ) {}
 
   showMessage(message: string, action: string = 'Cerrar'): void {
     this.snackBar.open(message, action, {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        panelClass: ['snackbar-error']
-      });
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['snackbar-error']
+    });
   }
 
   private isBrowser(): boolean {
-  return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-}
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
 
   get isLoggedIn(): boolean {
     if (!this.isBrowser()) return false;
@@ -65,92 +63,86 @@ export class RentPage {
   }
 
   ngOnInit() {
+
     if (!this.isLoggedIn) {
       this.showMessage("Debes iniciar sesión para alquilar un trastero", "cerrar");
       this.router.navigate(['/login']);
+    }
+
   }
 
-}
-  // Metodo para volver a la pagina anterior
+  // Volver atrás
   volver() {
     this.router.navigate(['']);
   }
 
+    pagar() {
 
+    if (!this.contratoAbierto) {
+      this.showMessage('Debes leer el contrato antes de pagar');
+      return;
+    }
 
-  codigoPago!: number;
-  codigoGeneradoVisible = false;
+    if (!this.aceptaNormas) {
+      this.showMessage('Debes aceptar las normas');
+      return;
+    }
 
-generarCodigo(){
+    const usuario = this.login.getUser();
 
-  // genero codigo aleatorio de 6 cifras
- this.codigoPago = Math.floor(100000 + Math.random() * 900000);
+    if (!usuario) {
+      this.showMessage("Sesión no válida");
+      this.router.navigate(['/login']);
+      return;
+    }
 
-  //muestra el codigo generado
- this.codigoGeneradoVisible = true;
-}
+    // fecha inicio
+    const fechaInicio = new Date();
 
-trasteroAsignado!: Trastero | null;
+    // fecha fin según duración
+    const fechaFin = new Date();
+    fechaFin.setMonth(fechaInicio.getMonth() + this.duracionSeleccionada);
 
-asignarTrasteroRandom(id_usuario: number, fecha_inicio: string, fecha_fin: string) {
-  this.trasteroService.getTrasteros().subscribe({
-    next: (trasteros: Trastero[]) => {
-      const libres = trasteros.filter(t => t.estado === 'libre');
-      if (libres.length === 0) {
-        console.log('No hay trasteros libres');
-        this.trasteroAsignado = null;
-        return;
+    const data = {
+      id_usuario: usuario.id_usuario,
+      fecha_inicio: fechaInicio.toISOString().slice(0,10),
+      fecha_fin: fechaFin.toISOString().slice(0,10)
+    };
+
+    this.trasteroService.asignarTrastero(data).subscribe({
+
+      next: (resp:any) => {
+
+        if(resp.success){
+
+          this.codigoPago = resp.codigo;
+          this.codigoGeneradoVisible = true;
+
+        }else{
+
+          this.showMessage(resp.message ?? "No hay trasteros disponibles");
+
+        }
+
+      },
+
+      error: (err) => {
+
+        console.error(err);
+        this.showMessage('Error al asignar trastero');
+
       }
 
-      // Elegir uno aleatorio
-      const indiceRandom = Math.floor(Math.random() * libres.length);
-      this.trasteroAsignado = libres[indiceRandom];
+    });
 
-      // Crear el alquiler en el backend
-      const data = {
-        id_usuario,
-        id_trastero: this.trasteroAsignado.id_trastero,
-        fecha_inicio,
-        fecha_fin
-      };
-
-      this.trasteroService.asignarTrastero(data).subscribe({
-        next: () => {
-          console.log('Trastero asignado y actualizado:', this.trasteroAsignado);
-        },
-        error: (err) => console.error('Error al asignar trastero:', err)
-      });
-    },
-    error: (err) => console.error('Error al traer trasteros:', err)
-  });
-}
-
-pagar() {
-  // Validaciones
-  if (!this.contratoAbierto) {
-    this.snackBar.open('Debes leer el contrato antes de pagar', 'Cerrar', { duration: 3000 });
-    return;
   }
 
-  if (!this.aceptaNormas) {
-    this.snackBar.open('Debes marcar la casilla de aceptación', 'Cerrar', { duration: 3000 });
-    return;
+  cerrarCodigo() {
+
+    this.codigoGeneradoVisible = false;
+
+    this.router.navigate(['/']);
+
   }
-
-  //this.asignarTrasteroRandom()
-
-  this.generarCodigo()
-
-
-}
-
-// Cerrar modal
-cerrarCodigo() {
-  this.codigoGeneradoVisible = false;
-  // redirigir después de cerrar modal
-  this.router.navigate(['/']);
-}
-
-
 
 }
