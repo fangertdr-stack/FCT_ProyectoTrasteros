@@ -2,37 +2,36 @@
 
 .main-page {
   min-height: 100vh;
-  background: #f4f6f3;
+  background: #f3f6f4;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937;
 }
+
 
 /* HEADER */
 
 .main-header {
   height: 70px;
-  padding: 0 28px;
+  padding: 0 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f9faf8;
-  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+
+  background: white;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
-  color: #243124;
+  color: #1e5c2a;
+  letter-spacing: .3px;
 }
 
-.logo span {
-  font-size: 22px;
-}
 
 /* NAV */
 
@@ -43,7 +42,7 @@
 
 .nav-btn {
   padding: 10px 18px;
-  border-radius: 12px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   font-size: 14px;
@@ -53,61 +52,61 @@
 
 .nav-btn.ghost {
   background: transparent;
-  color: #3e8f46;
+  color: #2f7c3b;
 }
 
 .nav-btn.ghost:hover {
-  background: rgba(62,143,70,.1);
+  background: rgba(46,125,50,0.08);
 }
 
 .nav-btn.primary {
-  background: #4ead53;
-  color: #fff;
+  background: #35a447;
+  color: white;
 }
 
 .nav-btn.primary:hover {
-  background: #43c56e;
+  background: #2e8f3d;
 }
 
 .nav-btn.danger {
-  background: #d9534f;
-  color: #fff;
+  background: #e14b47;
+  color: white;
 }
 
 .nav-btn.danger:hover {
-  background: #c94440;
+  background: #c73f3b;
 }
 
 .nav-welcome {
-  padding: 10px 18px;
-  border-radius: 12px;
-  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
   font-size: 14px;
-  font-weight: 600;
-  text-decoration: underline;
-  transition: all .25s ease;
-  color: #0d5224;
-  background-color: rgb(230, 228, 228);
+  background: #f0f3f1;
+  color: #1f2937;
 }
 
-/* HERO BANNER COMPLEJO */
+
+/* HERO */
 
 .hero-banner {
   position: relative;
   margin: 24px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, #0b3b0f, #1e5c2a);
+  border-radius: 22px;
+
+  background: linear-gradient(135deg,#0f3f15,#2c7a3f);
+
   overflow: hidden;
-  color: #fff;
+  color: white;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
+
   background: linear-gradient(
     90deg,
     rgba(0,0,0,.35),
-    rgba(0,0,0,.1)
+    rgba(0,0,0,.05)
   );
 }
 
@@ -115,38 +114,42 @@
   position: relative;
   display: flex;
   align-items: center;
-  padding: 38px;
+  padding: 48px;
   gap: 40px;
 }
 
-/* IZQUIERDA */
+
+/* HERO LEFT */
 
 .hero-left {
   flex: 1;
-  max-width: 600px;
+  max-width: 620px;
 }
 
 .hero-left h1 {
   font-size: 40px;
-  margin-bottom: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
 }
 
 .hero-left p {
-  font-size: 25px;
+  font-size: 20px;
   opacity: .9;
   margin-bottom: 28px;
 }
+
 
 /* FEATURES */
 
 .hero-features {
   display: flex;
   gap: 18px;
-  font-size: px;
-  opacity: .9;
+  font-size: 15px;
+  opacity: .95;
 }
 
-/* DERECHA */
+
+/* HERO RIGHT */
 
 .hero-right {
   flex: 1;
@@ -155,14 +158,18 @@
 }
 
 .hero-right img {
-  max-width: 60%;
-  height: auto;
+  max-width: 420px;
+  width: 100%;
   border-radius: 18px;
+
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
 }
 
-/* MOBILE */
+
+/* MOBILE HERO */
 
 @media (max-width: 900px) {
+
   .hero-container {
     flex-direction: column;
     padding: 32px;
@@ -171,25 +178,14 @@
   .hero-right {
     display: none;
   }
+
 }
 
 
-/* ANIMATION */
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* MOBILE */
+/* NAV MOBILE */
 
 @media (max-width: 600px) {
+
   .nav-buttons {
     gap: 8px;
   }
@@ -198,52 +194,103 @@
     padding: 9px 14px;
     font-size: 13px;
   }
+
 }
 
-/* Trasteros */
-.trasteros-section{
-  padding:80px 20px;
-  text-align:center;
+
+/* TRASTEROS SECTION */
+
+.trasteros-section {
+  padding: 50px 20px 30px 20px;
+  text-align: center;
 }
 
-.trasteros-container{
-  display:flex;
-  justify-content:center;
-  align-items:flex-end;
-  gap:40px;
-  margin-top:50px;
+.trasteros-container {
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  gap: 45px;
+  margin-top: 40px;
+
+  flex-wrap: wrap;
 }
 
-/* caja exterior */
-.trastero{
-  width:160px;
-  height:140px;
-  background:#e5e7eb;
-  border:4px solid #374151;
-  border-radius:6px;
-  position:relative;
-  cursor:pointer;
-  transition:all .25s ease;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
 
-  overflow:hidden; /* IMPORTANTE */
+/* CONTENEDOR TRASTERO */
+
+.trastero-item {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  transition: transform .25s ease;
 }
 
-.trastero:hover{
-  transform:translateY(-10px);
-  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+
+/* TEXTO */
+
+.label {
+  font-weight: 700;
+  font-size: 18px;
+  color: #1f2937;
 }
 
-/* puerta enrollable */
-.puerta{
-  position:absolute;
-  bottom:10px;
-  width:85%;
-  height:70%;
 
-  background:repeating-linear-gradient(
+/* TRASTERO */
+
+.trastero {
+
+  width: 160px;
+  height: 140px;
+
+  background: linear-gradient(
+    180deg,
+    #e5e7eb,
+    #d1d5db
+  );
+
+  border: 3px solid #374151;
+  border-radius: 8px;
+
+  position: relative;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  overflow: hidden;
+
+  transition: all .3s ease;
+}
+
+
+.trastero:hover {
+
+  transform: translateY(-10px) scale(1.05);
+
+  box-shadow:
+  0 20px 40px rgba(0,0,0,0.2);
+}
+
+
+/* PUERTA */
+
+.puerta {
+
+  position: absolute;
+
+  bottom: 10px;
+
+  width: 85%;
+  height: 70%;
+
+  background: repeating-linear-gradient(
     to bottom,
     #9ca3af,
     #9ca3af 4px,
@@ -251,30 +298,26 @@
     #d1d5db 8px
   );
 
-  border:2px solid #6b7280;
+  border: 2px solid #6b7280;
 
-  transition:transform .6s ease;
+  transition: transform .6s ease;
+
 }
 
-.trastero:hover .puerta{
-  transform:translateY(-120%);
+.trastero:hover .puerta {
+
+  transform: translateY(-120%);
 }
 
-/* etiqueta */
-.label{
-  position:absolute;
-  bottom:-30px;
-  font-weight:600;
+
+/* TAMAÑOS */
+
+.mediano {
+  width: 200px;
+  height: 170px;
 }
 
-/* tamaños */
-
-.mediano{
-  width:200px;
-  height:170px;
-}
-
-.grande{
-  width:250px;
-  height:210px;
+.grande {
+  width: 250px;
+  height: 210px;
 }
