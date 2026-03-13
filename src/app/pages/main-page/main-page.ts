@@ -8,6 +8,7 @@ import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Trastero } from '../../models/trastero';
+import { NavigationService } from '../../services/navigation';
 
 @Component({
   selector: 'app-main-page',
@@ -59,6 +60,7 @@ export class MainPage implements OnInit {
               private snackBar: MatSnackBar,
               private router: Router,
               private auth: Auth,
+              private nav: NavigationService,
 
   ) {}
   ngOnInit(): void {
@@ -111,16 +113,20 @@ export class MainPage implements OnInit {
 
   this.snackBar.open('Cierre de sesión exitoso', 'Cerrar', { duration: 3000 });
   // this.router.navigate(['/login']);
-}
+  }
 
-private isBrowser(): boolean {
-  return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-}
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
 
-isAdmin(): boolean {
-  if (!this.isBrowser()) return false;
-  const rol = localStorage.getItem('rol');
-  return rol === 'admin';
-}
+  isAdmin(): boolean {
+    if (!this.isBrowser()) return false;
+    const rol = localStorage.getItem('rol');
+    return rol === 'admin';
+  }
+
+  contratar() {
+      this.nav.goTo('rent');
+  }
 
 }

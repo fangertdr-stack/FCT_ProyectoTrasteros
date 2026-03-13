@@ -16,49 +16,91 @@
         <button class="nav-btn primary" (click)="login()">
           Login
         </button>
-    } @else {
-      <button class="nav-btn ghost" (click)="admin()">Admin</button>
-      <span class="nav-welcome">
+      } @else {
+        <button class="nav-btn ghost" (click)="admin()">Admin</button>
+
+        <span class="nav-welcome">
           Hola, <strong>{{ nombrePublico }}</strong>
-      </span>
+        </span>
 
-      <button class="nav-btn danger" (click)="logout()">
-        Logout
-      </button>
-
-    }
-
+        <button class="nav-btn danger" (click)="logout()">
+          Logout
+        </button>
+      }
     </nav>
   </header>
 
-  <!-- hero -->
+
+  <!-- HERO -->
   <section class="hero-banner">
-  <div class="hero-overlay"></div>
 
-  <div class="hero-container">
+    <div class="hero-overlay"></div>
 
-    <!-- IZQUIERDA -->
-    <div class="hero-left">
-      <h1>Alquila tu trastero 100% online</h1>
-      <p>Sin visitas, sin papeles, sin complicaciones.</p>
+    <div class="hero-container">
 
-      <!-- FEATURES -->
-      <div class="hero-features">
-        <span>✔ Acceso inmediato</span>
-        <span>✔ Contrato digital</span>
-        <span>✔ Pago seguro</span>
+      <div class="hero-left">
+        <h1>Alquila tu trastero 100% online</h1>
+        <p>Sin visitas, sin papeles, sin complicaciones.</p>
+
+        <div class="hero-features">
+          <span>✔ Acceso inmediato</span>
+          <span>✔ Contrato digital</span>
+          <span>✔ Pago seguro</span>
+        </div>
       </div>
+
+      <div class="hero-right">
+        <img
+          src="/assets/img/fondo1.png"
+          alt="Trasteros" 
+        />
+      </div>
+
     </div>
 
-    <!-- DERECHA -->
-    <div class="hero-right">
-      <img
-        src="https://storemore.es/wp-content/uploads/2026/02/servicio-de-mudanzas-storemore-alquiler-de-trasteros-1.webp"
-        alt="Trasteros"
-      />
+  </section>
+
+
+  <!-- TRASTEROS -->
+  <section class="trasteros-section">
+
+    <div class="trasteros-container">
+
+      <!-- PEQUEÑO -->
+      <div class="trastero-item">
+
+        <span class="label">Pequeño</span>
+
+        <div class="trastero" (click)="contratar()">
+          <div class="puerta"></div>
+        </div>
+
+      </div>
+
+      <!-- MEDIANO -->
+      <div class="trastero-item">
+
+        <span class="label">Mediano</span>
+
+        <div class="trastero mediano" (click)="contratar()">
+          <div class="puerta"></div>
+        </div>
+
+      </div>
+
+      <!-- GRANDE -->
+      <div class="trastero-item">
+
+        <span class="label">Grande</span>
+
+        <div class="trastero grande" (click)="contratar()">
+          <div class="puerta"></div>
+        </div>
+
+      </div>
+
     </div>
 
-  </div>
-</section>
+  </section>
 
 </div>
