@@ -35,6 +35,7 @@ export class RentPage {
 
   codigoPago!: number;
   codigoGeneradoVisible = false;
+  trasteroAsignado: number | null = null;
 
   constructor(
     private router: Router,
@@ -116,6 +117,7 @@ export class RentPage {
         if(resp.success){
 
           this.codigoPago = resp.codigo;
+          this.trasteroAsignado = resp.id_trastero;
           this.codigoGeneradoVisible = true;
 
         }else{

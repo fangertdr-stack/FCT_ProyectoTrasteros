@@ -99,7 +99,9 @@
 <div *ngIf="codigoGeneradoVisible" class="modal-overlay" (click)="cerrarCodigo()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <h3>Código creado</h3>
-    <p>Tu código de acceso a su trastero es: <strong>{{ codigoPago }}</strong></p>
+    <p>Tu trastero asignado es: <strong>{{ trasteroAsignado }}</strong></p>
+
+    <p>Tu código de acceso a su trastero  es: <strong>{{ codigoPago }}</strong></p>
     <div class="modal-buttons">
       <button type="button" (click)="cerrarCodigo()">Cerrar</button>
     </div>

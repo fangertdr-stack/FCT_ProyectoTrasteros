@@ -100,6 +100,11 @@ export class AdminPage implements OnInit {
       this.trasteroSeleccionado.fechaInicio = undefined;
       this.trasteroSeleccionado.mesesContrato = undefined;
     }
+
+    if(estado == 'libre'){
+      this.trasteroService.liberarTrastero
+
+    }
   }
 
   calcularFechaFin(fechaInicio?: string, meses?: number | string): string | null {
