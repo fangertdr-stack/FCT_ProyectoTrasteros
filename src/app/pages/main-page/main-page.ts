@@ -84,7 +84,9 @@ export class MainPage implements OnInit {
   rent() {
     this.router.navigate(['/rent']);
   }
-
+  contact() {
+  this.router.navigate(['/contact']);
+}
   get isLoggedIn(): boolean {
     if (!this.isBrowser()) return false;
     return !!(localStorage.getItem('token'));

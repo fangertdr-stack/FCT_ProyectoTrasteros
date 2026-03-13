@@ -1,1 +1,34 @@
-<p>contacto works!</p>
+<!-- BOTÓN PARA ABRIR EL FORMULARIO -->
+<button class="btn-contacto" (click)="abrirFormulario()">Contacto</button>
+
+<!-- MODAL DEL FORMULARIO -->
+<div *ngIf="mostrarFormulario" class="modal-fondo">
+  <div class="modal">
+    <h2>Formulario de Contacto</h2>
+
+    <form (submit)="enviarFormulario($event)">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="nombre" required />
+      </div>
+
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" name="email" required />
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" name="telefono" />
+      </div>
+
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea name="mensaje" rows="4" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-enviar">Enviar</button>
+      <button type="button" class="btn-cerrar" (click)="cerrarFormulario()">Cerrar</button>
+    </form>
+  </div>
+</div>
