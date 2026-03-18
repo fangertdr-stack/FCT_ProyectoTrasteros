@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, signal } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation';
 
@@ -12,43 +12,55 @@ import { NavigationService } from '../../services/navigation';
 })
 export class ContactPage implements OnInit {
 
-  nombre = '';
-  email = '';
-  mensaje = '';
+  nombre = signal('');
+  email = signal('');
+  mensaje = signal('');
 
-  constructor(private navigationService: NavigationService) {
-  }
+  loading = signal(false);
+  successMessage = signal('');
+  errorMessage = signal('');
+
+  constructor(private navigationService: NavigationService) {}
 
   ngOnInit(): void {
     if (!this.isBrowser()) return;
 
-    this.nombre = localStorage.getItem('nombre_publico') ?? '';
-    this.email = localStorage.getItem('usuario') ?? '';
+    this.nombre.set(localStorage.getItem('nombre') ?? '');
+    this.email.set(localStorage.getItem('email') ?? '');
   }
 
-  enviarFormulario() {
-    if (!this.mensaje.trim()) {
-      alert('Por favor escribe un mensaje');
+  enviarFormulario(form: NgForm) {
+    this.errorMessage.set('');
+    this.successMessage.set('');
+
+    if (form.invalid) {
+      this.errorMessage.set('Por favor completa correctamente el formulario.');
       return;
     }
 
-    console.log('Mensaje enviado:', {
-      nombre: this.nombre,
-      email: this.email,
-      mensaje: this.mensaje
-    });
+    this.loading.set(true);
 
-    alert('Mensaje enviado correctamente');
+    // Simulación de API
+    setTimeout(() => {
+      console.log('Mensaje enviado:', {
+        nombre: this.nombre(),
+        email: this.email(),
+        mensaje: this.mensaje()
+      });
 
-    this.mensaje = '';
-  }
+      this.successMessage.set('Mensaje enviado correctamente.');
+      this.mensaje.set('');
+      form.resetForm();
 
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+      this.loading.set(false);
+    }, 1000);
   }
 
   volver() {
     this.navigationService.goTo('');
   }
 
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined';
+  }
 }

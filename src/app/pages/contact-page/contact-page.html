@@ -1,21 +1,55 @@
-<div class="contact-container">
-  <h2>Contacto</h2>
+<div class="contact-page">
+  <div class="contact-container">
 
-  <p class="contact-info">
-    Hola <strong>{{ nombre }}</strong>
-  </p>
+    <button class="back-btn" (click)="volver()">←</button>
 
-  <form (ngSubmit)="enviarFormulario()">
-    <label for="mensaje">Mensaje</label>
-    <textarea
-      id="mensaje"
-      [(ngModel)]="mensaje"
-      name="mensaje"
-      rows="6"
-      placeholder="Escribe tu mensaje aquí..."
-      required>
-    </textarea>
+    <h2>Contacto</h2>
 
-    <button (click)="volver()" type="submit">Enviar</button>
-  </form>
+    <p class="contact-info">
+      Hola <strong>{{ nombre() }}</strong>
+    </p>
+
+    @if (errorMessage()) {
+      <div class="error">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if (successMessage()) {
+      <div class="success">
+        {{ successMessage() }}
+      </div>
+    }
+
+    <form #form="ngForm" (ngSubmit)="enviarFormulario(form)">
+
+      <label for="mensaje">Mensaje</label>
+
+      <textarea
+        id="mensaje"
+        name="mensaje"
+        [ngModel]="mensaje()"
+        (ngModelChange)="mensaje.set($event)"
+        #mensajeCtrl="ngModel"
+        rows="6"
+        placeholder="Escribe tu mensaje..."
+        required>
+      </textarea>
+
+      @if (mensajeCtrl.invalid && mensajeCtrl.touched) {
+        <div class="error">
+          El mensaje es obligatorio.
+        </div>
+      }
+
+      <button type="submit" [disabled]="loading()">
+        @if (!loading()) {
+          <span>Enviar</span>
+        } @else {
+          <span class="loader"></span>
+        }
+      </button>
+
+    </form>
+  </div>
 </div>
