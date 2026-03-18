@@ -30,7 +30,7 @@ textarea {
   box-sizing: border-box;
 }
 
-button {
+.button-enviar {
   background: #82d219;
   color: white;
   border: none;
@@ -41,6 +41,21 @@ button {
   font-size: 15px;
 }
 
-button:hover {
+.button-enviar:hover {
   background: #12d11b;
+}
+
+.button-volver {
+  background: #31d29a;
+  color: white;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.button-volver:hover {
+  background: #06906d;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contact-page',
@@ -16,19 +17,32 @@ export class ContactPage implements OnInit {
   email = '';
   mensaje = '';
 
-  constructor(private navigationService: NavigationService) {
+  constructor(private navigationService: NavigationService,
+              private snackBar: MatSnackBar
+
+  ) {}
+
+
+  private showMessage(message: string, success: boolean = true): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: success ? ['snackbar-success'] : ['snackbar-error']
+    });
   }
+
 
   ngOnInit(): void {
     if (!this.isBrowser()) return;
 
-    this.nombre = localStorage.getItem('nombre_publico') ?? '';
+    this.nombre = localStorage.getItem('nombre') ?? '';
     this.email = localStorage.getItem('usuario') ?? '';
   }
 
   enviarFormulario() {
     if (!this.mensaje.trim()) {
-      alert('Por favor escribe un mensaje');
+      this.showMessage('Por favor escribe un mensaje')
       return;
     }
 
@@ -38,7 +52,7 @@ export class ContactPage implements OnInit {
       mensaje: this.mensaje
     });
 
-    alert('Mensaje enviado correctamente');
+    this.showMessage('Mensaje enviado correctamente')
 
     this.mensaje = '';
   }
@@ -50,5 +64,8 @@ export class ContactPage implements OnInit {
   volver() {
     this.navigationService.goTo('');
   }
+
+  //PHP MAILER libreria para configurar el envio de correo
+
 
 }

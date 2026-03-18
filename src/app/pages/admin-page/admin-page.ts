@@ -87,7 +87,7 @@ export class AdminPage implements OnInit {
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
 
     //aqui hay que tocar
-    //this.trasteroService.asignarTrastero
+    this.trasteroService.asignarTrastero
     if (!this.trasteroSeleccionado) return;
 
     console.log("Cambiando estado a:", estado);

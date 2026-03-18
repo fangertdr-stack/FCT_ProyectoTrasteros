@@ -28,6 +28,8 @@ export class TrasteroService {
   }
 
   // Asignar un trastero a un usuarioS
+
+  // aqui tengo que llamar al metodo de generar codigo para que se genere y se ponga
   asignarTrastero(data:any): Observable<any>{
   return this.http.post(this.apiUrl, data);
 
