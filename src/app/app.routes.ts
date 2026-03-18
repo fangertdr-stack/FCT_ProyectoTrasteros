@@ -9,6 +9,7 @@ import { adminGuard } from './core/admin-guard';
 import { RentPage } from './pages/rent-page/rent-page';
 import { EditUser } from './pages/users/edit-user/edit-user';
 import { ContactPage } from './pages/contact-page/contact-page';
+import { UserPage } from './pages/user-page/user-page';
 
 
 export const routes: Routes = [
@@ -26,6 +27,8 @@ export const routes: Routes = [
   { path: 'rent', component: RentPage },
 
   { path: 'contact', component: ContactPage },
+
+  {path: 'user-page', component: UserPage},
 
   { path: '**', component: Errors }
 

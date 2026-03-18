@@ -26,45 +26,19 @@ export class MainPage implements OnInit {
   nombrePublico: string = '';
   private token: string = '';
 
-  // Ejemplo de trasteros
-
-  // trasteros: Trastero[] = [
-  //   {
-  //     id_trastero: 1,
-  //     codigo: 'T01',
-  //     estado: 'OCUPADO',
-  //     precio: 30,
-  //     tamanio: 'PEQUEÑO',
-  //     usuario: 'usuario1'
-  //   },
-  //   {
-  //     id_trastero: 2,
-  //     codigo: 'T02',
-  //     estado: 'LIBRE',
-  //     precio: 40,
-  //     tamanio: 'MEDIANO',
-  //   },
-  //   {
-  //     id_trastero: 3,
-  //     codigo: 'T03',
-  //     estado: 'OCUPADO',
-  //     precio: 50,
-  //     tamanio: 'GRANDE',
-  //     usuario: 'usuario2'
-  //   }
-  // ];
-
   trasteroSeleccionado: Trastero | null = null;
 
   constructor(
-              private snackBar: MatSnackBar,
-              private router: Router,
-              private auth: Auth,
-              private nav: NavigationService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private auth: Auth,
+    private nav: NavigationService,
 
   ) {}
+
   ngOnInit(): void {
     if (!this.isBrowser()) return;
+
     this.token = localStorage.getItem('token') ?? '';
     this.nombrePublico = localStorage.getItem('nombre') ?? '';
   }
@@ -94,15 +68,6 @@ export class MainPage implements OnInit {
     return !!(localStorage.getItem('token'));
   }
 
-  // Funcion para mostrar fechas seleccionadas
-  showDates() {
-    if (this.startDate && this.endDate) {
-      this.snackBar.open(`Inicio: ${this.startDate.toLocaleDateString()}\nFin: ${this.endDate.toLocaleDateString()}`);
-    } else {
-      this.snackBar.open('Selecciona ambas fechas');
-    }
-  }
-
   // Metodo para cerrar sesion
   logout() {
     if (!this.isBrowser()) return;
@@ -126,7 +91,10 @@ export class MainPage implements OnInit {
   }
 
   contratar() {
-      this.nav.goTo('rent');
+    this.nav.goTo('rent');
   }
 
+  userPage() {
+    this.nav.goTo('user-page');
+  }
 }

@@ -10,8 +10,6 @@
       <button class="nav-btn ghost" (click)="rent()">contratar</button>
       <button class="nav-btn ghost" (click)="contact()">Contactos</button>
 
-
-
       @if (!isLoggedIn) {
         <button class="nav-btn primary" (click)="login()">
           Login
@@ -19,9 +17,9 @@
       } @else {
         <button class="nav-btn ghost" (click)="admin()">Admin</button>
 
-        <span class="nav-welcome">
+        <button class="nav-welcome" (click)="userPage()">
           Hola, <strong>{{ nombrePublico }}</strong>
-        </span>
+        </button>
 
         <button class="nav-btn danger" (click)="logout()">
           Logout
