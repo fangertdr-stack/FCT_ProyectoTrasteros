@@ -30,13 +30,19 @@ export class TrasteroService {
   // Asignar un trastero a un usuarioS
   asignarTrastero(data:any): Observable<any>{
   return this.http.post(this.apiUrl, data);
-
   }
 
   liberarTrastero(id_trastero: number) {
   return this.http.delete(`${this.apiUrl}`, {
     body: { id_trastero }
   });
-}
 
+  }
+
+  getMisTrasteros(id_usuario: number) {
+  return this.http.get<any[]>(
+    `${URL_API}/userPage.php?id_usuario=${id_usuario}`
+  );
+  
+  }
 }

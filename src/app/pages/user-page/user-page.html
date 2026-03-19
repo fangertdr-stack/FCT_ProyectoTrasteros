@@ -1,1 +1,51 @@
+<div class="user-page">
+  <div class="user-card">
 
+    <button class="back-btn" (click)="goBack()">
+        ←
+    </button>
+
+    <h2 class="user-title">Mis Trasteros</h2>
+
+    @if (cargando()) {
+      <div class="loading">
+        Cargando...
+      </div>
+    }
+
+    @if (error()) {
+      <div class="error">
+        {{ error() }}
+      </div>
+    }
+
+    @if (!cargando && trastero.length === 0) {
+      <div class="empty">
+        No tienes trasteros activos
+      </div>
+    }
+
+    <div class="trasteros-grid">
+
+      @for (t of trastero(); track t.id_trastero) {
+        <div class="card">
+
+          <h3>Trastero #{{ t.id_trastero }}</h3>
+
+          <p>
+            <strong>Código:</strong>
+            <span class="codigo">{{ t.codigo }}</span>
+          </p>
+
+          <p><strong>Tamaño:</strong> {{ t.tamanio }}</p>
+          <p><strong>Precio:</strong> {{ t.precio }}€</p>
+          <p><strong>Inicio:</strong> {{ t.fechaInicio }}</p>
+          <p><strong>Fin:</strong> {{ t.fecha_fin }}</p>
+
+        </div>
+      }
+
+    </div>
+
+  </div>
+</div>

@@ -151,8 +151,6 @@ export class LoginComponent {
     });
   }
 
-
-
   private loginBackend() {
     const email = this.email;
     const password = this.password;
