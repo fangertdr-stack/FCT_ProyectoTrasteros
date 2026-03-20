@@ -28,6 +28,8 @@ export class TrasteroService {
   }
 
   // Asignar un trastero a un usuarioS
+
+
   asignarTrastero(data:any): Observable<any>{
   return this.http.post(this.apiUrl, data);
   }

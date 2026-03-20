@@ -504,3 +504,18 @@ body {
     flex: 1;
   }
 }
+
+@media (max-width: 430px) {
+  .confirm-box {
+    width: 90%;
+    padding: 22px;
+  }
+
+  .confirm-buttons {
+    flex-direction: column;
+  }
+
+  .confirm-buttons button {
+    flex: 1;
+  }
+}

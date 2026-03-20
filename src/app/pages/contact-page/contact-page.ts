@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contact-page',
@@ -21,6 +22,7 @@ export class ContactPage implements OnInit {
   errorMessage = signal('');
 
   constructor(private navigationService: NavigationService) {}
+
 
   ngOnInit(): void {
     if (!this.isBrowser()) return;

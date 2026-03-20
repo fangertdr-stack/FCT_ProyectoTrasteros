@@ -35,6 +35,9 @@ export class AdminPage implements OnInit {
     console.log("AdminPage iniciado");
 
     this.trastero$ = this.trasteroService.getTrasteros();
+    this.trastero$.subscribe(trasteros => {
+  console.log('Trasteros recibidos:', trasteros);
+});
 
     // Cargar usuarios
     this.trasteroService.getUsuarios().subscribe({
@@ -79,34 +82,25 @@ export class AdminPage implements OnInit {
     console.log("Trastero seleccionado:", t);
     this.trasteroSeleccionado = {
       ...t,
-      id_usuario: t.id_usuario ?? undefined
+      id_usuario: t.id_usuario ?? undefined,
+      fechaInicio: t.fechaInicio ?? '', // inicializar como string vacío
+      mesesContrato: t.mesesContrato ?? undefined // inicializar null
     };
     console.log("Copia para edición:", this.trasteroSeleccionado);
   }
 
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
+  if (!this.trasteroSeleccionado) return;
 
-    //aqui hay que tocar
-    //this.trasteroService.asignarTrastero
-    if (!this.trasteroSeleccionado) return;
+  this.trasteroSeleccionado.estado = estado;
 
-    console.log("Cambiando estado a:", estado);
-    this.trasteroSeleccionado.estado = estado;
-
-    if (estado !== 'ocupado') {
-      console.log("Reseteando datos de contrato");
-      this.trasteroSeleccionado.usuario = undefined;
-      this.trasteroSeleccionado.id_usuario = undefined;
-      this.trasteroSeleccionado.fechaInicio = undefined;
-      this.trasteroSeleccionado.mesesContrato = undefined;
-    }
-
-    if(estado == 'libre'){
-      this.trasteroService.liberarTrastero
-
-    }
+  if (estado !== 'ocupado') {
+    this.trasteroSeleccionado.usuario = undefined;
+    this.trasteroSeleccionado.id_usuario = undefined;
+    this.trasteroSeleccionado.fechaInicio = '';
+    this.trasteroSeleccionado.mesesContrato = undefined;
   }
-
+}
   calcularFechaFin(fechaInicio?: string, meses?: number | string): string | null {
     console.log("Calculando fecha fin seguro...");
     if (!fechaInicio || !meses) return null;
@@ -152,57 +146,49 @@ export class AdminPage implements OnInit {
   }
 
   guardar() {
-    console.log("Intentando guardar contrato...");
+  if (!this.trasteroSeleccionado) return;
 
-    if (!this.trasteroSeleccionado) {
-      console.log("No hay trastero seleccionado");
-      return;
-    }
-
-    console.log("Datos actuales del trastero:", this.trasteroSeleccionado);
-
-    if (!this.trasteroSeleccionado.id_usuario) {
-      alert("Selecciona un usuario");
-      console.log("Usuario no seleccionado");
-      return;
-    }
-
-    if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
-      alert("Completa los datos del contrato");
-      console.log("Faltan datos de contrato");
-      return;
-    }
-
-    console.log("Fecha inicio:", this.trasteroSeleccionado.fechaInicio);
-    console.log("Meses contrato:", this.trasteroSeleccionado.mesesContrato);
-
-    const fechaFin = this.calcularFechaFin(
-      this.trasteroSeleccionado.fechaInicio,
-      this.trasteroSeleccionado.mesesContrato
-    );
-
-    console.log("Fecha fin final:", fechaFin);
-
-    const data = {
-      id_usuario: this.trasteroSeleccionado.id_usuario,
-      id_trastero: this.trasteroSeleccionado.id_trastero,
-      fecha_inicio: this.trasteroSeleccionado.fechaInicio,
-      fecha_fin: fechaFin
-    };
-
-    console.log("Datos enviados al backend:", data);
-
-    this.trasteroService.asignarTrastero(data).subscribe({
-      next: (res) => {
-        console.log("Contrato guardado correctamente", res);
-        this.cargarTrasteros();
-        this.trasteroSeleccionado = null;
-      },
-      error: (err) => {
-        console.error("Error guardando alquiler", err);
-      }
-    });
+  if (!this.trasteroSeleccionado.id_usuario) {
+    alert("Selecciona un usuario");
+    return;
   }
+  console.log(this.trasteroSeleccionado.id_trastero)
+
+  if(!this.trasteroSeleccionado.id_trastero){
+    console.log(this.trasteroSeleccionado.id_trastero)
+  }
+
+  if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
+    alert("Completa los datos del contrato");
+    return;
+  }
+
+  const fechaFin = this.calcularFechaFin(
+    this.trasteroSeleccionado.fechaInicio,
+    this.trasteroSeleccionado.mesesContrato
+  );
+
+  const data = {
+    id_trastero: this.trasteroSeleccionado.id_trastero,
+    id_usuario: this.trasteroSeleccionado.id_usuario,
+    fecha_inicio: this.trasteroSeleccionado.fechaInicio,
+    fecha_fin: fechaFin,
+      precio_mensual_aplicado: this.trasteroSeleccionado.precio
+
+  };
+
+  console.log("Enviando datos al backend:", data);
+
+  this.trasteroService.asignarTrastero(data).subscribe({
+    next: () => {
+      this.cargarTrasteros();
+      this.trasteroSeleccionado = null;
+    },
+    error: (err) => {
+      console.error("Error guardando contrato", err);
+    }
+  });
+}
 
   liberar(t: Trastero) {
     console.log("Preparando liberar trastero:", t);
@@ -215,10 +201,13 @@ export class AdminPage implements OnInit {
 
   console.log("Liberando trastero:", this.trasteroALiberar);
 
-  this.trasteroService.liberarTrastero(this.trasteroALiberar.id_trastero).subscribe({
+  const idTrastero = this.trasteroALiberar.id_trastero; // guardar id antes
+
+  this.cerrarModal(); // cerrar modal inmediatamente
+
+  this.trasteroService.liberarTrastero(idTrastero).subscribe({
     next: () => {
-      this.cargarTrasteros();
-      this.cerrarModal();
+      this.cargarTrasteros(); // recargar trasteros
     },
     error: (err) => {
       console.error("Error liberando trastero", err);
