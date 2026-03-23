@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatSnackBar,MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Auth, signOut } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 import { Trastero } from '../../models/trastero';
 import { NavigationService } from '../../services/navigation';
 
 @Component({
   selector: 'app-main-page',
-
-  imports: [ FormsModule,
+  imports: [
+    FormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatNativeDateModule],
+    MatNativeDateModule
+  ],
   templateUrl: './main-page.html',
   styleUrl: './main-page.css',
 })
@@ -28,12 +29,14 @@ export class MainPage implements OnInit {
 
   trasteroSeleccionado: Trastero | null = null;
 
+  // 🔥 PROGRESO DE ANIMACIÓN (0 cerrado - 1 abierto)
+  openProgress = 0;
+
   constructor(
     private snackBar: MatSnackBar,
     private router: Router,
     private auth: Auth,
     private nav: NavigationService,
-
   ) {}
 
   ngOnInit(): void {
@@ -43,58 +46,57 @@ export class MainPage implements OnInit {
     this.nombrePublico = localStorage.getItem('nombre') ?? '';
   }
 
-  startDate: Date | null = null;
-  endDate: Date | null = null;
+@HostListener('window:scroll', [])
+onScroll(): void {
 
-  // Metodo para navegar a la pagina de login
-  login(){
-    this.router.navigate(['/login']);
-  }
+  const section = document.querySelector('.transition-section');
+  if (!section) return;
 
-  // Metodo para navegar a la pagina de admin
-  admin(){
-    this.router.navigate(['/admin']);
-  }
+  const rect = section.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
 
-  // Metodo para navegar a la pagina de alquiler
-  rent() {
-    this.router.navigate(['/rent']);
-  }
-  contact() {
-  this.router.navigate(['/contact']);
+  const target = 1 - (rect.top / windowHeight);
+
+  const clampedTarget = Math.max(0, Math.min(1, target));
+
+  // suavizado tipo cámara
+  this.openProgress += (clampedTarget - this.openProgress) * 0.12;
 }
+
+  // ---------------- NAV ----------------
+
+  login() { this.router.navigate(['/login']); }
+  admin() { this.router.navigate(['/admin']); }
+  rent() { this.router.navigate(['/rent']); }
+  contact() { this.router.navigate(['/contact']); }
+
   get isLoggedIn(): boolean {
     if (!this.isBrowser()) return false;
-    return !!(localStorage.getItem('token'));
+    return !!localStorage.getItem('token');
   }
 
-  // Metodo para cerrar sesion
   logout() {
     if (!this.isBrowser()) return;
-  localStorage.removeItem('token');
-  localStorage.removeItem('usuario');
-  localStorage.removeItem('nombre_publico');
-  localStorage.removeItem('rol');
 
-  this.snackBar.open('Cierre de sesión exitoso', 'Cerrar', { duration: 3000 });
-  // this.router.navigate(['/login']);
-  }
+    localStorage.clear();
 
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+    this.snackBar.open('Cierre de sesión exitoso', 'Cerrar', {
+      duration: 3000
+    });
   }
 
   isAdmin(): boolean {
     if (!this.isBrowser()) return false;
-    const rol = localStorage.getItem('rol');
-    return rol === 'admin';
+    return localStorage.getItem('rol') === 'admin';
   }
 
-  contratar() {
-    this.nav.goTo('rent');
-  }
+  contratar() { this.nav.goTo('rent'); }
+  mediano() { this.nav.goTo('mediano'); }
+  grande() { this.nav.goTo('grande'); }
+  pequeno() { this.nav.goTo('pequeno'); }
+  userPage() { this.nav.goTo('user-page'); }
 
-  userPage() {
-    this.nav.goTo('user-page');
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined';
   }
 }

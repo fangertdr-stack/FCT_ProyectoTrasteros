@@ -1,1 +1,57 @@
-<p>mediano works!</p>
+<div class="detail-page">
+
+  <div class="detail-wrapper">
+
+    <div class="detail-header">
+      <button class="back-btn" (click)="goBack()">←</button>
+      <h2>Trastero Mediano</h2>
+    </div>
+
+    <div class="carousel">
+
+      <div class="carousel-track"
+        [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+
+        @for (img of images; track img) {
+          <img [src]="img" />
+        }
+
+      </div>
+
+      <button class="nav prev" (click)="prev()">‹</button>
+      <button class="nav next" (click)="next()">›</button>
+
+      <div class="dots">
+        @for (img of images; track $index; let i = $index) {
+          <span
+            [class.active]="i === currentIndex"
+            (click)="goTo(i)">
+          </span>
+        }
+      </div>
+
+    </div>
+
+    <div class="detail-card">
+
+      <h3>Espacio ideal para uso doméstico</h3>
+
+      <p>
+        Perfecto para muebles pequeños, cajas medianas y objetos del hogar.
+      </p>
+
+      <ul>
+        <li>✔ 4m² - 6m²</li>
+        <li>✔ Más capacidad</li>
+        <li>✔ Acceso 24/7</li>
+      </ul>
+
+      <button class="rent-btn" (click)="rent()">
+        Contratar mediano
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

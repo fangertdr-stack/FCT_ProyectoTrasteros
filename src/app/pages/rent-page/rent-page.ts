@@ -147,4 +147,7 @@ export class RentPage {
 
   }
 
+  goBack() {
+    this.router.navigate(['']);
+  }
 }

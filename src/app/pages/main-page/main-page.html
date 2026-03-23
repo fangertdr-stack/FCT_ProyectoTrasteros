@@ -7,8 +7,7 @@
     </div>
 
     <nav class="nav-buttons">
-      <button class="nav-btn ghost" (click)="rent()">contratar</button>
-      <button class="nav-btn ghost" (click)="contact()">Contactos</button>
+      <button class="nav-btn ghost" (click)="contact()">Contacto</button>
 
       @if (!isLoggedIn) {
         <button class="nav-btn primary" (click)="login()">
@@ -28,7 +27,6 @@
     </nav>
   </header>
 
-
   <!-- HERO -->
   <section class="hero-banner">
 
@@ -41,59 +39,146 @@
         <p>Sin visitas, sin papeles, sin complicaciones.</p>
 
         <div class="hero-features">
-          <span>✔ Acceso inmediato</span>
-          <span>✔ Contrato digital</span>
-          <span>✔ Pago seguro</span>
+          <span>⚡Acceso inmediato</span>
+          <span>📝Contrato digital</span>
+          <span>🔒Pago seguro</span>
         </div>
+
+        <button class="hero-cta" (click)="rent()">
+          Empezar ahora
+        </button>
       </div>
 
       <div class="hero-right">
-        <img
-          src="/assets/img/fondo1.png"
-          alt="Trasteros"
-        />
+        <img src="/assets/img/fondo1.png" alt="Trasteros" />
       </div>
 
     </div>
-
   </section>
 
 
   <!-- TRASTEROS -->
-  <section class="trasteros-section">
+  <!-- TRASTEROS -->
+<section class="trasteros-section">
 
-    <div class="trasteros-container">
+  <h2 class="trasteros-title">
+    Encuentra el espacio perfecto para ti
+  </h2>
 
-      <!-- PEQUEÑO -->
-      <div class="trastero-item">
+  <p class="trasteros-subtitle">
+    Desde cajas pequeñas hasta mudanzas completas. Elige tu tamaño ideal.
+  </p>
 
-        <span class="label">Pequeño</span>
+  <div class="trasteros-container">
 
-        <div class="trastero" (click)="contratar()">
-          <div class="puerta"></div>
+    <!-- PEQUEÑO -->
+    <div class="trastero-item">
+
+      <span class="label">Pequeño</span>
+
+      <div class="trastero" (click)="pequeno()">
+        <div class="puerta-trasteritos"></div>
+
+        <div class="trastero-info">
+          <strong>2m² - 3m²</strong>
+          <span>Perfecto para cajas y objetos personales</span>
         </div>
-
       </div>
 
-      <!-- MEDIANO -->
-      <div class="trastero-item">
+    </div>
 
-        <span class="label">Mediano</span>
+    <!-- MEDIANO -->
+    <div class="trastero-item">
 
-        <div class="trastero mediano" (click)="contratar()">
-          <div class="puerta"></div>
+      <span class="label">Mediano</span>
+
+      <div class="trastero mediano" (click)="mediano()">
+        <div class="puerta-trasteritos"></div>
+
+        <div class="trastero-info">
+          <strong>4m² - 6m²</strong>
+          <span>Ideal para pisos pequeños o mudanzas parciales</span>
         </div>
-
       </div>
 
-      <!-- GRANDE -->
-      <div class="trastero-item">
+    </div>
 
-        <span class="label">Grande</span>
+    <!-- GRANDE -->
+    <div class="trastero-item">
 
-        <div class="trastero grande" (click)="contratar()">
-          <div class="puerta"></div>
+      <span class="label">Grande</span>
+
+      <div class="trastero grande" (click)="grande()">
+        <div class="puerta-trasteritos"></div>
+
+        <div class="trastero-info">
+          <strong>8m² - 12m²</strong>
+          <span>Espacio completo para mudanzas o negocio</span>
         </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+  <section class="transition-section">
+
+    <div class="trastero-full">
+
+      <!-- FRAME (estructura real del garaje) -->
+      <div class="trastero-frame">
+        
+        <div class="camera" [style.transform]="'translateZ(' + (openProgress * -600) + 'px)'">
+
+          <!-- PAREDES / PROFUNDIDAD -->
+          <div class="wall back"></div>
+          <div class="wall left"></div>
+          <div class="wall right"></div>
+          <div class="floor"></div>
+          <div class="ceiling"></div>
+
+          <!-- PUERTA (SCROLL ANIMADO) -->
+          <div
+            class="door"
+            [style.transform]="'translateY(' + (-100 * openProgress) + '%)'"
+          ></div>
+
+          <!-- INTERIOR -->
+          <div class="interior">
+
+            <div
+              class="trust-box"
+              [style.opacity]="openProgress"
+              [style.transform]="'translateY(' + (50 - openProgress * 50) + 'px)'"
+            >
+              <h2>Tu espacio seguro</h2>
+
+              <div class="stats">
+                <div><strong>+2.000</strong><span> Clientes</span></div>
+                <div><strong>24h</strong><span> Acceso</span></div>
+                <div><strong>100%</strong><span> Seguro</span></div>
+              </div>
+            </div>
+
+            <div
+              class="map-box"
+              [style.opacity]="openProgress"
+            >
+              <iframe
+                width="100%"
+                height="300"
+                style="border:0;border-radius:16px"
+                loading="lazy"
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3149.0960670378918!2d-4.795560000000001!3d37.881436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzfCsDUyJzUzLjIiTiA0wrA0Nyc0NC4wIlc!5e0!3m2!1sen!2ses!4v1774266026406!5m2!1sen!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+           
+            </div>
+
+          </div>
+
+        </div> 
 
       </div>
 
@@ -101,4 +186,8 @@
 
   </section>
 
+  <footer class="main-footer">
+    <p>© 2026 TrasteRush · Todos los derechos reservados</p>
+  </footer>
+  
 </div>

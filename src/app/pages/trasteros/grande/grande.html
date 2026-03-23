@@ -1,1 +1,57 @@
-<p>grande works!</p>
+<div class="detail-page">
+
+  <div class="detail-wrapper">
+
+    <div class="detail-header">
+      <button class="back-btn" (click)="goBack()">←</button>
+      <h2>Trastero Grande</h2>
+    </div>
+
+    <div class="carousel">
+
+      <div class="carousel-track"
+        [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+
+        @for (img of images; track img) {
+          <img [src]="img" />
+        }
+
+      </div>
+
+      <button class="nav prev" (click)="prev()">‹</button>
+      <button class="nav next" (click)="next()">›</button>
+
+      <div class="dots">
+        @for (img of images; track $index; let i = $index) {
+          <span
+            [class.active]="i === currentIndex"
+            (click)="goTo(i)">
+          </span>
+        }
+      </div>
+
+    </div>
+
+    <div class="detail-card">
+
+      <h3>Máxima capacidad de almacenamiento</h3>
+
+      <p>
+        Ideal para mudanzas completas, empresas o almacenamiento voluminoso.
+      </p>
+
+      <ul>
+        <li>✔ 8m² - 12m²</li>
+        <li>✔ Gran volumen</li>
+        <li>✔ Seguridad reforzada</li>
+      </ul>
+
+      <button class="rent-btn" (click)="rent()">
+        Contratar grande
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

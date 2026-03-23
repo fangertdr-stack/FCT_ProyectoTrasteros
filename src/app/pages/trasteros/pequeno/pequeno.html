@@ -1,1 +1,61 @@
-<p>pequeno works!</p>
+<div class="detail-page">
+
+  <div class="detail-wrapper"> <!-- 👈 NUEVO -->
+
+    <!-- HEADER -->
+    <div class="detail-header">
+      <button class="back-btn" (click)="goBack()">←</button>
+      <h2>Trastero Pequeño</h2>
+    </div>
+
+    <!-- CARROUSEL -->
+    <div class="carousel">
+
+      <div 
+        class="carousel-track"
+        [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
+      >
+        @for (img of images; track img) {
+          <img [src]="img" />
+        }
+      </div>
+
+      <button class="nav prev" (click)="prev()">‹</button>
+      <button class="nav next" (click)="next()">›</button>
+
+      <div class="dots">
+        @for (img of images; track $index; let i = $index) {
+          <span 
+            [class.active]="i === currentIndex"
+            (click)="goTo(i)"
+          ></span>
+        }
+      </div>
+
+    </div>
+
+    <!-- INFO -->
+    <div class="detail-card">
+      <h3>Ideal para uso personal</h3>
+
+      <p>
+        Perfecto para guardar cajas, ropa, documentos o pequeños objetos.
+      </p>
+       <p> 
+        Acceso 24/7 con seguridad garantizada.
+      </p>
+
+      <ul>
+        <li>✔ 2m² - 3m²</li>
+        <li>✔ Acceso inmediato</li>
+        <li>✔ Seguridad 24h</li>
+      </ul>
+
+      <button class="rent-btn" (click)="rent()">
+        Contratar ahora
+      </button>
+    </div>
+
+  </div>
+
+</div>

@@ -10,6 +10,9 @@ import { RentPage } from './pages/rent-page/rent-page';
 import { EditUser } from './pages/users/edit-user/edit-user';
 import { ContactPage } from './pages/contact-page/contact-page';
 import { UserPage } from './pages/user-page/user-page';
+import { Pequeno} from './pages/trasteros/pequeno/pequeno';
+import { Mediano } from './pages/trasteros/mediano/mediano';
+import { Grande } from './pages/trasteros/grande/grande';
 
 
 export const routes: Routes = [
@@ -29,6 +32,10 @@ export const routes: Routes = [
   { path: 'contact', component: ContactPage },
 
   {path: 'user-page', component: UserPage},
+
+  {path: 'pequeno', component: Pequeno},
+  {path: 'mediano', component: Mediano},
+  {path: 'grande', component: Grande},
 
   { path: '**', component: Errors }
 

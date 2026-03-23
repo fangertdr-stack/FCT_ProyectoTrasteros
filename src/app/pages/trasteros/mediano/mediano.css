@@ -1,0 +1,183 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* PAGE */
+
+.detail-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #5a5752, #0b3b0f);
+  display: flex;
+  justify-content: center;
+}
+
+/* WRAPPER CENTRADO (SOLUCION REAL) */
+
+.detail-wrapper {
+  width: 100%;
+  max-width: 900px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* HEADER */
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.detail-header h2 {
+  font-size: 20px;
+}
+
+/* BACK */
+
+.back-btn {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* CAROUSEL */
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  height: 260px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.4);
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform .6s cubic-bezier(.77,0,.18,1);
+}
+
+.carousel img {
+  flex: 0 0 100%; 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* NAV */
+
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,.4);
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* DOTS */
+
+.dots {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  background: rgba(255,255,255,.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.dots span.active {
+  background: white;
+  transform: scale(1.4);
+}
+
+/* CARD */
+
+.detail-card {
+  background: #f9faf8;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.3);
+  animation: fadeUp .5s ease;
+}
+
+.detail-card h3 {
+  margin-bottom: 10px;
+  color: #243124;
+}
+
+.detail-card p {
+  font-size: 14px;
+  color: #5e665d;
+}
+
+.detail-card ul {
+  padding-left: 16px;
+  margin-bottom: 20px;
+  margin-top: 8px;
+}
+
+/* BOTON */
+
+.rent-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #4ead53;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.rent-btn:hover {
+  background: #43c56e;
+  transform: translateY(-2px);
+}
+
+/* ANIMACION */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 768px) {
+
+  .carousel {
+    height: 360px;
+  }
+
+}

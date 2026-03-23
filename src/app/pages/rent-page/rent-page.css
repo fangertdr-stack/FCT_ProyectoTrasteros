@@ -1,88 +1,136 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+/* RESET */
+
+* {
+  box-sizing: border-box;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; 
+}
+
+/* CONTENEDOR */
 
 .rent-container {
   height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #5a5752, #0b3b0f);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 12px;
 }
 
+/* CARD */
+
 .rent-card {
-  background: white;
-  padding: 80px;
-  border-radius: 16px;
-  width: 350px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  position: relative;
+
+  background: #f9faf8;
+  padding: 24px 22px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 95vh; 
+  overflow-y: auto; 
+  border-radius: 18px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35),
+    0 0 0 1px rgba(255,255,255,.35);
+  animation: fadeInUp .5s ease;
 }
+
+/* TITULO */
 
 .rent-card h2 {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
+  font-size: 22px;
+  color: #243124;
 }
+
+/* FORM */
 
 .form-group {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
 }
 
-.form-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #333;
+label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #5e665d;
 }
 
-.form-group input {
+input {
   width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  transition: 0.2s;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #cfd6cc;
+  background: #fff;
+  font-size: 13px;
+  outline: none;
+  transition: border .2s ease, box-shadow .2s ease;
 }
 
-.form-group input:focus {
-  border-color: #007bff;
-  outline: none;
+input:focus {
+  border-color: #4ead53;
+  box-shadow: 0 0 0 2px rgba(78,173,83,.15);
 }
+
+/* ANGULAR MATERIAL */
+
+mat-form-field {
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* BOTONES */
 
 .rent-btn {
-  width: 45%;
-  padding: 10px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
   border: none;
-  background: #b6b303;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: 0.2s;
-  margin-left: 20px;
+  font-size: 14px;
+  margin-top: 14px;
+  background: #4ead53;
+  color: #fff;
+  transition: all .25s ease;
 }
 
 .rent-btn:hover {
-  background: #72850b;
+  background: #43c56e;
 }
 
 .btn-volver {
-  width: 45%;
+  width: 100%;
   padding: 10px;
-  border: none;
-  background: #3ebe17;
-  color: white;
-  font-size: 16px;
-  border-radius: 8px;
+  border-radius: 10px;
+  border: 1px solid #cfd6cc;
+  background: #fff;
   cursor: pointer;
-  margin-top: 10px;
-  transition: 0.2s;
+  font-size: 13px;
+  margin-top: 8px;
 }
 
 .btn-volver:hover {
-  background: #339214;
+  background: #eceeea;
 }
 
+/* CHECKBOX */
+
+mat-checkbox {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+/* MODAL */
 
 .modal-overlay {
   position: fixed;
@@ -90,37 +138,55 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 
 .modal-content {
-  background: #fff;
-  padding: 25px;
-  border-radius: 12px;
-  width: 300px;
-  max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  background: #f9faf8;
+  padding: 24px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 380px;
   text-align: center;
 }
 
-.modal-buttons {
-  margin-top: 20px;
+/* ANIMACION */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.modal-buttons button {
-  padding: 6px 14px;
+/* BACK BUTTON */
+
+.back-btn {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+
+  background: none;
   border: none;
-  border-radius: 6px;
-  background-color: #1976d2;
-  color: white;
   cursor: pointer;
-  transition: 0.2s;
+
+  font-size: 20px;
+  font-weight: 800;
+  color: #3e8f46;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  transition: all .2s ease;
 }
 
-.modal-buttons button:hover {
-  background-color: #125aa0;
+.back-btn:hover {
+  transform: translateX(-4px);
+  opacity: .8;
 }
+
