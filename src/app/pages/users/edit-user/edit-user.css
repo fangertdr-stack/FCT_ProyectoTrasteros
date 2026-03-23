@@ -1,76 +1,31 @@
-/* Contenedor del formulario centrado */
-form {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 30px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Titulos */
-h2 {
+.modal-overlay {
+  position: fixed;
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  top: 10px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-/* Cada grupo de campo */
-div {
+.modal-content {
+  background-color: #ae7171;
+  padding: 20px;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.form-group {
   margin-bottom: 15px;
 }
 
-/* Etiquetas */
-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
-
-/* Inputs */
-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-/* Botones */
-button {
-  padding: 10px 20px;
-  margin-right: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-/* Botón Guardar */
-button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-}
-
-button[type="submit"]:hover {
-  background-color: #45a049;
-}
-
-/* Botón Cancelar */
-button[type="button"] {
-  background-color: #f44336;
-  color: white;
-}
-
-button[type="button"]:hover {
-  background-color: #da190b;
-}
-
-/* Mensaje de carga */
-p {
-  text-align: center;
-  color: #888;
-  font-style: italic;
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }

@@ -1,1 +1,11 @@
-<p>delete-user works!</p>
+<div class="modal-overlay" (click)="cancelar()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Eliminar Usuario</h3>
+    <p>¿Seguro que quieres eliminar a <strong>{{ usuario.nombre }}</strong> de la lista de usuarios??</p>
+
+    <div class="modal-buttons">
+      <button (click)="confirmarEliminacion()">Sí, eliminar</button>
+      <button (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</div>

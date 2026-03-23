@@ -59,6 +59,7 @@ button {
 .btn-editar {
   background-color: #79c36f;
   color: white;
+  margin-right: 10px;
 }
 
 .btn-editar:hover {

@@ -2,8 +2,7 @@
   <button class="btn-volver" (click)="volver()">← Volver</button>
   <h1 class="titulo" style="margin-left: 190px;">Gestión de Usuarios</h1>
 </div>
-
-
+<button (click)="abrirAgregarUsuario()">+</button>
 <table>
 
   <thead>
@@ -18,9 +17,7 @@
       <th>Acciones</th>
     </tr>
   </thead>
-
   <tbody>
-
     <tr *ngFor="let user of usuario$ | async">
       <td>{{user.id_usuario}}</td>
       <td>{{user.nombre}}</td>
@@ -31,50 +28,32 @@
       <td>{{user.telefono}}</td>
       <td>
         <button class="btn-editar" (click)="editarUsuario(user)">Editar</button>
+        <button class="btn-eliminar" (click)="abrirEliminarUsuario(user)">Eliminar</button>
 
       </td>
     </tr>
   </tbody>
-
 </table>
 
+<!-- Modal agregar -->
+<app-add-user
+  *ngIf="agregarVisible"
+  (agregado)="onUsuarioAgregado()"
+  (cancel)="cancelarAgregar()">
+</app-add-user>
+
 <!-- Modal de edición -->
-<div *ngIf="editVisible && usuarioEditando" class="modal-overlay" (click)="cancelarEdicion()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <h3>Editar Usuario: {{ usuarioEditando.nombre }}</h3>
-    <form (ngSubmit)="guardarCambios()">
-      <div class="form-group">
-        <label>Nombre nuevo:</label>
-        <input [(ngModel)]="usuarioEditando!.nombre" name="nombre" required />
-      </div>
+<app-edit-user
+  *ngIf="editVisible && usuarioEditando"
+  [usuario]="usuarioEditando"
+  (guardado)="onUsuarioGuardado()"
+  (cancel)="cancelarEdicion()">
+</app-edit-user>
 
-      <div class="form-group">
-        <label>Email nuevo:</label>
-        <input [(ngModel)]="usuarioEditando!.email" name="email" type="email" required />
-      </div>
-
-      <div class="form-group">
-        <label>Dirección nueva:</label>
-        <input [(ngModel)]="usuarioEditando!.direccion" name="direccion" type="direccion" required />
-      </div>
-
-      <div class="form-group">
-        <label>Teléfono nuevo:</label>
-        <input [(ngModel)]="usuarioEditando!.telefono" name="telefono" type="telefono" required />
-      </div>
-
-      <div class="form-group">
-        <label>Rol nuevo:</label>
-          <select [(ngModel)]="usuarioEditando!.rol" name="rol" required>
-            <option [value]="0">Usuario</option>
-            <option [value]="1">Administrador</option>
-          </select>
-      </div>
-
-      <div class="modal-buttons">
-        <button type="submit">Guardar</button>
-        <button type="button" (click)="cancelarEdicion()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
+<!-- Modal de eliminación -->
+<app-delete-user
+  *ngIf="eliminarVisible && usuarioEliminando"
+  [usuario]="usuarioEliminando"
+  (eliminado)="onUsuarioEliminado()"
+  (cancel)="cancelarEliminar()">
+</app-delete-user>
