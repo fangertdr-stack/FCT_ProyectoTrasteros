@@ -100,6 +100,15 @@ export class AdminPage implements OnInit {
     this.trasteroSeleccionado.fechaInicio = '';
     this.trasteroSeleccionado.mesesContrato = undefined;
   }
+
+  if (this.trasteroSeleccionado.estado === 'mantenimiento' && estado !== 'mantenimiento') {
+
+    alert('Este trastero está en mantenimiento');
+    return;
+  }
+
+
+
 }
   calcularFechaFin(fechaInicio?: string, meses?: number | string): string | null {
     console.log("Calculando fecha fin seguro...");
@@ -148,36 +157,32 @@ export class AdminPage implements OnInit {
   guardar() {
   if (!this.trasteroSeleccionado) return;
 
-  if (!this.trasteroSeleccionado.id_usuario) {
-    alert("Selecciona un usuario");
-    return;
-  }
-  console.log(this.trasteroSeleccionado.id_trastero)
-
-  if(!this.trasteroSeleccionado.id_trastero){
-    console.log(this.trasteroSeleccionado.id_trastero)
-  }
-
-  if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
-    alert("Completa los datos del contrato");
-    return;
+  if (this.trasteroSeleccionado.estado === 'ocupado') {
+    if (!this.trasteroSeleccionado.id_usuario) {
+      alert("Selecciona un usuario");
+      return;
+    }
+    if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
+      alert("Completa los datos del contrato");
+      return;
+    }
   }
 
-  const fechaFin = this.calcularFechaFin(
-    this.trasteroSeleccionado.fechaInicio,
-    this.trasteroSeleccionado.mesesContrato
-  );
-
-  const data = {
+  // Construir objeto a enviar
+  const data: any = {
     id_trastero: this.trasteroSeleccionado.id_trastero,
-    id_usuario: this.trasteroSeleccionado.id_usuario,
-    fecha_inicio: this.trasteroSeleccionado.fechaInicio,
-    fecha_fin: fechaFin,
-      precio_mensual_aplicado: this.trasteroSeleccionado.precio
-
+    estado: this.trasteroSeleccionado.estado,
+    precio_mensual_aplicado: this.trasteroSeleccionado.precio
   };
 
-  console.log("Enviando datos al backend:", data);
+  if (this.trasteroSeleccionado.estado === 'ocupado') {
+    data.id_usuario = this.trasteroSeleccionado.id_usuario;
+    data.fecha_inicio = this.trasteroSeleccionado.fechaInicio;
+    data.fecha_fin = this.calcularFechaFin(
+      this.trasteroSeleccionado.fechaInicio,
+      this.trasteroSeleccionado.mesesContrato
+    );
+  }
 
   this.trasteroService.asignarTrastero(data).subscribe({
     next: () => {
