@@ -1,286 +1,277 @@
-/* Título */
+/* ========================= */
+/* BASE */
+/* ========================= */
 
-.titulo {
-  text-align: center;
-  font-size: 30px;
-  font-weight: 700;
-  color: #2e7d32;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+* {
+  box-sizing: border-box;
 }
 
-/* Tabla usuarios */
-table {
-  width: 90%;
-  margin: auto;
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #dbdbdb;
+}
+
+/* ========================= */
+/* PAGINA */
+/* ========================= */
+
+.list-user-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding: 40px 20px;
+}
+
+/* ========================= */
+/* TARJETA PRINCIPAL */
+/* ========================= */
+
+.list-user-card {
+  width: 100%;
+  max-width: 1350px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.15),
+    0 10px 25px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.6);
+
+  animation: fadeInUp .5s ease;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.list-user-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #243124;
+  margin-bottom: 30px;
+}
+
+/* ========================= */
+/* BOTONES */
+/* ========================= */
+
+.list-user-back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #4ead53;
+  transition: .2s;
+}
+
+.list-user-back-btn:hover {
+  transform: translateX(-4px);
+  opacity: .7;
+}
+
+.list-user-add-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #4ead53;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.list-user-add-btn:hover {
+  background: #43c56e;
+  transform: translateY(-2px);
+}
+
+/* ========================= */
+/* TABLA */
+/* ========================= */
+
+.list-user-table-wrapper {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.list-user-table {
+  width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  border: 2px solid #2e7d32;
-  border-radius: 8px;
-  overflow: hidden;
-  background: white;
 }
 
-/* Cabecera */
-th {
-  background-color: #e8f5e9;
-  color: #1b5e20;
-  padding: 12px;
+/* CABECERA */
+
+.list-user-table thead th {
+  text-align: left;
+  padding: 14px;
+  font-size: 13px;
+  color: #6f776e;
   font-weight: 600;
-  border-bottom: 2px solid #2e7d32;
+  border-bottom: 2px solid #e5e9e4;
 }
 
-/* Celdas */
-td {
-  border: 1px solid #c8e6c9;
-  padding: 10px;
-  text-align: center;
+/* FILAS */
+
+.list-user-table tbody tr {
+  transition: all .2s ease;
 }
 
-/* Hover filas */
-tr:hover {
-  background-color: #f1f8e9;
+.list-user-table tbody tr:hover {
+  background: #f7faf7;
 }
 
-/* Botones base */
-button {
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
+.list-user-table tbody tr + tr {
+  border-top: 1px solid #eef2ee;
 }
 
-/* Botón editar */
-.btn-editar {
-  background-color: #79c36f;
-  color: white;
-  margin-right: 10px;
+/* CELDAS */
+
+.list-user-table td {
+  padding: 14px;
+  font-size: 14px;
+  color: #2e332e;
 }
 
-.btn-editar:hover {
-  background-color: #27aa25;
-  transform: scale(1.05);
-}
+/* ========================= */
+/* ROLES */
+/* ========================= */
 
-/* Botón eliminar */
-.btn-eliminar {
-  background-color: #d32f2f;
-  color: white;
-}
-
-.btn-eliminar:hover {
-  background-color: #9a0007;
-  transform: scale(1.05);
-}
-
-/* Modal overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-/* Modal content */
-.modal-content {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  animation: slideIn 0.3s ease;
-}
-
-/* Formularios */
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-/* Fondo oscuro semi-transparente */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-/* Contenido del modal */
-.modal-content {
-  background: #fff;
-  padding: 30px 25px;
-  border-radius: 12px;
-  width: 450px;
-  max-width: 90%;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-  animation: slideIn 0.3s ease;
-  transition: transform 0.2s;
-}
-
-.modal-content h3 {
-  margin-top: 0;
-  font-size: 22px;
-  font-weight: 600;
+.list-user-badge-user {
+  background: #e6f6ea;
   color: #2e7d32;
-  margin-bottom: 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-/* Formularios dentro del modal */
-.form-group {
-  margin-bottom: 15px;
+.list-user-badge-admin {
+  background: #fdeaea;
+  color: #c0392b;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 6px;
-  color: #333;
-}
+/* ========================= */
+/* ACCIONES */
+/* ========================= */
 
-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #c8e6c9;
-  border-radius: 6px;
-  box-sizing: border-box;
-  font-size: 14px;
-  transition: border-color 0.2s;
-}
-
-input:focus {
-  border-color: #2e7d32;
-  outline: none;
-}
-
-/* Botones del modal */
-.modal-buttons {
+.list-user-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 8px;
 }
 
-.modal-buttons button {
-  padding: 8px 16px;
-  font-weight: 500;
-  border-radius: 6px;
+/* BOTONES */
+
+.list-user-table button {
   border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 12px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: .2s;
 }
 
-/* Botón Guardar */
-.modal-buttons button[type="submit"] {
-  background-color: #1976d2;
-  color: white;
+.list-user-btn-edit {
+  background: #e6f6ea;
+  color: #2e7d32;
 }
 
-.modal-buttons button[type="submit"]:hover {
-  background-color: #125aa0;
-  transform: scale(1.05);
+.list-user-btn-edit:hover {
+  background: #d4efda;
 }
 
-/* Botón Cancelar */
-.modal-buttons button[type="button"] {
-  background-color: #d32f2f;
-  color: white;
+.list-user-btn-delete {
+  background: #fdeaea;
+  color: #c0392b;
 }
 
-.modal-buttons button[type="button"]:hover {
-  background-color: #9a0007;
-  transform: scale(1.05);
+.list-user-btn-delete:hover {
+  background: #f9d6d5;
 }
 
-.btn-volver {
-  background-color: #8da1b6;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
+/* ========================= */
+/* SCROLL */
+/* ========================= */
+
+.list-user-table-wrapper::-webkit-scrollbar {
+  width: 6px;
 }
 
-.btn-volver:hover {
-  background-color: #567a9b;
-  transform: scale(1.05);
+.list-user-table-wrapper::-webkit-scrollbar-thumb {
+  background: #b7d7bb;
+  border-radius: 10px;
 }
 
-select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #c8e6c9;
-  border-radius: 6px;
-  font-size: 14px;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 900px) {
+
+  .list-user-table thead {
+    display: none;
+  }
+
+  .list-user-table tr {
+    display: block;
+    background: white;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    padding: 10px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.06);
+  }
+
+  .list-user-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .list-user-table td:last-child {
+    border-bottom: none;
+  }
+
+  .list-user-table td::before {
+    font-weight: 600;
+    color: #6f776e;
+  }
+
+  .list-user-table td:nth-child(1)::before { content: "ID"; }
+  .list-user-table td:nth-child(2)::before { content: "Nombre"; }
+  .list-user-table td:nth-child(3)::before { content: "Email"; }
+  .list-user-table td:nth-child(4)::before { content: "DNI"; }
+  .list-user-table td:nth-child(5)::before { content: "Rol"; }
+  .list-user-table td:nth-child(6)::before { content: "Dirección"; }
+  .list-user-table td:nth-child(7)::before { content: "Teléfono"; }
+  .list-user-table td:nth-child(8)::before { content: "Acciones"; }
+
 }
 
-select:focus {
-  border-color: #2e7d32;
-  outline: none;
-}
+/* ========================= */
+/* ANIMACION */
+/* ========================= */
 
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideIn {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* Botones modal */
-.modal-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideIn {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

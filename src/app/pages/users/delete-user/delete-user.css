@@ -1,28 +1,139 @@
+/* =========================
+   OVERLAY
+========================= */
+
 .modal-overlay {
   position: fixed;
-  text-align: center;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  inset: 0;
+
+  background: rgba(15, 30, 20, 0.55);
+  backdrop-filter: blur(6px);
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   z-index: 1000;
+
+  padding: 20px;
+  text-align: center;
 }
 
+/* =========================
+   MODAL CARD
+========================= */
+
 .modal-content {
-  background-color: #fff;
-  padding: 20px;
-  width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 420px;
+
+  background: #ffffff;
+  border-radius: 18px;
+
+  padding: 22px;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.25),
+    0 10px 25px rgba(0,0,0,.15),
+    inset 0 1px 0 rgba(255,255,255,.6);
+
+  animation: modalIn .25s ease;
+
+  text-align: left;
 }
+
+/* =========================
+   TITULO
+========================= */
+
+.modal-content h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #243124;
+  font-weight: 600;
+}
+
+/* =========================
+   TEXTO
+========================= */
+
+.modal-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #5e665d;
+  line-height: 1.5;
+}
+
+/* nombre destacado */
+.modal-content strong {
+  color: #243124;
+}
+
+/* =========================
+   BOTONES
+========================= */
 
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+
   margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* CANCELAR */
+.modal-buttons button:last-child {
+  background: transparent;
+  border: 1px solid #d6ddd2;
+
+  color: #5e665d;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: all .2s ease;
+}
+
+.modal-buttons button:last-child:hover {
+  background: #f3f5f2;
+}
+
+/* ELIMINAR (PELIGRO) */
+.modal-buttons button:first-child {
+  background: #e35d5b;
+  border: none;
+
+  color: white;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-weight: 500;
+
+  transition: all .2s ease;
+}
+
+.modal-buttons button:first-child:hover {
+  background: #d94b49;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   ANIMACIÓN
+========================= */
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
