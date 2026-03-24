@@ -5,126 +5,166 @@
   <title>Normas de Contrato</title>
 
   <style>
-    * {
-      box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+
+    /* 🔥 nuevo fondo consistente */
+    background: #eef2ee;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  /* ========================= */
+  /* CARD */
+  /* ========================= */
+
+  .contenedor {
+    width: 100%;
+    max-width: 720px;
+
+    background: #ffffff;
+    padding: 34px 28px;
+    border-radius: 20px;
+
+    box-shadow:
+      0 30px 60px rgba(0,0,0,.15),
+      0 10px 25px rgba(0,0,0,.08),
+      inset 0 1px 0 rgba(255,255,255,.6);
+
+    animation: fadeInUp .4s ease;
+  }
+
+  /* ========================= */
+  /* TITULO */
+  /* ========================= */
+
+  h1 {
+    text-align: center;
+    color: #243124;
+    margin-bottom: 22px;
+
+    font-size: clamp(22px, 5vw, 26px);
+    font-weight: 600;
+  }
+
+  /* ========================= */
+  /* LISTA */
+  /* ========================= */
+
+  ul {
+    padding-left: 18px;
+    color: #5e665d;
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  /* ========================= */
+  /* CHECKBOX BOX */
+  /* ========================= */
+
+  .aceptacion {
+    margin-top: 24px;
+    padding: 14px 16px;
+
+    background: #f3f7f3;
+    border: 1px solid #d6ddd2;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 14px;
+    color: #3e8f46;
+  }
+
+  input[type="checkbox"] {
+    transform: scale(1.15);
+    cursor: pointer;
+
+    /* 🔥 moderno */
+    accent-color: #4ead53;
+  }
+
+  /* ========================= */
+  /* BUTTON */
+  /* ========================= */
+
+  button {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+
+    background: #4ead53;
+    color: white;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+
+  button:hover {
+    background: #43c56e;
+    transform: translateY(-1px);
+  }
+
+  /* ========================= */
+  /* ANIMATION */
+  /* ========================= */
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
     }
-
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #5a5752, #0b3b0f);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 16px;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
+  }
 
-    /* CARD */
+  /* ========================= */
+  /* RESPONSIVE */
+  /* ========================= */
 
+  @media (max-width: 480px) {
     .contenedor {
-      width: 100%;
-      max-width: 700px;
-      background: #f9faf8;
-      padding: 32px 28px;
-      border-radius: 18px;
-      box-shadow:
-        0 20px 40px rgba(0,0,0,.35),
-        0 0 0 1px rgba(255,255,255,.25);
-      animation: fadeInUp .5s ease;
+      padding: 24px 18px;
+      border-radius: 16px;
     }
-
-    /* TITULO */
-
-    h1 {
-      text-align: center;
-      color: #243124;
-      margin-bottom: 20px;
-      font-size: clamp(22px, 5vw, 26px);
-    }
-
-    /* LISTA */
 
     ul {
-      padding-left: 18px;
-      color: #5e665d;
-      line-height: 1.7;
-      font-size: 14px;
+      font-size: 13px;
     }
-
-    li {
-      margin-bottom: 10px;
-    }
-
-    /* BLOQUE ACEPTACIÓN */
-
-    .aceptacion {
-      margin-top: 24px;
-      padding: 16px;
-      background: #eef6ef;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      color: #3e8f46;
-    }
-
-    input[type="checkbox"] {
-      transform: scale(1.2);
-      cursor: pointer;
-    }
-
-    /* BOTÓN */
 
     button {
-      width: 100%;
-      margin-top: 20px;
       padding: 14px;
-      background: #4ead53;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: all .25s ease;
     }
-
-    button:hover {
-      background: #43c56e;
-    }
-
-    /* ANIMACIÓN */
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 480px) {
-      .contenedor {
-        padding: 24px 18px;
-        border-radius: 14px;
-      }
-
-      ul {
-        font-size: 13px;
-      }
-
-      button {
-        padding: 16px;
-      }
-    }
-
-  </style>
+  }
+</style>
 </head>
 
 <body>

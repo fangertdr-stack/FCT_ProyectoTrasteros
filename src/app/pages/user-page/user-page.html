@@ -2,7 +2,7 @@
   <div class="user-card">
 
     <button class="back-btn" (click)="goBack()">
-        ←
+      ←
     </button>
 
     <h2 class="user-title">Mis Trasteros</h2>
@@ -19,34 +19,40 @@
       </div>
     }
 
-    @if (!cargando && trastero.length === 0) {
+    @if (!cargando() && trastero().length === 0) {
       <div class="empty">
-        No tienes trasteros activos
+        <div class="empty-icon">📦</div>
+        <h3>No tienes trasteros alquilados</h3>
+        <p>Cuando alquiles un trastero aparecerá aquí con todos sus detalles.</p>
       </div>
     }
 
-    <div class="trasteros-grid">
+    @if (!cargando() && trastero().length > 0) {
 
-      @for (t of trastero(); track t.id_trastero) {
-        <div class="card">
+      <div class="trasteros-grid">
 
-          <h3>Trastero #{{ t.id_trastero }}</h3>
+        @for (t of trastero(); track t.id_trastero) {
+          <div class="card">
 
-          <p>
-            <strong>Código:</strong>
-            <span class="codigo">{{ t.codigo }}</span>
-          </p>
+            <h3>Trastero #{{ t.id_trastero }}</h3>
 
-          <p><strong>Tamaño:</strong> {{ t.tamanio }}</p>
-          <p><strong>Precio:</strong> {{ t.precio }}€</p>
-          <p><strong>Inicio:</strong> {{ t.fechaInicio }}</p>
-          <p><strong>Fin:</strong> {{ t.fecha_fin }}</p>
-          <p><strong>Precio total: {{ calcularPrecioTotal(t) }}€</strong></p>
+            <p>
+              <strong>Código:</strong>
+              <span class="codigo">{{ t.codigo }}</span>
+            </p>
 
-        </div>
-      }
+            <p><strong>Tamaño:</strong> {{ t.tamanio }}</p>
+            <p><strong>Precio:</strong> {{ t.precio }}€</p>
+            <p><strong>Inicio:</strong> {{ t.fechaInicio }}</p>
+            <p><strong>Fin:</strong> {{ t.fecha_fin }}</p>
+            <p><strong>Precio total: {{ calcularPrecioTotal(t) }}€</strong></p>
 
-    </div>
+          </div>
+        }
+
+      </div>
+
+    }
 
   </div>
 </div>

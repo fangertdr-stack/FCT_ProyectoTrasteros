@@ -1,67 +1,90 @@
+/* ========================= */
+/* BASE */
+/* ========================= */
+
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #eef2ee;
 }
 
+/* ========================= */
 /* PAGE */
+/* ========================= */
 
 .detail-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #5a5752, #0b3b0f);
   display: flex;
   justify-content: center;
+  padding: 30px 16px;
 }
 
-/* WRAPPER CENTRADO (SOLUCION REAL) */
+/* ========================= */
+/* WRAPPER */
+/* ========================= */
 
 .detail-wrapper {
   width: 100%;
   max-width: 900px;
-  padding: 16px;
+
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
+/* ========================= */
 /* HEADER */
+/* ========================= */
 
 .detail-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: white;
+  color: #243124;
 }
 
 .detail-header h2 {
   font-size: 20px;
+  font-weight: 600;
 }
 
-/* BACK */
+/* BACK BUTTON */
 
 .back-btn {
-  background: rgba(255,255,255,0.15);
-  border: none;
-  color: white;
+  background: #ffffff;
+  border: 1px solid #d6ddd2;
+  color: #4ead53;
+
   font-size: 18px;
   border-radius: 10px;
   padding: 6px 10px;
   cursor: pointer;
-  transition: .2s;
+
+  transition: all .2s ease;
 }
 
 .back-btn:hover {
-  background: rgba(255,255,255,0.3);
+  transform: translateX(-3px);
+  background: #f3f5f2;
 }
 
+/* ========================= */
 /* CAROUSEL */
+/* ========================= */
 
 .carousel {
   position: relative;
   overflow: hidden;
   border-radius: 18px;
-  height: 260px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.4);
+
+  height: 280px;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.15),
+    0 10px 25px rgba(0,0,0,.08);
+  background: #fff;
 }
 
 .carousel-track {
@@ -71,31 +94,44 @@ html, body {
 }
 
 .carousel img {
-  flex: 0 0 100%; 
+  flex: 0 0 100%;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
+/* ========================= */
 /* NAV */
+/* ========================= */
 
 .nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,.4);
-  border: none;
-  color: white;
-  font-size: 24px;
-  padding: 6px 12px;
+
+  background: rgba(255,255,255,.85);
+  border: 1px solid #d6ddd2;
+  color: #243124;
+
+  font-size: 20px;
+  padding: 6px 10px;
   cursor: pointer;
   border-radius: 10px;
+
+  transition: .2s;
 }
 
-.prev { left: 10px; }
-.next { right: 10px; }
+.nav:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.05);
+}
 
+.prev { left: 12px; }
+.next { right: 12px; }
+
+/* ========================= */
 /* DOTS */
+/* ========================= */
 
 .dots {
   position: absolute;
@@ -107,8 +143,8 @@ html, body {
 }
 
 .dots span {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background: rgba(255,255,255,.5);
   border-radius: 50%;
   cursor: pointer;
@@ -116,68 +152,92 @@ html, body {
 }
 
 .dots span.active {
-  background: white;
+  background: #4ead53;
   transform: scale(1.4);
 }
 
-/* CARD */
+/* ========================= */
+/* CARD INFO */
+/* ========================= */
 
 .detail-card {
-  background: #f9faf8;
-  padding: 22px;
-  border-radius: 18px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.3);
-  animation: fadeUp .5s ease;
+  background: #ffffff;
+  padding: 26px;
+  border-radius: 20px;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.15),
+    0 10px 25px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.6);
+
+  animation: fadeUp .4s ease;
 }
 
 .detail-card h3 {
   margin-bottom: 10px;
   color: #243124;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .detail-card p {
   font-size: 14px;
   color: #5e665d;
+  line-height: 1.5;
 }
 
 .detail-card ul {
-  padding-left: 16px;
-  margin-bottom: 20px;
-  margin-top: 8px;
+  padding-left: 18px;
+  margin: 10px 0 20px 0;
+  color: #5e665d;
+  font-size: 14px;
 }
 
-/* BOTON */
+/* ========================= */
+/* BUTTON */
+/* ========================= */
 
 .rent-btn {
   width: 100%;
-  padding: 14px;
+  padding: 13px;
   border-radius: 12px;
   border: none;
+
   background: #4ead53;
   color: white;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 14px;
+
   cursor: pointer;
-  transition: .25s;
+  transition: all .2s ease;
 }
 
 .rent-btn:hover {
   background: #43c56e;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
+/* ========================= */
 /* ANIMACION */
+/* ========================= */
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* ========================= */
 /* RESPONSIVE */
+/* ========================= */
 
 @media (min-width: 768px) {
-
   .carousel {
-    height: 360px;
+    height: 380px;
   }
-
 }

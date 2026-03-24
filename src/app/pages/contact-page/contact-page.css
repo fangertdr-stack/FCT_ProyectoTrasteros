@@ -1,120 +1,161 @@
-/* RESET BÁSICO */
+/* ========================= */
+/* RESET */
+/* ========================= */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* ========================= */
 /* PAGE */
+/* ========================= */
+
 .contact-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #213f2b;
-  padding: 20px;
+  background: #eef2ee; 
+  padding: 40px 20px;
 }
 
+/* ========================= */
 /* CARD */
+/* ========================= */
+
 .contact-container {
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
   background: #ffffff;
-  padding: 28px 24px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 32px 28px;
+  border-radius: 20px;
   position: relative;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.15),
+    0 10px 25px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.6);
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
+
+  animation: fadeInUp .5s ease;
 }
 
+/* ========================= */
 /* BACK BUTTON */
+/* ========================= */
+
 .back-btn {
   position: absolute;
-  top: 14px;
-  left: 14px;
+  top: 18px;
+  left: 18px;
   border: none;
   background: transparent;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
-  color: #3e8f46;
+  color: #4ead53;
+  transition: .2s;
 }
 
+.back-btn:hover {
+  transform: translateX(-4px);
+  opacity: .7;
+}
 
-/* TITLES */
+/* ========================= */
+/* TITULO */
+/* ========================= */
+
 h2 {
   margin: 0;
   text-align: center;
-  color: #2e7d32;
+  color: #243124;
+  font-size: 22px;
+  font-weight: 600;
 }
 
-/* TEXT */
+/* ========================= */
+/* INFO */
+/* ========================= */
+
 .contact-info {
-  margin: 0;
-  text-align: left;
-  color: #555;
   font-size: 14px;
+  color: #5e665d;
+  line-height: 1.5;
 }
 
 .contact-info strong {
-  color: #2e7d32
+  color: #2e7d32;
 }
 
+/* ========================= */
 /* FORM */
+/* ========================= */
+
 form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 /* LABEL */
+
 label {
   font-size: 13px;
-  color: #444;
+  color: #5e665d;
+  font-weight: 500;
 }
 
 /* TEXTAREA */
+
 textarea {
   width: 100%;
   min-height: 120px;
   padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
+  border-radius: 12px;
+  border: 1px solid #d6ddd2;
   font-size: 14px;
   resize: vertical;
   font-family: inherit;
 
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition: all .2s ease;
 }
 
 textarea:focus {
   outline: none;
-  border-color: #3e8f46;
-  box-shadow: 0 0 0 2px rgba(62, 143, 70, 0.1);
+  border-color: #4ead53;
+  box-shadow: 0 0 0 2px rgba(78,173,83,.15);
 }
 
+/* ========================= */
 /* BUTTON */
+/* ========================= */
+
 button[type="submit"] {
-  margin-top: 8px;
+  margin-top: 6px;
   padding: 12px;
   border: none;
-  border-radius: 10px;
-  background: #3e8f46;
+  border-radius: 12px;
+  background: #4ead53;
   color: #fff;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  transition: background 0.2s ease;
+  transition: all .2s ease;
 }
 
 button[type="submit"]:hover {
-  background: #2f6f36;
+  background: #43c56e;
+  transform: translateY(-1px);
 }
 
 button:disabled {
@@ -122,26 +163,32 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* ========================= */
 /* MENSAJES */
+/* ========================= */
+
 .error,
 .success {
   font-size: 13px;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 10px;
   text-align: center;
 }
 
 .error {
-  background: #fdecea;
-  color: #d32f2f;
+  background: #fdeaea;
+  color: #c0392b;
 }
 
 .success {
-  background: #e8f5e9;
+  background: #e6f6ea;
   color: #2e7d32;
 }
 
+/* ========================= */
 /* LOADER */
+/* ========================= */
+
 .loader {
   width: 16px;
   height: 16px;
@@ -151,8 +198,23 @@ button:disabled {
   animation: spin .8s linear infinite;
 }
 
+/* ========================= */
+/* ANIMACIONES */
+/* ========================= */
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -9,7 +9,8 @@
 body {
   margin: 0;
   overflow-x: hidden;
-  font-family: Arial, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #eef2ee;
 }
 
 /* =========================
@@ -19,57 +20,65 @@ body {
 .user-page {
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #2c3e2f, #0f2b18);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 30px 16px;
 }
 
-/* CARD PRINCIPAL */
+/* =========================
+   CARD PRINCIPAL
+========================= */
 
 .user-card {
   position: relative;
   width: 100%;
   max-width: 1200px;
-  background: #f9faf8;
+
+  background: #ffffff;
   border-radius: 22px;
-  padding: 28px;
+  padding: 32px;
+
   box-shadow:
-    0 20px 40px rgba(0,0,0,.35),
-    0 0 0 1px rgba(255,255,255,.2);
-  animation: fadeInUp .5s ease;
+    0 30px 60px rgba(0,0,0,.15),
+    0 10px 25px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.6);
+
+  animation: fadeInUp .4s ease;
 }
 
-/* TITULO */
+/* =========================
+   TITULO
+========================= */
 
 .user-title {
   text-align: center;
   font-size: 26px;
-  margin-bottom: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
   color: #243124;
 }
 
-/* LOADING */
+/* =========================
+   LOADING / ERROR
+========================= */
 
 .loading {
   text-align: center;
   padding: 20px;
   color: #4ead53;
-  font-weight: bold;
+  font-weight: 600;
 }
-
-/* ERROR */
 
 .error {
   text-align: center;
-  color: #e35d5b;
+  color: #d9534f;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
 /* =========================
-   GRID DE TRASTEROS
+   GRID
 ========================= */
 
 .trasteros-grid {
@@ -79,30 +88,33 @@ body {
   margin-top: 20px;
 }
 
-/* CARD TRASTERO */
+/* =========================
+   CARD
+========================= */
 
 .card {
-  background: white;
+  background: #ffffff;
   border-radius: 18px;
   padding: 18px;
-  box-shadow: 0 6px 14px rgba(0,0,0,.08);
-  transition: transform .2s ease, box-shadow .2s ease;
-  border: 1px solid #eef1ec;
+
+  border: 1px solid #e6ebe4;
+
+  box-shadow: 0 10px 20px rgba(0,0,0,.06);
+
+  transition: all .2s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 22px rgba(0,0,0,.15);
+  box-shadow: 0 18px 30px rgba(0,0,0,.12);
 }
-
-/* TITULO CARD */
 
 .card h3 {
   margin: 0 0 10px;
-  color: #2e332e;
+  color: #243124;
+  font-size: 16px;
+  font-weight: 600;
 }
-
-/* TEXTO */
 
 .card p {
   margin: 6px 0;
@@ -115,17 +127,22 @@ body {
 }
 
 /* =========================
-   BADGE CÓDIGO
+   BADGE
 ========================= */
 
 .codigo {
   display: inline-block;
   padding: 4px 10px;
-  border-radius: 12px;
-  background: #4ead53;
-  color: white;
-  font-size: 13px;
+
+  border-radius: 999px;
+
+  background: #eef7ef;
+  color: #2f6f36;
+
+  font-size: 12px;
   font-weight: 600;
+
+  border: 1px solid #cfe6d2;
   margin: 4px;
 }
 
@@ -134,9 +151,68 @@ body {
 ========================= */
 
 .empty {
+  margin-top: 30px;
+  padding: 40px 20px;
+
+  background: #ffffff;
+  border: 1px solid #e6ebe4;
+  border-radius: 18px;
+
   text-align: center;
-  padding: 40px;
-  color: #6f776e;
+
+  box-shadow: 0 20px 40px rgba(0,0,0,.08);
+
+  animation: fadeInUp .4s ease;
+}
+
+.empty-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.empty h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #243124;
+  font-weight: 600;
+}
+
+.empty p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #5e665d;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-btn {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+
+  background: #ffffff;
+  border: 1px solid #d6ddd2;
+
+  cursor: pointer;
+
+  font-size: 18px;
+  color: #4ead53;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  transition: all .2s ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-3px);
+  background: #f3f5f2;
 }
 
 /* =========================
@@ -159,9 +235,8 @@ body {
 ========================= */
 
 @media (max-width: 600px) {
-
   .user-card {
-    padding: 18px;
+    padding: 20px;
   }
 
   .user-title {
@@ -171,34 +246,4 @@ body {
   .card {
     padding: 14px;
   }
-}
-
-/* BACK BUTTON */
-
-.back-btn {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  font-size: 20px;
-  font-weight: 800;
-  color: #3e8f46;
-
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  padding: 6px 10px;
-  border-radius: 10px;
-
-  transition: all .2s ease;
-}
-
-.back-btn:hover {
-  transform: translateX(-4px);
-  opacity: .8;
 }

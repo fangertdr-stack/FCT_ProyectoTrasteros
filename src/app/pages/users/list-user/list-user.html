@@ -1,48 +1,78 @@
-<div style="width: 90%; margin: 20px auto; display: flex; align-items: center;">
-  <button class="btn-volver" (click)="volver()">← Volver</button>
-  <h1 class="titulo" style="margin-left: 190px;">Gestión de Usuarios</h1>
+<div class="list-user-page">
+
+  <div class="list-user-card">
+
+    <!-- Botón volver -->
+    <button class="list-user-back-btn" (click)="volver()">←</button>
+
+    <!-- Botón usuarios -->
+    <button class="list-user-add-btn" (click)="abrirAgregarUsuario()">+ Usuario</button>
+
+    <!-- Título -->
+    <h1 class="list-user-title">Gestión de Usuarios</h1>
+
+    <!-- CONTENIDO -->
+    <div class="list-user-content">
+
+      <!-- TABLA -->
+      <div class="list-user-table-wrapper">
+        <table class="list-user-table">
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>DNI</th>
+              <th>Rol</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let user of usuario$ | async">
+              <td>{{user.id_usuario}}</td>
+              <td>{{user.nombre}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.dni}}</td>
+              <td>
+                <span [ngClass]="user.rol == 0 ? 'list-user-badge-user' : 'list-user-badge-admin'">
+                  {{ user.rol == 0 ? 'Usuario' : 'Administrador' }}
+                </span>
+              </td>
+              <td>{{user.direccion}}</td>
+              <td>{{user.telefono}}</td>
+
+              <td>
+                <div class="list-user-actions">
+                  <button class="list-user-btn-edit" (click)="editarUsuario(user)">
+                    Editar
+                  </button>
+
+                  <button class="list-user-btn-delete" (click)="abrirEliminarUsuario(user)">
+                    Eliminar
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+  </div>
 </div>
-<button (click)="abrirAgregarUsuario()">+</button>
-<table>
 
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>DNI</th>
-      <th>Rol</th>
-      <th>Dirección</th>
-      <th>Teléfono</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of usuario$ | async">
-      <td>{{user.id_usuario}}</td>
-      <td>{{user.nombre}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.dni}}</td>
-      <td>{{ user.rol == 0 ? 'Usuario' : 'Administrador' }}</td>
-      <td>{{user.direccion}}</td>
-      <td>{{user.telefono}}</td>
-      <td>
-        <button class="btn-editar" (click)="editarUsuario(user)">Editar</button>
-        <button class="btn-eliminar" (click)="abrirEliminarUsuario(user)">Eliminar</button>
-
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Modal agregar -->
+<!-- MODALES -->
 <app-add-user
   *ngIf="agregarVisible"
   (agregado)="onUsuarioAgregado()"
   (cancel)="cancelarAgregar()">
 </app-add-user>
 
-<!-- Modal de edición -->
 <app-edit-user
   *ngIf="editVisible && usuarioEditando"
   [usuario]="usuarioEditando"
@@ -50,7 +80,6 @@
   (cancel)="cancelarEdicion()">
 </app-edit-user>
 
-<!-- Modal de eliminación -->
 <app-delete-user
   *ngIf="eliminarVisible && usuarioEliminando"
   [usuario]="usuarioEliminando"

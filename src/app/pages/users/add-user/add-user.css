@@ -1,19 +1,134 @@
+/* =========================
+   OVERLAY
+========================= */
+
 .modal-overlay {
   position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background-color: rgba(0,0,0,0.5);
-  display:flex; justify-content:center; align-items:center;
-  z-index:1000;
+  inset: 0;
+
+  background: rgba(15, 30, 20, 0.55);
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+
+  padding: 20px;
 }
+
+/* =========================
+   MODAL CON SCROLL CONTROLADO
+========================= */
 
 .modal-content {
-  background-color:#fff;
-  padding:20px;
-  width:400px;
-  border-radius:8px;
-  box-shadow:0 0 10px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 420px;
+
+  max-height: 90vh;       
+  overflow-y: auto;        
+
+  background: #ffffff;
+  border-radius: 18px;
+
+  padding: 22px;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.25),
+    0 10px 25px rgba(0,0,0,.15),
+    inset 0 1px 0 rgba(255,255,255,.6);
+
+  animation: modalIn .25s ease;
 }
 
-.form-group { margin-bottom:15px; }
-.modal-buttons { display:flex; justify-content:flex-end; gap:10px; margin-top:10px; }
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  max-width: 100%;  
+  display: block;
+
+  padding: 10px 12px;
+
+  border-radius: 12px;
+  border: 1px solid #dfe6db;
+
+  font-size: 14px;
+
+  outline: none;
+
+  background: #f9faf8;
+
+  transition: all .2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #4ead53;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(78,173,83,.15);
+}
+
+/* =========================
+   BOTONES
+========================= */
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  margin-top: 16px;
+
+  flex-wrap: wrap;
+}
+
+/* secundario */
+.modal-buttons button:first-child {
+  background: transparent;
+  border: 1px solid #d6ddd2;
+  color: #5e665d;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+/* primario */
+.modal-buttons button:last-child {
+  background: #4ead53;
+  border: none;
+  color: white;
+
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+/* =========================
+   ANIMACIÓN
+========================= */
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
