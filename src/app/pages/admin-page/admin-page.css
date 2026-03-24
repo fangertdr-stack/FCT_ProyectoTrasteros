@@ -541,3 +541,118 @@ body {
     transform: translateY(0);
   }
 }
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0; /* ← mejor que top/left/width/height */
+  
+  background: rgba(0,0,0,0.55);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 99999;
+
+  backdrop-filter: blur(4px);
+}
+
+.confirm-box {
+  width: 100%;
+  max-width: 420px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+  padding: 22px;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.35),
+    0 10px 30px rgba(0,0,0,.2);
+
+  animation: modalIn .18s ease-out;
+}
+
+/* texto */
+.confirm-box h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #243124;
+}
+
+.confirm-box p {
+  margin: 8px 0;
+  color: #5e665d;
+  font-size: 14px;
+}
+
+.confirm-warning {
+  color: #c0392b;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* botones */
+.confirm-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* cancelar */
+.btn-cancelar {
+  flex: 1;
+
+  padding: 10px;
+
+  border-radius: 12px;
+  border: 1px solid #d6ddd2;
+
+  background: transparent;
+  color: #5e665d;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.btn-cancelar:hover {
+  background: #f3f5f2;
+  transform: translateY(-2px);
+}
+
+/* confirmar */
+.btn-confirmar {
+  flex: 1;
+
+  padding: 10px;
+
+  border-radius: 12px;
+  border: none;
+
+  background: #c0392b;
+  color: white;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 20px rgba(192,57,43,.25);
+
+  transition: .2s;
+}
+
+.btn-confirmar:hover {
+  background: #e74c3c;
+  transform: translateY(-2px);
+}
+
+/* animación */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
