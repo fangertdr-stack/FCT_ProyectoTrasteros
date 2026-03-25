@@ -6,7 +6,7 @@ import { NavigationService } from '../../services/navigation';
 import { LoginService } from '../../services/loginService';
 import { RegisterService } from '../../services/registerService';
 
-// IMPORTS PARA GOOGLE LOGIN
+// IMPORT PARA GOOGLE LOGIN
 import { Auth, signInWithPopup, GoogleAuthProvider } from '@angular/fire/auth';
 
 @Component({
