@@ -17,7 +17,7 @@
 /* Contenedor para el glitch */
 .glitch-container {
   position: relative;
-  display: inline-block; /* Para que el h1 ocupe su espacio normal */
+  display: inline-block;
   margin-bottom: 0.5rem;
 }
 
@@ -102,12 +102,108 @@
   box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
 
+
+/* ============================================
+   RESPONSIVE — ÚNICO BLOQUE MODIFICADO
+   Breakpoints:
+     md:  768px   (tablet portrait)
+     sm:  600px   (móvil grande)
+     xs:  480px   (móvil mediano)
+     xxs: 360px   (móvil pequeño)
+   ============================================ */
+
+/* ---- TABLET PORTRAIT (≤768px) ---- */
+@media (max-width: 768px) {
+
+  .error-content h1 {
+    font-size: 8rem;
+  }
+
+  .error-content h2 {
+    font-size: 1.6rem;
+  }
+
+  .error-content p {
+    font-size: 0.95rem;
+    padding: 0 16px;
+  }
+}
+
+/* ---- MÓVIL GRANDE (≤600px) ---- */
 @media (max-width: 600px) {
+
   .error-content h1 {
     font-size: 6rem;
   }
 
   .error-content h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  }
+
+  .error-content p {
+    font-size: 0.9rem;
+    padding: 0 12px;
+  }
+
+  .error-content button {
+    margin: 14px;
+    padding: 11px 22px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ---- MÓVIL MEDIANO (≤480px) ---- */
+@media (max-width: 480px) {
+
+  .error-wrapper {
+    /* padding por si el contenido crece verticalmente */
+    padding: 24px 16px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .error-content h1 {
+    font-size: 4.5rem;
+  }
+
+  .glitch-container {
+    margin-bottom: 0.3rem;
+  }
+
+  .error-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .error-content p {
+    font-size: 0.85rem;
+    padding: 0 8px;
+    line-height: 1.5;
+  }
+
+  .error-content button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .error-content h1 {
+    font-size: 3.8rem;
+  }
+
+  .error-content h2 {
+    font-size: 1.05rem;
+  }
+
+  .error-content p {
+    font-size: 0.8rem;
+  }
+
+  .error-content button {
+    padding: 9px 18px;
+    font-size: 0.85rem;
   }
 }

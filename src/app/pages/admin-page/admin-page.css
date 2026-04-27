@@ -9,7 +9,7 @@
 body {
   margin: 0;
   font-family: system-ui, -apple-system, sans-serif;
-  background: #eef2ee; 
+  background: #eef2ee;
 }
 
 /* ========================= */
@@ -492,42 +492,6 @@ body {
 }
 
 /* ========================= */
-/* RESPONSIVE */
-/* ========================= */
-
-@media (max-width: 900px) {
-
-  .contenido-admin {
-    flex-direction: column;
-  }
-
-  .trasteros-table thead {
-    display: none;
-  }
-
-  .trasteros-table tr {
-    display: block;
-    background: white;
-    border-radius: 14px;
-    margin-bottom: 12px;
-    padding: 10px;
-    box-shadow: 0 8px 18px rgba(0,0,0,.06);
-  }
-
-  .trasteros-table td {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .trasteros-table td:last-child {
-    border-bottom: none;
-  }
-
-}
-
-/* ========================= */
 /* ANIMACION */
 /* ========================= */
 
@@ -544,8 +508,8 @@ body {
 
 .confirm-overlay {
   position: fixed;
-  inset: 0; /* ← mejor que top/left/width/height */
-  
+  inset: 0;
+
   background: rgba(0,0,0,0.55);
 
   display: flex;
@@ -654,5 +618,361 @@ body {
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+
+/* ============================================
+   RESPONSIVE — ÚNICO BLOQUE MODIFICADO
+   Breakpoints:
+     lg:  1024px   (laptop pequeño)
+     md:   900px   (tablet landscape)
+     sm:   768px   (tablet portrait)
+     xs:   480px   (móvil grande)
+     xxs:  360px   (móvil pequeño)
+   ============================================ */
+
+/* ---- LAPTOP PEQUEÑO (≤1024px) ---- */
+@media (max-width: 1024px) {
+
+  .admin-card {
+    padding: 24px 22px;
+  }
+
+  .editor {
+    flex: 0 0 300px;
+  }
+
+  .contenido-admin {
+    gap: 18px;
+  }
+
+  .tabla-wrapper {
+    max-height: 480px;
+  }
+}
+
+/* ---- TABLET LANDSCAPE (≤900px) ---- */
+@media (max-width: 900px) {
+
+  .admin-page {
+    align-items: flex-start;
+    padding: 24px 16px;
+  }
+
+  .admin-card {
+    padding: 22px 18px;
+    border-radius: 16px;
+  }
+
+  .admin-title {
+    font-size: 22px;
+    margin-bottom: 22px;
+    /* espacio para los botones absolutos */
+    padding: 0 80px;
+  }
+
+  /* Contenido: tabla arriba, editor abajo */
+  .contenido-admin {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Tabla: deja de estar limitada en altura, scroll natural */
+  .tabla-wrapper {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  /* Tabla → tarjetas */
+  .trasteros-table thead {
+    display: none;
+  }
+
+  .trasteros-table tbody tr {
+    display: block;
+    background: white;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    padding: 10px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.06);
+    border: 1px solid #eef2ee;
+  }
+
+  .trasteros-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 8px;
+    border-bottom: 1px solid #eef2ee;
+    font-size: 13px;
+  }
+
+  .trasteros-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* Editor: ancho completo, deja de ser sticky */
+  .editor {
+    flex: none;
+    width: 100%;
+    position: static;
+  }
+}
+
+/* ---- TABLET PORTRAIT (≤768px) ---- */
+@media (max-width: 768px) {
+
+  .admin-page {
+    padding: 16px 12px;
+  }
+
+  .admin-card {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .admin-title {
+    font-size: 20px;
+    margin-bottom: 18px;
+    padding: 0 70px;
+  }
+
+  .back-btn {
+    font-size: 20px;
+    top: 16px;
+    left: 14px;
+  }
+
+  .users-btn {
+    top: 14px;
+    right: 14px;
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .trasteros-table td {
+    font-size: 13px;
+    padding: 8px 6px;
+  }
+
+  .acciones {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .trasteros-table button {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .btn-liberar {
+    margin-left: 0;
+  }
+
+  /* Editor */
+  .editor {
+    padding: 18px 14px;
+    border-radius: 14px;
+  }
+
+  .editor h3 {
+    font-size: 15px;
+  }
+
+  .estado-botones {
+    flex-wrap: wrap;
+  }
+
+  .estado-btn {
+    flex: 1 1 auto;
+    min-width: 80px;
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  /* Confirm modal */
+  .confirm-box {
+    max-width: 90%;
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  .confirm-box h3 {
+    font-size: 16px;
+  }
+
+  .confirm-box p {
+    font-size: 13px;
+  }
+}
+
+/* ---- MÓVIL GRANDE (≤480px) ---- */
+@media (max-width: 480px) {
+
+  .admin-page {
+    padding: 12px 8px;
+  }
+
+  .admin-card {
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  .admin-title {
+    font-size: 17px;
+    margin-bottom: 14px;
+    padding: 0 56px;
+    line-height: 1.3;
+  }
+
+  .back-btn {
+    font-size: 18px;
+    top: 14px;
+    left: 10px;
+  }
+
+  .users-btn {
+    top: 12px;
+    right: 10px;
+    padding: 7px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+
+  .contenido-admin {
+    gap: 14px;
+  }
+
+  /* Tarjetas de tabla más compactas */
+  .trasteros-table tbody tr {
+    border-radius: 12px;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  .trasteros-table td {
+    font-size: 12px;
+    padding: 7px 5px;
+  }
+
+  .libre,
+  .ocupado,
+  .mantenimiento {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .trasteros-table button {
+    padding: 5px 9px;
+    font-size: 11px;
+    border-radius: 8px;
+  }
+
+  /* Editor */
+  .editor {
+    padding: 14px 12px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+
+  .editor h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .editor input,
+  .editor select,
+  .editor textarea {
+    padding: 9px 10px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .editor-buttons,
+  .buttons {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .estado-btn {
+    padding: 7px 6px;
+    font-size: 11px;
+    border-radius: 10px;
+  }
+
+  /* Confirm modal */
+  .confirm-box {
+    max-width: 95%;
+    padding: 16px 14px;
+  }
+
+  .confirm-buttons {
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .btn-cancelar,
+  .btn-confirmar {
+    padding: 9px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .admin-card {
+    padding: 12px 10px;
+  }
+
+  .admin-title {
+    font-size: 15px;
+    padding: 0 48px;
+  }
+
+  .back-btn {
+    font-size: 16px;
+    top: 13px;
+    left: 8px;
+  }
+
+  .users-btn {
+    top: 10px;
+    right: 8px;
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .trasteros-table td {
+    font-size: 11px;
+    padding: 6px 4px;
+  }
+
+  .acciones {
+    gap: 4px;
+  }
+
+  .trasteros-table button {
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+
+  .editor {
+    padding: 12px 10px;
+  }
+
+  .editor input,
+  .editor select,
+  .editor textarea {
+    font-size: 12px;
+    padding: 8px 9px;
+  }
+
+  .estado-btn {
+    font-size: 10px;
+    padding: 6px 4px;
   }
 }

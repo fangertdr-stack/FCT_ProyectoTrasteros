@@ -10,7 +10,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden; 
+  overflow: hidden;
   font-family: system-ui, -apple-system, sans-serif;
   background: #eef2ee;
 }
@@ -25,7 +25,7 @@ html, body {
   align-items: center;
   justify-content: center;
 
-  padding: 16px; /* mínimo para no romper centrado */
+  padding: 16px;
 }
 
 /* ========================= */
@@ -35,7 +35,7 @@ html, body {
 .rent-card {
   position: relative;
   width: 100%;
-  max-width: 420px;  
+  max-width: 420px;
   padding: 22px 20px;
 
   background: #ffffff;
@@ -48,7 +48,7 @@ html, body {
 
   display: flex;
   flex-direction: column;
-  gap: 10px; 
+  gap: 10px;
 
   animation: fadeInUp .4s ease;
 }
@@ -72,7 +72,7 @@ html, body {
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 8px; 
+  margin-bottom: 8px;
 }
 
 label {
@@ -197,5 +197,162 @@ mat-checkbox {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+
+/* ============================================
+   RESPONSIVE — ÚNICO BLOQUE MODIFICADO
+   Breakpoints:
+     sm:  768px   (tablet portrait)
+     xs:  480px   (móvil grande)
+     xxs: 360px   (móvil pequeño)
+
+   PROBLEMA CLAVE: overflow:hidden + height:100vh
+   hace que si la card crece más que la pantalla,
+   el contenido quede cortado sin scroll.
+   En móvil se levanta ese bloqueo y se permite
+   scroll natural.
+   ============================================ */
+
+/* ---- TABLET PORTRAIT (≤768px) ---- */
+@media (max-width: 768px) {
+
+  .rent-container {
+    align-items: flex-start;
+    padding: 20px 16px;
+  }
+
+  .rent-card {
+    padding: 20px 18px;
+    border-radius: 18px;
+    gap: 9px;
+  }
+
+  .rent-card h2 {
+    font-size: 19px;
+    /* espacio para back-btn absoluto */
+    padding-left: 30px;
+  }
+}
+
+/* ---- MÓVIL GRANDE (≤480px) ---- */
+@media (max-width: 480px) {
+
+  /* Levantamos el overflow:hidden para permitir scroll
+     si el formulario es más largo que la pantalla */
+  html, body {
+    overflow: auto;
+    height: auto;
+  }
+
+  .rent-container {
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+    padding: 14px 10px;
+  }
+
+  .rent-card {
+    padding: 18px 14px;
+    border-radius: 16px;
+    gap: 8px;
+    box-shadow:
+      0 12px 30px rgba(0,0,0,.10),
+      0 4px 12px rgba(0,0,0,.06);
+  }
+
+  .back-btn {
+    top: 12px;
+    left: 12px;
+    font-size: 16px;
+  }
+
+  .rent-card h2 {
+    font-size: 17px;
+    padding-left: 26px;
+    margin-bottom: 6px;
+  }
+
+  label {
+    font-size: 11px;
+  }
+
+  input {
+    padding: 9px 10px;
+    font-size: 12px;
+    border-radius: 9px;
+  }
+
+  .form-group {
+    margin-bottom: 6px;
+  }
+
+  mat-form-field {
+    margin-top: 4px;
+  }
+
+  mat-checkbox {
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  .rent-btn {
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 9px;
+    margin-top: 8px;
+  }
+
+  .btn-volver {
+    padding: 8px;
+    font-size: 11px;
+    border-radius: 9px;
+    margin-top: 4px;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .rent-container {
+    padding: 10px 8px;
+  }
+
+  .rent-card {
+    padding: 16px 12px;
+    border-radius: 14px;
+    gap: 7px;
+  }
+
+  .back-btn {
+    top: 10px;
+    left: 10px;
+    font-size: 15px;
+  }
+
+  .rent-card h2 {
+    font-size: 15px;
+    padding-left: 22px;
+  }
+
+  input {
+    padding: 8px 9px;
+    font-size: 11px;
+  }
+
+  label {
+    font-size: 10px;
+  }
+
+  .rent-btn {
+    padding: 9px;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  .btn-volver {
+    padding: 7px;
+    font-size: 10px;
   }
 }
