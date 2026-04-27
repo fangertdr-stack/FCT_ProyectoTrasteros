@@ -14,7 +14,7 @@ html, body {
 }
 
 body {
-  background: #eef2ee; 
+  background: #eef2ee;
 }
 
 /* ========================= */
@@ -303,12 +303,165 @@ input:focus {
   }
 }
 
-/* ========================= */
-/* RESPONSIVE */
-/* ========================= */
 
-@media (max-width: 480px) {
+/* ============================================
+   RESPONSIVE — ÚNICO BLOQUE MODIFICADO
+   Breakpoints:
+     sm:  768px   (tablet portrait)
+     xs:  480px   (móvil grande)
+     xxs: 360px   (móvil pequeño)
+
+   Al igual que contact-page, esta card es
+   naturally responsive por el max-width.
+   Los ajustes son finos pero necesarios.
+   ============================================ */
+
+/* ---- TABLET PORTRAIT (≤768px) ---- */
+@media (max-width: 768px) {
+
+  .login-page {
+    padding: 28px 16px;
+    align-items: flex-start;
+  }
+
   .login-card {
-    padding: 28px 22px;
+    padding: 32px 26px;
+    border-radius: 18px;
+  }
+
+  .title {
+    /* espacio para el back-btn absoluto */
+    padding-left: 32px;
+    margin-bottom: 22px;
+  }
+
+  .divider {
+    margin: 20px 0;
+  }
+}
+
+/* ---- MÓVIL GRANDE (≤480px) ---- */
+@media (max-width: 480px) {
+
+  .login-page {
+    padding: 16px 12px;
+    align-items: flex-start;
+  }
+
+  .login-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+    box-shadow:
+      0 12px 30px rgba(0,0,0,.10),
+      0 4px 12px rgba(0,0,0,.06);
+  }
+
+  .back-btn {
+    top: 14px;
+    left: 14px;
+    font-size: 18px;
+  }
+
+  .title {
+    padding-left: 28px;
+    margin-bottom: 18px;
+  }
+
+  .btn {
+    padding: 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .social-buttons {
+    gap: 10px;
+  }
+
+  .divider {
+    margin: 16px 0;
+    font-size: 12px;
+  }
+
+  input {
+    padding: 11px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .password-field input {
+    padding-right: 42px;
+  }
+
+  .eye-btn {
+    right: 12px;
+    font-size: 15px;
+  }
+
+  .form-group {
+    gap: 10px;
+  }
+
+  .btn.primary {
+    margin-top: 14px;
+  }
+
+  .register-text {
+    font-size: 13px;
+    margin-top: 12px;
+  }
+
+  .error {
+    font-size: 12px;
+    padding: 9px;
+    border-radius: 9px;
+    margin-top: 10px;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .login-page {
+    padding: 12px 8px;
+  }
+
+  .login-card {
+    padding: 20px 14px;
+    border-radius: 14px;
+  }
+
+  .back-btn {
+    top: 12px;
+    left: 10px;
+    font-size: 16px;
+  }
+
+  .title {
+    padding-left: 24px;
+    margin-bottom: 14px;
+  }
+
+  .btn {
+    padding: 11px;
+    font-size: 12px;
+  }
+
+  input {
+    padding: 10px 11px;
+    font-size: 12px;
+  }
+
+  .divider {
+    margin: 14px 0;
+    font-size: 11px;
+  }
+
+  .register-text {
+    font-size: 12px;
+  }
+
+  .error {
+    font-size: 11px;
+    padding: 8px;
   }
 }

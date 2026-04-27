@@ -169,3 +169,163 @@
     transform: translateY(0) scale(1);
   }
 }
+
+
+/* ============================================
+   RESPONSIVE — ÚNICO BLOQUE MODIFICADO
+   Breakpoints:
+     sm:  600px   (tablet pequeña)
+     xs:  480px   (móvil grande)
+     xxs: 360px   (móvil pequeño)
+
+   Modal con formulario + scroll controlado.
+   Mismo patrón que add-user pero con max-width
+   480px (un poco más ancho).
+   ============================================ */
+
+/* ---- TABLET PEQUEÑA (≤600px) ---- */
+@media (max-width: 600px) {
+
+  .modal-overlay {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .modal-content {
+    max-height: 85vh;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .modal-content h3 {
+    font-size: 17px;
+    margin-bottom: 14px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 13px;
+    padding: 9px 11px;
+    border-radius: 10px;
+  }
+
+  .modal-buttons {
+    margin-top: 16px;
+    gap: 8px;
+  }
+
+  .modal-buttons button[type="button"],
+  .modal-buttons button[type="submit"] {
+    padding: 9px 13px;
+    border-radius: 10px;
+    font-size: 13px;
+  }
+}
+
+/* ---- MÓVIL GRANDE (≤480px) ---- */
+@media (max-width: 480px) {
+
+  .modal-overlay {
+    padding: 12px;
+    padding-top: 24px;
+  }
+
+  .modal-content {
+    max-height: 88vh;
+    padding: 16px 14px;
+    border-radius: 14px;
+    box-shadow:
+      0 14px 36px rgba(0,0,0,.20),
+      0 6px 16px rgba(0,0,0,.12);
+  }
+
+  .modal-content h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 13px;
+    padding: 9px 10px;
+    border-radius: 9px;
+  }
+
+  /* Botones full-width para facilitar el tap */
+  .modal-buttons {
+    flex-direction: row;
+    justify-content: stretch;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .modal-buttons button[type="button"],
+  .modal-buttons button[type="submit"] {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .modal-overlay {
+    padding: 8px;
+    padding-top: 16px;
+  }
+
+  .modal-content {
+    padding: 14px 12px;
+    border-radius: 12px;
+    max-height: 92vh;
+  }
+
+  .modal-content h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 8px;
+  }
+
+  .form-group label {
+    font-size: 11px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 12px;
+    padding: 8px 9px;
+    border-radius: 8px;
+  }
+
+  .modal-buttons {
+    margin-top: 12px;
+    gap: 7px;
+  }
+
+  .modal-buttons button[type="button"],
+  .modal-buttons button[type="submit"] {
+    padding: 9px 6px;
+    font-size: 12px;
+    border-radius: 9px;
+  }
+}

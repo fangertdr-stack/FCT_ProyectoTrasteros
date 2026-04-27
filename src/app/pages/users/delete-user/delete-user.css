@@ -137,3 +137,90 @@
     transform: translateY(0) scale(1);
   }
 }
+
+
+/* ============================================
+   RESPONSIVE — ÚNICO BLOQUE MODIFICADO
+   Breakpoints:
+     xs:  480px   (móvil grande)
+     xxs: 360px   (móvil pequeño)
+
+   Modal simple de confirmación: sin scroll,
+   sin formulario. Los ajustes son mínimos
+   pero necesarios para pantallas chicas.
+   ============================================ */
+
+/* ---- MÓVIL GRANDE (≤480px) ---- */
+@media (max-width: 480px) {
+
+  .modal-overlay {
+    padding: 14px;
+  }
+
+  .modal-content {
+    padding: 18px 16px;
+    border-radius: 14px;
+    box-shadow:
+      0 14px 36px rgba(0,0,0,.20),
+      0 6px 16px rgba(0,0,0,.12);
+  }
+
+  .modal-content h3 {
+    font-size: 16px;
+  }
+
+  .modal-content p {
+    font-size: 13px;
+  }
+
+  /* Botones full-width para facilitar el tap */
+  .modal-buttons {
+    flex-direction: row;
+    justify-content: stretch;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .modal-buttons button:first-child,
+  .modal-buttons button:last-child {
+    flex: 1;
+    padding: 10px 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-content {
+    padding: 16px 13px;
+    border-radius: 12px;
+  }
+
+  .modal-content h3 {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .modal-content p {
+    font-size: 12px;
+  }
+
+  .modal-buttons {
+    margin-top: 14px;
+    gap: 7px;
+  }
+
+  .modal-buttons button:first-child,
+  .modal-buttons button:last-child {
+    padding: 9px 8px;
+    font-size: 12px;
+    border-radius: 9px;
+  }
+}

@@ -230,20 +230,256 @@ body {
   }
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
 
-@media (max-width: 600px) {
+/* ============================================
+   RESPONSIVE — ÚNICO BLOQUE MODIFICADO
+   Breakpoints:
+     lg:  1024px  (laptop)
+     md:   768px  (tablet portrait)
+     sm:   600px  (tablet pequeña / móvil grande)
+     xs:   480px  (móvil)
+     xxs:  360px  (móvil pequeño)
+   ============================================ */
+
+/* ---- LAPTOP (≤1024px) ---- */
+@media (max-width: 1024px) {
+
   .user-card {
-    padding: 20px;
+    padding: 28px 24px;
+  }
+
+  .trasteros-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .user-title {
+    font-size: 24px;
+  }
+}
+
+/* ---- TABLET PORTRAIT (≤768px) ---- */
+@media (max-width: 768px) {
+
+  .user-page {
+    align-items: flex-start;
+    padding: 20px 14px;
+  }
+
+  .user-card {
+    padding: 24px 20px;
+    border-radius: 18px;
   }
 
   .user-title {
     font-size: 22px;
+    margin-bottom: 18px;
+    /* espacio para el back-btn absoluto */
+    padding-left: 46px;
+  }
+
+  .back-btn {
+    top: 16px;
+    left: 16px;
+    font-size: 16px;
+    padding: 5px 9px;
+  }
+
+  .trasteros-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+
+  .empty {
+    padding: 30px 16px;
+  }
+
+  .empty-icon {
+    font-size: 36px;
+  }
+
+  .empty h3 {
+    font-size: 16px;
+  }
+}
+
+/* ---- TABLET PEQUEÑA / MÓVIL GRANDE (≤600px) ---- */
+@media (max-width: 600px) {
+
+  .user-page {
+    padding: 14px 10px;
+  }
+
+  .user-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+    box-shadow:
+      0 12px 30px rgba(0,0,0,.10),
+      0 4px 12px rgba(0,0,0,.06);
+  }
+
+  .user-title {
+    font-size: 20px;
+    margin-bottom: 14px;
+    padding-left: 42px;
+  }
+
+  .back-btn {
+    top: 14px;
+    left: 14px;
+    font-size: 15px;
+    padding: 5px 8px;
+    border-radius: 9px;
+  }
+
+  /* Grid: forzar 2 columnas en lugar de auto-fit */
+  .trasteros-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 14px;
   }
 
   .card {
     padding: 14px;
+    border-radius: 14px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 13px;
+    margin: 4px 0;
+  }
+
+  .codigo {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .empty {
+    padding: 26px 14px;
+    border-radius: 14px;
+  }
+
+  .empty h3 {
+    font-size: 15px;
+  }
+
+  .empty p {
+    font-size: 13px;
+  }
+}
+
+/* ---- MÓVIL (≤480px) ---- */
+@media (max-width: 480px) {
+
+  .user-page {
+    padding: 12px 8px;
+  }
+
+  .user-card {
+    padding: 16px 12px;
+    border-radius: 14px;
+  }
+
+  .user-title {
+    font-size: 17px;
+    padding-left: 38px;
+    margin-bottom: 12px;
+  }
+
+  .back-btn {
+    top: 12px;
+    left: 10px;
+    font-size: 14px;
+    padding: 4px 7px;
+    gap: 4px;
+  }
+
+  /* 1 columna en móvil pequeño */
+  .trasteros-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+  }
+
+  .card p {
+    font-size: 12px;
+  }
+
+  .empty {
+    padding: 22px 12px;
+    margin-top: 20px;
+  }
+
+  .empty-icon {
+    font-size: 30px;
+  }
+
+  .empty h3 {
+    font-size: 14px;
+  }
+
+  .empty p {
+    font-size: 12px;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .user-card {
+    padding: 14px 10px;
+    border-radius: 12px;
+  }
+
+  .user-title {
+    font-size: 15px;
+    padding-left: 34px;
+  }
+
+  .back-btn {
+    font-size: 13px;
+    padding: 4px 6px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .card h3 {
+    font-size: 13px;
+  }
+
+  .card p {
+    font-size: 11px;
+  }
+
+  .codigo {
+    font-size: 10px;
+    padding: 2px 7px;
+  }
+
+  .empty-icon {
+    font-size: 26px;
+  }
+
+  .empty h3 {
+    font-size: 13px;
+  }
+
+  .empty p {
+    font-size: 11px;
   }
 }

@@ -26,8 +26,8 @@
   width: 100%;
   max-width: 420px;
 
-  max-height: 90vh;       
-  overflow-y: auto;        
+  max-height: 90vh;
+  overflow-y: auto;
 
   background: #ffffff;
   border-radius: 18px;
@@ -54,7 +54,7 @@
 .form-group select,
 .form-group textarea {
   width: 100%;
-  max-width: 100%;  
+  max-width: 100%;
   display: block;
 
   padding: 10px 12px;
@@ -130,5 +130,131 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ---- TABLET PEQUEÑA (≤600px) ---- */
+@media (max-width: 600px) {
+
+  .modal-overlay {
+    padding: 16px;
+    /* Alinear arriba en pantallas bajas para que
+       el teclado virtual no tape el modal */
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .modal-content {
+    max-height: 85vh;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 13px;
+    padding: 9px 11px;
+    border-radius: 10px;
+  }
+
+  .modal-buttons {
+    margin-top: 14px;
+    gap: 8px;
+  }
+
+  .modal-buttons button:first-child,
+  .modal-buttons button:last-child {
+    padding: 9px 13px;
+    border-radius: 10px;
+    font-size: 13px;
+  }
+}
+
+/* ---- MÓVIL GRANDE (≤480px) ---- */
+@media (max-width: 480px) {
+
+  .modal-overlay {
+    padding: 12px;
+    padding-top: 24px;
+    /* En móvil el modal ocupa casi todo el ancho */
+    align-items: flex-start;
+  }
+
+  .modal-content {
+    max-height: 88vh;
+    padding: 16px 14px;
+    border-radius: 14px;
+    box-shadow:
+      0 14px 36px rgba(0,0,0,.20),
+      0 6px 16px rgba(0,0,0,.12);
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 13px;
+    padding: 9px 10px;
+    border-radius: 9px;
+  }
+
+  /* Botones: full width en móvil para facilitar el tap */
+  .modal-buttons {
+    flex-direction: row;
+    justify-content: stretch;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .modal-buttons button:first-child,
+  .modal-buttons button:last-child {
+    flex: 1;
+    padding: 10px 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+/* ---- MÓVIL PEQUEÑO (≤360px) ---- */
+@media (max-width: 360px) {
+
+  .modal-overlay {
+    padding: 8px;
+    padding-top: 16px;
+  }
+
+  .modal-content {
+    padding: 14px 12px;
+    border-radius: 12px;
+    max-height: 92vh;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 12px;
+    padding: 8px 9px;
+    border-radius: 8px;
+  }
+
+  .form-group {
+    margin-bottom: 8px;
+  }
+
+  .modal-buttons button:first-child,
+  .modal-buttons button:last-child {
+    padding: 9px 8px;
+    font-size: 12px;
+    border-radius: 9px;
   }
 }
