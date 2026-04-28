@@ -93,7 +93,6 @@ export class RentPage implements OnInit {
 
     this.trasteroService.getUsuario(idUsuario).subscribe({
       next: (userData) => {
-
         const rawUser = Array.isArray(userData)
           ? userData.find((u: any) => Number(u.id_usuario) === idUsuario) || userData[0]
           : userData?.data ?? userData;
