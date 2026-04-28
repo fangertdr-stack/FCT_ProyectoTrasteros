@@ -31,6 +31,7 @@ export class MainPage implements OnInit {
 
   // 🔥 PROGRESO DE ANIMACIÓN (0 cerrado - 1 abierto)
   openProgress = 0;
+  isAdmin = true;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -44,6 +45,10 @@ export class MainPage implements OnInit {
 
     this.token = localStorage.getItem('token') ?? '';
     this.nombrePublico = localStorage.getItem('nombre') ?? '';
+
+    const rol = localStorage.getItem('rol');
+    this.isAdmin = rol === '1';
+
   }
 
 @HostListener('window:scroll', [])
@@ -75,6 +80,8 @@ onScroll(): void {
     return !!localStorage.getItem('token');
   }
 
+
+
   logout() {
     if (!this.isBrowser()) return;
 
@@ -85,10 +92,7 @@ onScroll(): void {
     });
   }
 
-  isAdmin(): boolean {
-    if (!this.isBrowser()) return false;
-    return localStorage.getItem('rol') === 'admin';
-  }
+
 
   contratar() { this.nav.goTo('rent'); }
   mediano() { this.nav.goTo('mediano'); }

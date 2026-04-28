@@ -10,15 +10,13 @@
       <button class="nav-btn ghost" (click)="contact()">Contacto</button>
 
       @if (!isLoggedIn) {
-  <button class="nav-btn primary" (click)="login()">
-    Login
-  </button>
+
+      <button class="nav-btn primary" (click)="login()"> Login</button>
 } @else {
 
-
+  @if(isAdmin){
     <button class="nav-btn ghost" (click)="admin()">Admin</button>
-
-
+  }
   <button class="nav-welcome" (click)="userPage()">
     Hola, <strong>{{ nombrePublico }}</strong>
   </button>
