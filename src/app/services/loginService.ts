@@ -31,14 +31,16 @@ export class LoginService {
 
   }
 
-  // Envio las credenciales y me responde si son correctas o no
-  login(data: {email: string; password: string}): Observable<any>{
-    const body = JSON.stringify(data);
+  // Envío las credenciales y me responde si son correctas o no
+login(data: { email: string; password: string }): Observable<any> {
 
-    return this.http.post(`${URL_API}/login.php`,body, {
-      headers: {'Content-Type': 'application/json'}
-    })
-  }
+  return this.http.post(`${URL_API}/login.php`, data, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+}
 
   // Metodo para captar el nombre publico y que se indique al iniciar sesion
   getNombrePublico(): string{

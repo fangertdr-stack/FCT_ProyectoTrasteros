@@ -161,7 +161,7 @@ export class LoginComponent {
         this.cdr.markForCheck();
         console.log('RESPUESTA:', resp);
 
-        if ((resp.status || resp.ok) && resp.data) {
+        if (( resp.data|| resp.ok)  ) {
           // Importante en SSR: solo si existe window
           if (typeof window !== 'undefined') {
             const token = resp.data.token;

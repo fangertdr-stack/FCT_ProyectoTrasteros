@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
+import { URL_API } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersCrud {
 
-  private apiUrl = `http://dev2.datarush.es/BackTrasteRush/api/user.php`;
+  private apiUrl = `${URL_API}/user.php`;
 
   constructor(private http: HttpClient) {}
 

@@ -10,20 +10,23 @@
       <button class="nav-btn ghost" (click)="contact()">Contacto</button>
 
       @if (!isLoggedIn) {
-        <button class="nav-btn primary" (click)="login()">
-          Login
-        </button>
-      } @else {
-        <button class="nav-btn ghost" (click)="admin()">Admin</button>
+  <button class="nav-btn primary" (click)="login()">
+    Login
+  </button>
+} @else {
 
-        <button class="nav-welcome" (click)="userPage()">
-          Hola, <strong>{{ nombrePublico }}</strong>
-        </button>
 
-        <button class="nav-btn danger" (click)="logout()">
-          Logout
-        </button>
-      }
+    <button class="nav-btn ghost" (click)="admin()">Admin</button>
+
+
+  <button class="nav-welcome" (click)="userPage()">
+    Hola, <strong>{{ nombrePublico }}</strong>
+  </button>
+
+  <button class="nav-btn danger" (click)="logout()">
+    Logout
+  </button>
+}
     </nav>
   </header>
 
@@ -129,7 +132,7 @@
 
       <!-- FRAME (estructura real del garaje) -->
       <div class="trastero-frame">
-        
+
         <div class="camera" [style.transform]="'translateZ(' + (openProgress * -600) + 'px)'">
 
           <!-- PAREDES / PROFUNDIDAD -->
@@ -173,12 +176,12 @@
                 loading="lazy"
                 src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3149.0960670378918!2d-4.795560000000001!3d37.881436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzfCsDUyJzUzLjIiTiA0wrA0Nyc0NC4wIlc!5e0!3m2!1sen!2ses!4v1774266026406!5m2!1sen!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
               </iframe>
-           
+
             </div>
 
           </div>
 
-        </div> 
+        </div>
 
       </div>
 
@@ -189,5 +192,5 @@
   <footer class="main-footer">
     <p>© 2026 TrasteRush · Todos los derechos reservados</p>
   </footer>
-  
+
 </div>
