@@ -11,32 +11,32 @@
 
       <div class="form-group">
         <label>Nombre</label>
-        <input type="text" placeholder="Nombre">
+        <input type="text" placeholder="Nombre" [(ngModel)]="nombre" name="nombre">
       </div>
 
       <div class="form-group">
         <label>Apellidos</label>
-        <input type="text" placeholder="Apellidos">
+        <input type="text" placeholder="Apellidos" [(ngModel)]="apellidos" name="apellidos">
       </div>
 
       <div class="form-group">
         <label>DNI</label>
-        <input type="text" placeholder="DNI/NIE">
+        <input type="text" placeholder="DNI/NIE" [(ngModel)]="dni" name="dni">
       </div>
 
       <div class="form-group">
         <label>Dirección</label>
-        <input type="text" placeholder="Calle, número...">
+        <input type="text" placeholder="Calle, número..." [(ngModel)]="direccion" name="direccion">
       </div>
 
       <div class="form-group">
         <label>Teléfono</label>
-        <input type="tel" placeholder="Teléfono">
+        <input type="tel" placeholder="Teléfono" [(ngModel)]="telefono" name="telefono">
       </div>
 
       <div class="form-group">
         <label>Email</label>
-        <input type="email" placeholder="Correo electrónico">
+        <input type="email" placeholder="Correo electrónico" [(ngModel)]="email" name="email">
       </div>
 
     <mat-form-field appearance="outline">
@@ -84,7 +84,7 @@
 
 
 
-      <button class="rent-btn" (click)="pagar()">Continuar y Pagar</button>
+      <button type="button" class="rent-btn" (click)="pagar()">Continuar y Pagar</button>
 
 
     </form>

@@ -8,22 +8,22 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private getHeaders() {
     return new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
       'Content-Type': 'application/json'
 
-  });
+    });
 
- }
+  }
 
- getUser(){
+  getUser() {
 
     const id = localStorage.getItem("id_usuario");
 
-    if(!id) return null;
+    if (!id) return null;
 
     return {
       id_usuario: Number(id)
@@ -32,19 +32,19 @@ export class LoginService {
   }
 
   // Envío las credenciales y me responde si son correctas o no
-login(data: { email: string; password: string }): Observable<any> {
+  login(data: { email: string; password: string }): Observable<any> {
 
-  return this.http.post(`${URL_API}/login.php`, data, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  });
+    return this.http.post(`${URL_API}/login.php`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-}
+  }
 
   // Metodo para captar el nombre publico y que se indique al iniciar sesion
-  getNombrePublico(): string{
-    return localStorage.getItem('nombre_publico') || '';
+  getNombrePublico(): string {
+    return localStorage.getItem('nombre') || '';
   }
 
   isAdmin() {
@@ -52,15 +52,15 @@ login(data: { email: string; password: string }): Observable<any> {
   }
 
   // Metodo para cerrar sesion
-  logOut(): Observable<any>{
-    const body  = new FormData();
+  logOut(): Observable<any> {
+    const body = new FormData();
     const usuario = localStorage.getItem('usuario') || '';
-    body.append('user',usuario);
+    body.append('user', usuario);
 
     // Limpieza de localStorage y cookies
     localStorage.clear();
 
-    return this.http.post(`${URL_API}/logout.php`,body)
+    return this.http.post(`${URL_API}/logout.php`, body)
   }
 
 }

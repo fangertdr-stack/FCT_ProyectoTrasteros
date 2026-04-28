@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ import { NavigationService } from '../../services/navigation';
   templateUrl: './rent-page.html',
   styleUrls: ['./rent-page.css']
 })
-export class RentPage {
+export class RentPage implements OnInit {
 
 
 
@@ -41,13 +41,22 @@ export class RentPage {
 
   usuario: any = null; // <-- Guardaremos los datos del usuario logueado
 
+  // Propiedades para el formulario
+  nombre: string = '';
+  apellidos: string = ''; // Si no hay apellidos separados, usar parte del nombre
+  dni: string = '';
+  direccion: string = '';
+  telefono: string = '';
+  email: string = '';
+
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
     private trasteroService: TrasteroService,
     private login: LoginService,
-    private nav: NavigationService
-  ) {}
+    private nav: NavigationService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   showMessage(message: string, action: string = 'Cerrar'): void {
     this.snackBar.open(message, action, {
@@ -74,16 +83,40 @@ export class RentPage {
       return;
     }
 
+    // Setear el nombre inmediatamente desde localStorage
+    this.nombre = this.login.getNombrePublico();
+    this.cdr.detectChanges();
+
     // Obtener los datos completos del usuario desde el backend
     const idUsuario = this.login.getUser()?.id_usuario;
     if (!idUsuario) return;
 
     this.trasteroService.getUsuario(idUsuario).subscribe({
       next: (userData) => {
-        this.usuario = userData;
+        console.log('Datos del usuario obtenidos:', userData);
+        const rawUser = Array.isArray(userData)
+          ? userData.find((u: any) => Number(u.id_usuario) === idUsuario) || userData[0]
+          : userData?.data ?? userData;
+
+        this.usuario = rawUser;
+        if (!rawUser) {
+          console.warn('No se encontró el usuario correcto en la respuesta del backend');
+          return;
+        }
+        this.nombre = this.nombre || '';
+        this.apellidos = '';
+        this.dni = rawUser.dni || '';
+        this.direccion = rawUser.direccion || '';
+        this.telefono = rawUser.telefono || '';
+        this.email = rawUser.email || '';
+
+
+        console.log('Usuario seleccionado:', rawUser);
+
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error(err);
+        console.error('Error al obtener usuario:', err);
         this.showMessage("No se pudieron cargar los datos del usuario");
       }
     });
@@ -126,8 +159,8 @@ export class RentPage {
           nombre: this.usuario.nombre,
           telefono: this.usuario.telefono,
           email: this.usuario.email,
-          fecha_inicio: fechaInicio.toISOString().slice(0,10),
-          fecha_fin: fechaFin.toISOString().slice(0,10),
+          fecha_inicio: fechaInicio.toISOString().slice(0, 10),
+          fecha_fin: fechaFin.toISOString().slice(0, 10),
           precio_mensual_aplicado: trastero.precio,
           estado: 'ocupado'
         };

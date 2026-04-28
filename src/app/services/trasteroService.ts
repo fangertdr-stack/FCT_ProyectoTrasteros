@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Trastero } from '../models/trastero';
 import { URL_API } from '../../environments/environment';
@@ -10,7 +10,14 @@ import { URL_API } from '../../environments/environment';
 export class TrasteroService {
   private apiUrl = `${URL_API}/trasteros.php`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  private getHeaders() {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json'
+    });
+  }
 
   // Traer todos los trasteros
   getTrasteros(): Observable<Trastero[]> {
@@ -24,37 +31,37 @@ export class TrasteroService {
 
   // Traer usuarios para asignar trasteros
   getUsuarios(): Observable<any[]> {
-    return this.http.get<any[]>(`${URL_API}/user.php`);
+    return this.http.get<any[]>(`${URL_API}/user.php`, { headers: this.getHeaders() });
   }
 
   // Asignar un trastero a un usuarioS
-  asignarTrastero(data:any): Observable<any>{
-  return this.http.post(this.apiUrl, data);
+  asignarTrastero(data: any): Observable<any> {
+    return this.http.post(this.apiUrl, data);
   }
 
   liberarTrastero(id_trastero: number) {
-  return this.http.delete(`${this.apiUrl}`, {
-    body: { id_trastero }
-  });
+    return this.http.delete(`${this.apiUrl}`, {
+      body: { id_trastero }
+    });
 
   }
 
   // Traer un usuario por id
-getUsuario(id_usuario: number): Observable<any> {
-  return this.http.get<any>(`${URL_API}/user.php?id_usuario=${id_usuario}`);
-}
+  getUsuario(id_usuario: number): Observable<any> {
+    return this.http.get<any>(`${URL_API}/user.php?id_usuario=${id_usuario}`, { headers: this.getHeaders() });
+  }
 
   getMisTrasteros(id_usuario: number) {
-  return this.http.get<any[]>(
-    `${URL_API}/userPage.php?id_usuario=${id_usuario}`
-  );
+    return this.http.get<any[]>(
+      `${URL_API}/userPage.php?id_usuario=${id_usuario}`, { headers: this.getHeaders() }
+    );
 
   }
 
   // Devuelve un trastero libre según tamaño
-getTrasteroLibre(tamanio: string): Observable<Trastero | null> {
-  return this.http.get<Trastero | null>(`${this.apiUrl}?estado=libre&tamanio=${tamanio}`);
-}
+  getTrasteroLibre(tamanio: string): Observable<Trastero | null> {
+    return this.http.get<Trastero | null>(`${this.apiUrl}?estado=libre&tamanio=${tamanio}`);
+  }
 
 
 }
