@@ -250,6 +250,63 @@
   transition: all .3s ease;
 }
 
+/* PRECIO BADGE - MÁS PEQUEÑO */
+.precio-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  background: linear-gradient(135deg, #16a34a, #15803d);
+
+  padding: 4px 8px;
+  border-radius: 6px;
+
+  box-shadow:
+    0 2px 8px rgba(22, 163, 74, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+
+  animation: pulsePrecio 2s ease-in-out infinite;
+}
+
+@keyframes pulsePrecio {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.35);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.5);
+  }
+}
+
+.precio-cantidad {
+  font-size: 13px;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.precio-periodo {
+  font-size: 8px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.2;
+}
+
+.trastero:hover .precio-badge {
+  animation: none;
+  transform: scale(1.08);
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.55);
+}
+
 .trastero-info {
   position: absolute;
   bottom: 10px;
@@ -364,7 +421,7 @@
 }
 
 .transition-section {
-  height: 130vh;
+  height: 360vh;
   position: relative;
 }
 
@@ -380,7 +437,6 @@
   align-items: center;
 
   perspective: 1600px;
-
 }
 
 .interior {
@@ -417,10 +473,14 @@
   pointer-events: none;
 }
 
-/* BOX CONFIAZA */
+/* BOX CONFIANZA */
 .trust-box {
   text-align: center;
-  transition: all 0.1s linear;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.trust-box h2 {
+  margin-bottom: 10px;
 }
 
 /* MAPA */
@@ -429,19 +489,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 10px 0;
+  transition: opacity 0.3s ease;
 }
 
 .map-box iframe {
   width: 70%;
   max-width: 700px;
   border-radius: 16px;
-
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-.map-box iframe {
   filter: brightness(0.92) contrast(1.05) saturate(0.9);
 }
 
@@ -562,22 +618,23 @@
     to bottom,
     #9ca3af,
     #9ca3af 15px,
-    #d1d5db 25px,
+    #d1d5db 15px,
     #d1d5db 20px
   );
 
   border-bottom: 3px solid #4b5563;
 
   box-shadow: inset 0 -20px 30px rgba(0,0,0,0.25);
+
+  transition: transform 0.6s ease;
 }
 
 .camera {
   position: absolute;
   inset: 0;
-
   padding: 10px;
-
   transform-style: preserve-3d;
+  transition: transform 0.1s linear;
 }
 
 
@@ -805,6 +862,21 @@
     height: 154px;
   }
 
+  /* Precio badge responsive */
+  .precio-badge {
+    padding: 4px 7px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .precio-cantidad {
+    font-size: 12px;
+  }
+
+  .precio-periodo {
+    font-size: 7px;
+  }
+
   /* Transition section */
   .trastero-frame {
     height: 52vh;
@@ -930,6 +1002,21 @@
     height: 136px;
   }
 
+  /* Precio badge móvil */
+  .precio-badge {
+    padding: 3px 6px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .precio-cantidad {
+    font-size: 11px;
+  }
+
+  .precio-periodo {
+    font-size: 7px;
+  }
+
   .trastero-info strong {
     font-size: 12px;
   }
@@ -1012,6 +1099,21 @@
   .grande {
     width: 138px;
     height: 120px;
+  }
+
+  /* Precio badge móvil pequeño */
+  .precio-badge {
+    padding: 3px 5px;
+    top: 5px;
+    right: 5px;
+  }
+
+  .precio-cantidad {
+    font-size: 10px;
+  }
+
+  .precio-periodo {
+    font-size: 6px;
   }
 
   .trastero-frame {
