@@ -80,7 +80,9 @@ onScroll(): void {
     return !!localStorage.getItem('token');
   }
 
-
+volver() {
+    this.nav.goTo('/');
+  }
 
   logout() {
     if (!this.isBrowser()) return;

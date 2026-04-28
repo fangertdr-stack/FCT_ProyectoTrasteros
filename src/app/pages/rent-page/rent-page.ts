@@ -10,6 +10,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 
 import { TrasteroService } from '../../services/trasteroService';
 import { LoginService } from '../../services/loginService';
+import { NavigationService } from '../../services/navigation';
 
 @Component({
   selector: 'app-rent-page',
@@ -44,7 +45,8 @@ export class RentPage {
     private router: Router,
     private snackBar: MatSnackBar,
     private trasteroService: TrasteroService,
-    private login: LoginService
+    private login: LoginService,
+    private nav: NavigationService
   ) {}
 
   showMessage(message: string, action: string = 'Cerrar'): void {
@@ -87,9 +89,7 @@ export class RentPage {
     });
   }
 
-  volver() {
-    this.router.navigate(['']);
-  }
+
 
   pagar() {
     if (!this.contratoAbierto) {
@@ -155,12 +155,13 @@ export class RentPage {
     });
   }
 
+
   cerrarCodigo() {
     this.codigoGeneradoVisible = false;
-    this.router.navigate(['/']);
+    this.nav.goTo('/');
   }
 
   goBack() {
-    this.router.navigate(['']);
+    this.nav.goTo('/');
   }
 }
