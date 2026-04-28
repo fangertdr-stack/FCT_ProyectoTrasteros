@@ -59,8 +59,7 @@
 
 
   <!-- TRASTEROS -->
-  <!-- TRASTEROS -->
-<section class="trasteros-section">
+  <section class="trasteros-section">
 
   <h2 class="trasteros-title">
     Encuentra el espacio perfecto para ti
@@ -78,6 +77,11 @@
       <span class="label">Pequeño</span>
 
       <div class="trastero" (click)="pequeno()">
+        <div class="precio-badge">
+          <span class="precio-cantidad">50€</span>
+          <span class="precio-periodo">/mes</span>
+        </div>
+
         <div class="puerta-trasteritos"></div>
 
         <div class="trastero-info">
@@ -94,6 +98,11 @@
       <span class="label">Mediano</span>
 
       <div class="trastero mediano" (click)="mediano()">
+        <div class="precio-badge">
+          <span class="precio-cantidad">100€</span>
+          <span class="precio-periodo">/mes</span>
+        </div>
+
         <div class="puerta-trasteritos"></div>
 
         <div class="trastero-info">
@@ -110,6 +119,11 @@
       <span class="label">Grande</span>
 
       <div class="trastero grande" (click)="grande()">
+        <div class="precio-badge">
+          <span class="precio-cantidad">150€</span>
+          <span class="precio-periodo">/mes</span>
+        </div>
+
         <div class="puerta-trasteritos"></div>
 
         <div class="trastero-info">
@@ -124,7 +138,7 @@
 
 </section>
 
-  <section class="transition-section">
+  <section class="transition-section" #transitionSection>
 
     <div class="trastero-full">
 
