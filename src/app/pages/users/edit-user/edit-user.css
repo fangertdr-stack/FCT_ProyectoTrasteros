@@ -35,9 +35,9 @@
   padding: 22px;
 
   box-shadow:
-    0 30px 60px rgba(0,0,0,.25),
-    0 10px 25px rgba(0,0,0,.15),
-    inset 0 1px 0 rgba(255,255,255,.6);
+    0 30px 60px rgba(0, 0, 0, .25),
+    0 10px 25px rgba(0, 0, 0, .15),
+    inset 0 1px 0 rgba(255, 255, 255, .6);
 
   animation: modalIn .25s ease;
 
@@ -97,7 +97,7 @@
 .form-group select:focus {
   border-color: #4ead53;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(78,173,83,.15);
+  box-shadow: 0 0 0 3px rgba(78, 173, 83, .15);
 }
 
 /* =========================
@@ -164,6 +164,7 @@
     opacity: 0;
     transform: translateY(10px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -245,8 +246,8 @@
     padding: 16px 14px;
     border-radius: 14px;
     box-shadow:
-      0 14px 36px rgba(0,0,0,.20),
-      0 6px 16px rgba(0,0,0,.12);
+      0 14px 36px rgba(0, 0, 0, .20),
+      0 6px 16px rgba(0, 0, 0, .12);
   }
 
   .modal-content h3 {

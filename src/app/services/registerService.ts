@@ -9,7 +9,7 @@ import { URL_API } from '../../environments/environment.prod';
 })
 export class RegisterService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private getHeaders(authenticated: boolean = false) {
     const headers = new HttpHeaders({
@@ -25,8 +25,8 @@ export class RegisterService {
     return this.http.post(`${URL_API}/register.php`, {}, { headers: this.getHeaders(false) });
   }
 
-  create(data: {nombre: string; email: string; password: string; dni?: string; telefono?: string; direccion?: string}): Observable<any> {
-    
+  create(data: { nombre: string; email: string; password: string; dni?: string; telefono?: string; direccion?: string }): Observable<any> {
+
     // Construir payload solo con campos que tienen valor
     const payload: any = {
       nombre: data.nombre,

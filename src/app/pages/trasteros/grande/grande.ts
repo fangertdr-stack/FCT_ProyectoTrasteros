@@ -16,7 +16,7 @@ export class Grande {
     'assets/img/grande3.jpg'
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   next() {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;

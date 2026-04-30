@@ -37,9 +37,9 @@ body {
   position: relative;
 
   box-shadow:
-    0 30px 60px rgba(0,0,0,.15),
-    0 10px 25px rgba(0,0,0,.08),
-    inset 0 1px 0 rgba(255,255,255,.6);
+    0 30px 60px rgba(0, 0, 0, .15),
+    0 10px 25px rgba(0, 0, 0, .08),
+    inset 0 1px 0 rgba(255, 255, 255, .6);
 
   animation: fadeInUp .5s ease;
 }
@@ -130,7 +130,7 @@ body {
   background: #f7faf7;
 }
 
-.list-user-table tbody tr + tr {
+.list-user-table tbody tr+tr {
   border-top: 1px solid #eef2ee;
 }
 
@@ -224,6 +224,7 @@ body {
     opacity: 0;
     transform: translateY(15px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -314,7 +315,7 @@ body {
     border-radius: 14px;
     margin-bottom: 12px;
     padding: 10px;
-    box-shadow: 0 8px 18px rgba(0,0,0,.06);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .06);
     border: 1px solid #eef2ee;
   }
 
@@ -339,14 +340,37 @@ body {
     margin-right: 8px;
   }
 
-  .list-user-table td:nth-child(1)::before { content: "ID"; }
-  .list-user-table td:nth-child(2)::before { content: "Nombre"; }
-  .list-user-table td:nth-child(3)::before { content: "Email"; }
-  .list-user-table td:nth-child(4)::before { content: "DNI"; }
-  .list-user-table td:nth-child(5)::before { content: "Rol"; }
-  .list-user-table td:nth-child(6)::before { content: "Dirección"; }
-  .list-user-table td:nth-child(7)::before { content: "Teléfono"; }
-  .list-user-table td:nth-child(8)::before { content: "Acciones"; }
+  .list-user-table td:nth-child(1)::before {
+    content: "ID";
+  }
+
+  .list-user-table td:nth-child(2)::before {
+    content: "Nombre";
+  }
+
+  .list-user-table td:nth-child(3)::before {
+    content: "Email";
+  }
+
+  .list-user-table td:nth-child(4)::before {
+    content: "DNI";
+  }
+
+  .list-user-table td:nth-child(5)::before {
+    content: "Rol";
+  }
+
+  .list-user-table td:nth-child(6)::before {
+    content: "Dirección";
+  }
+
+  .list-user-table td:nth-child(7)::before {
+    content: "Teléfono";
+  }
+
+  .list-user-table td:nth-child(8)::before {
+    content: "Acciones";
+  }
 
   .list-user-actions {
     flex-wrap: wrap;
@@ -426,8 +450,8 @@ body {
     padding: 14px 12px;
     border-radius: 12px;
     box-shadow:
-      0 12px 30px rgba(0,0,0,.10),
-      0 4px 12px rgba(0,0,0,.06);
+      0 12px 30px rgba(0, 0, 0, .10),
+      0 4px 12px rgba(0, 0, 0, .06);
   }
 
   .list-user-title {

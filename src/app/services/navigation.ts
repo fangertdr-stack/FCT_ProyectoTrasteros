@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   // Metodo para volver a la pagina anterior
   goBack() {

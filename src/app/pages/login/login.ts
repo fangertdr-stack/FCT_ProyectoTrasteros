@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef,  } from '@angular/core';
+import { Component, ChangeDetectorRef, } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
@@ -40,7 +40,7 @@ export class LoginComponent {
     private router: Router,
     private nav: NavigationService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   private showMessage(message: string, success: boolean = true): void {
     this.snackBar.open(message, 'Cerrar', {
@@ -161,7 +161,7 @@ export class LoginComponent {
         this.cdr.markForCheck();
         console.log('RESPUESTA:', resp);
 
-        if (( resp.data|| resp.ok)  ) {
+        if ((resp.data || resp.ok)) {
           // Importante en SSR: solo si existe window
           if (typeof window !== 'undefined') {
             const token = resp.data.token;

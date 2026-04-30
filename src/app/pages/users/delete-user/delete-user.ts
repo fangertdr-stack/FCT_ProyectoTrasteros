@@ -17,7 +17,7 @@ export class DeleteUser {
   @Output() eliminado = new EventEmitter<void>(); // Emitir cuando se elimina
   @Output() cancel = new EventEmitter<void>();   // Emitir cuando se cancela
 
-  constructor(private usersCrud: UsersCrud, private snackBar: MatSnackBar) {}
+  constructor(private usersCrud: UsersCrud, private snackBar: MatSnackBar) { }
 
   private showMessage(message: string, success: boolean = true) {
     this.snackBar.open(message, 'Cerrar', {

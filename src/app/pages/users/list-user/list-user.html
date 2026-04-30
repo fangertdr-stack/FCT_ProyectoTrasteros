@@ -67,22 +67,13 @@
 </div>
 
 <!-- MODALES -->
-<app-add-user
-  *ngIf="agregarVisible"
-  (agregado)="onUsuarioAgregado()"
-  (cancel)="cancelarAgregar()">
+<app-add-user *ngIf="agregarVisible" (agregado)="onUsuarioAgregado()" (cancel)="cancelarAgregar()">
 </app-add-user>
 
-<app-edit-user
-  *ngIf="editVisible && usuarioEditando"
-  [usuario]="usuarioEditando"
-  (guardado)="onUsuarioGuardado()"
+<app-edit-user *ngIf="editVisible && usuarioEditando" [usuario]="usuarioEditando" (guardado)="onUsuarioGuardado()"
   (cancel)="cancelarEdicion()">
 </app-edit-user>
 
-<app-delete-user
-  *ngIf="eliminarVisible && usuarioEliminando"
-  [usuario]="usuarioEliminando"
-  (eliminado)="onUsuarioEliminado()"
-  (cancel)="cancelarEliminar()">
+<app-delete-user *ngIf="eliminarVisible && usuarioEliminando" [usuario]="usuarioEliminando"
+  (eliminado)="onUsuarioEliminado()" (cancel)="cancelarEliminar()">
 </app-delete-user>

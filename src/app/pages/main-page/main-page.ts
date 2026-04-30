@@ -29,7 +29,7 @@ export class MainPage implements OnInit {
 
   trasteroSeleccionado: Trastero | null = null;
 
-  // 🔥 PROGRESO DE ANIMACIÓN (0 cerrado - 1 abierto)
+  // PROGRESO DE ANIMACIÓN (0 cerrado - 1 abierto)
   openProgress = 0;
   isAdmin = true;
 
@@ -38,7 +38,7 @@ export class MainPage implements OnInit {
     private router: Router,
     private auth: Auth,
     private nav: NavigationService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (!this.isBrowser()) return;
@@ -51,22 +51,22 @@ export class MainPage implements OnInit {
 
   }
 
-@HostListener('window:scroll', [])
-onScroll(): void {
+  @HostListener('window:scroll', [])
+  onScroll(): void {
 
-  const section = document.querySelector('.transition-section');
-  if (!section) return;
+    const section = document.querySelector('.transition-section');
+    if (!section) return;
 
-  const rect = section.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
 
-  const target = 1 - (rect.top / windowHeight);
+    const target = 1 - (rect.top / windowHeight);
 
-  const clampedTarget = Math.max(0, Math.min(1, target));
+    const clampedTarget = Math.max(0, Math.min(1, target));
 
-  // suavizado tipo cámara
-  this.openProgress += (clampedTarget - this.openProgress) * 0.12;
-}
+    // suavizado tipo cámara
+    this.openProgress += (clampedTarget - this.openProgress) * 0.12;
+  }
 
   // ---------------- NAV ----------------
 
@@ -80,8 +80,6 @@ onScroll(): void {
     return !!localStorage.getItem('token');
   }
 
-
-
   logout() {
     if (!this.isBrowser()) return;
 
@@ -91,8 +89,6 @@ onScroll(): void {
       duration: 3000
     });
   }
-
-
 
   contratar() { this.nav.goTo('rent'); }
   mediano() { this.nav.goTo('mediano'); }

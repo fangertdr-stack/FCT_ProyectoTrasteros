@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { firstValueFrom,Observable,of } from 'rxjs';
+import { firstValueFrom, Observable, of } from 'rxjs';
 import { URL_API } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
-import { PLATFORM_ID,inject } from '@angular/core';
+import { PLATFORM_ID, inject } from '@angular/core';
 
 
 @Injectable({
@@ -14,7 +14,7 @@ export class PermissionService {
 
   private platformId = inject(PLATFORM_ID);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private getHeaders(): HttpHeaders {
     if (!isPlatformBrowser(this.platformId)) {

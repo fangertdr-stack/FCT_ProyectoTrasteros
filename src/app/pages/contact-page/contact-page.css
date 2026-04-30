@@ -1,6 +1,4 @@
-/* ========================= */
 /* RESET */
-/* ========================= */
 
 *,
 *::before,
@@ -8,22 +6,18 @@
   box-sizing: border-box;
 }
 
-/* ========================= */
 /* PAGE */
-/* ========================= */
 
 .contact-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eef2ee; 
+  background: #eef2ee;
   padding: 40px 20px;
 }
 
-/* ========================= */
 /* CARD */
-/* ========================= */
 
 .contact-container {
   width: 100%;
@@ -45,9 +39,7 @@
   animation: fadeInUp .5s ease;
 }
 
-/* ========================= */
 /* BACK BUTTON */
-/* ========================= */
 
 .back-btn {
   position: absolute;
@@ -66,9 +58,7 @@
   opacity: .7;
 }
 
-/* ========================= */
 /* TITULO */
-/* ========================= */
 
 h2 {
   margin: 0;
@@ -78,9 +68,7 @@ h2 {
   font-weight: 600;
 }
 
-/* ========================= */
 /* INFO */
-/* ========================= */
 
 .contact-info {
   font-size: 14px;
@@ -92,9 +80,7 @@ h2 {
   color: #2e7d32;
 }
 
-/* ========================= */
 /* FORM */
-/* ========================= */
 
 form {
   display: flex;
@@ -131,9 +117,7 @@ textarea:focus {
   box-shadow: 0 0 0 2px rgba(78,173,83,.15);
 }
 
-/* ========================= */
 /* BUTTON */
-/* ========================= */
 
 button[type="submit"] {
   margin-top: 6px;
@@ -163,9 +147,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* ========================= */
 /* MENSAJES */
-/* ========================= */
 
 .error,
 .success {
@@ -185,9 +167,8 @@ button:disabled {
   color: #2e7d32;
 }
 
-/* ========================= */
+
 /* LOADER */
-/* ========================= */
 
 .loader {
   width: 16px;
@@ -198,9 +179,7 @@ button:disabled {
   animation: spin .8s linear infinite;
 }
 
-/* ========================= */
 /* ANIMACIONES */
-/* ========================= */
 
 @keyframes spin {
   to {

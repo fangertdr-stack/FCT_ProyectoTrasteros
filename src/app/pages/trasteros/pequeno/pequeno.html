@@ -11,12 +11,9 @@
     <!-- CARROUSEL -->
     <div class="carousel">
 
-      <div
-        class="carousel-track"
-        [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
-      >
+      <div class="carousel-track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
         @for (img of images; track img) {
-          <img [src]="img" />
+        <img [src]="img" />
         }
       </div>
 
@@ -25,10 +22,7 @@
 
       <div class="dots">
         @for (img of images; track $index; let i = $index) {
-          <span
-            [class.active]="i === currentIndex"
-            (click)="goTo(i)"
-          ></span>
+        <span [class.active]="i === currentIndex" (click)="goTo(i)"></span>
         }
       </div>
 
@@ -41,7 +35,7 @@
       <p>
         Perfecto para guardar cajas, ropa, documentos o pequeños objetos.
       </p>
-       <p>
+      <p>
         Acceso 24/7 con seguridad garantizada.
       </p>
 

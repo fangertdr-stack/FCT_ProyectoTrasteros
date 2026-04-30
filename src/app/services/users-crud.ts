@@ -11,7 +11,7 @@ export class UsersCrud {
 
   private apiUrl = `${URL_API}/user.php`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // GET trae usuarios de la bd
   getUsuarios(): Observable<Usuario[]> {
@@ -30,11 +30,11 @@ export class UsersCrud {
 
   // PUT actualiza usuario
   updateUsuario(usuario: Usuario): Observable<any> {
-  return this.http.put(`${this.apiUrl}?id_usuario=${usuario.id_usuario}`, usuario);
-}
+    return this.http.put(`${this.apiUrl}?id_usuario=${usuario.id_usuario}`, usuario);
+  }
 
   // DELETE borra usuario
   deleteUsuario(id_usuario: number): Observable<any> {
-  return this.http.delete(`${this.apiUrl}?id_usuario=${id_usuario}`);
-}
+    return this.http.delete(`${this.apiUrl}?id_usuario=${id_usuario}`);
+  }
 }

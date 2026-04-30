@@ -28,96 +28,49 @@
       <!-- LOGIN -->
       @if (!isRegister) {
 
-        <input
-          type="email"
-          [(ngModel)]="email"
-          placeholder="Correo electrónico"
-        >
+      <input type="email" [(ngModel)]="email" placeholder="Correo electrónico">
 
-        <div class="password-field">
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            [(ngModel)]="password"
-            placeholder="Contraseña"
-          >
+      <div class="password-field">
+        <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" placeholder="Contraseña">
 
-          <button
-            type="button"
-            class="eye-btn"
-            (click)="togglePassword()"
-          >
-            👁
-          </button>
-        </div>
+        <button type="button" class="eye-btn" (click)="togglePassword()">
+          👁
+        </button>
+      </div>
 
       }
 
       <!-- REGISTRO PASO 1 -->
       @if (isRegister && registerStep === 1) {
 
-        <input
-          type="text"
-          [(ngModel)]="name"
-          placeholder="Nombre completo"
-        >
+      <input type="text" [(ngModel)]="name" placeholder="Nombre completo">
 
-        <input
-          type="text"
-          [(ngModel)]="dni"
-          placeholder="DNI/NIE/Pasaporte"
-        >
+      <input type="text" [(ngModel)]="dni" placeholder="DNI/NIE/Pasaporte">
 
-        <input
-          type="text"
-          [(ngModel)]="telefono"
-          placeholder="Teléfono"
-        >
+      <input type="text" [(ngModel)]="telefono" placeholder="Teléfono">
 
-        <input
-          type="text"
-          [(ngModel)]="direccion"
-          placeholder="Dirección"
-        >
+      <input type="text" [(ngModel)]="direccion" placeholder="Dirección">
 
-        <input
-          type="email"
-          [(ngModel)]="email"
-          placeholder="Correo electrónico"
-        >
+      <input type="email" [(ngModel)]="email" placeholder="Correo electrónico">
 
-        <button
-          class="btn primary"
-          (click)="registerStep = 2"
-        >
-          Continuar
-        </button>
+      <button class="btn primary" (click)="registerStep = 2">
+        Continuar
+      </button>
 
       }
 
       <!-- REGISTRO PASO 2 -->
       @if (isRegister && registerStep === 2) {
 
-        <div class="password-field">
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            [(ngModel)]="password"
-            placeholder="Crear contraseña"
-          >
+      <div class="password-field">
+        <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" placeholder="Crear contraseña">
 
-          <button
-            type="button"
-            class="eye-btn"
-            (click)="togglePassword()"
-          >
-            👁
-          </button>
-        </div>
+        <button type="button" class="eye-btn" (click)="togglePassword()">
+          👁
+        </button>
+      </div>
 
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          [(ngModel)]="confirmPassword"
-          placeholder="Repetir contraseña"
-        >
+      <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="confirmPassword" placeholder="Repetir contraseña">
 
       }
 
@@ -125,42 +78,34 @@
 
     <!-- ERROR -->
     @if (errorMessage) {
-      <p class="error">{{ errorMessage }}</p>
+    <p class="error">{{ errorMessage }}</p>
     }
 
     <!-- BOTON LOGIN -->
     @if (!isRegister) {
 
-      <button
-        class="btn primary"
-        (click)="submit()"
-        [disabled]="loading"
-      >
-        @if (!loading) {
-          <span>Entrar</span>
-        }
-        @if (loading) {
-          <span class="loader"></span>
-        }
-      </button>
+    <button class="btn primary" (click)="submit()" [disabled]="loading">
+      @if (!loading) {
+      <span>Entrar</span>
+      }
+      @if (loading) {
+      <span class="loader"></span>
+      }
+    </button>
 
     }
 
     <!-- BOTON REGISTRO FINAL -->
     @if (isRegister && registerStep === 2) {
 
-      <button
-        class="btn primary"
-        (click)="submit()"
-        [disabled]="loading"
-      >
-        @if (!loading) {
-          <span>Crear cuenta</span>
-        }
-        @if (loading) {
-          <span class="loader"></span>
-        }
-      </button>
+    <button class="btn primary" (click)="submit()" [disabled]="loading">
+      @if (!loading) {
+      <span>Crear cuenta</span>
+      }
+      @if (loading) {
+      <span class="loader"></span>
+      }
+    </button>
 
     }
 

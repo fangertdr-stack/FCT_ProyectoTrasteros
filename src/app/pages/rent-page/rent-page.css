@@ -1,6 +1,6 @@
-/* ========================= */
+
 /* BASE */
-/* ========================= */
+
 
 * {
   box-sizing: border-box;
@@ -15,9 +15,9 @@ html, body {
   background: #eef2ee;
 }
 
-/* ========================= */
+
 /* CONTENEDOR */
-/* ========================= */
+
 
 .rent-container {
   height: 100vh;
@@ -28,9 +28,9 @@ html, body {
   padding: 16px;
 }
 
-/* ========================= */
+
 /* CARD COMPACTA */
-/* ========================= */
+
 
 .rent-card {
   position: relative;
@@ -53,9 +53,9 @@ html, body {
   animation: fadeInUp .4s ease;
 }
 
-/* ========================= */
+
 /* TITULO */
-/* ========================= */
+
 
 .rent-card h2 {
   text-align: center;
@@ -65,9 +65,9 @@ html, body {
   color: #243124;
 }
 
-/* ========================= */
+
 /* FORM ULTRA COMPACTO */
-/* ========================= */
+
 
 .form-group {
   display: flex;
@@ -98,27 +98,25 @@ input:focus {
   box-shadow: 0 0 0 2px rgba(78,173,83,.12);
 }
 
-/* ========================= */
+
 /* ANGULAR MATERIAL */
-/* ========================= */
+
 
 mat-form-field {
   width: 100%;
   margin-top: 6px;
 }
 
-/* ========================= */
+
 /* CHECKBOX */
-/* ========================= */
+
 
 mat-checkbox {
   font-size: 12px;
   margin-top: 8px;
 }
 
-/* ========================= */
 /* BOTONES */
-/* ========================= */
 
 .rent-btn {
   width: 100%;
@@ -161,9 +159,7 @@ mat-checkbox {
   background: #f3f5f2;
 }
 
-/* ========================= */
 /* BACK BUTTON */
-/* ========================= */
 
 .back-btn {
   position: absolute;
@@ -185,9 +181,7 @@ mat-checkbox {
   opacity: .7;
 }
 
-/* ========================= */
 /* ANIMACION */
-/* ========================= */
 
 @keyframes fadeInUp {
   from {

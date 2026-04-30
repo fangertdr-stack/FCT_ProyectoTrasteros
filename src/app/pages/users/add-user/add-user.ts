@@ -28,7 +28,7 @@ export class AddUser {
   @Output() agregado = new EventEmitter<void>(); // Avisar al padre
   @Output() cancel = new EventEmitter<void>();
 
-  constructor(private register: RegisterService, private snackBar: MatSnackBar) {}
+  constructor(private register: RegisterService, private snackBar: MatSnackBar) { }
 
   private showMessage(message: string, success: boolean = true) {
     this.snackBar.open(message, 'Cerrar', {
@@ -44,7 +44,7 @@ export class AddUser {
       next: () => {
         this.showMessage('Usuario agregado correctamente');
         this.agregado.emit();
-        this.nuevoUsuario = { nombre:'', email:'', password:'', dni:'', rol:0, direccion:'', telefono:'' }; // reset
+        this.nuevoUsuario = { nombre: '', email: '', password: '', dni: '', rol: 0, direccion: '', telefono: '' }; // reset
       },
       error: () => this.showMessage('Error al agregar usuario', false)
     });

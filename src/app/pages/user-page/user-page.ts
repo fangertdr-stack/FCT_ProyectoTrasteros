@@ -89,22 +89,22 @@ export class UserPage implements OnInit {
 
     // valido que las fechas existan para evitar error si no hay fechas devuelve 0 porque se declararon
     //en la interfaz que podia no existir fechas
-    if(!t.fechaInicio || !t.fecha_fin){
+    if (!t.fechaInicio || !t.fecha_fin) {
       return 0
     }
 
     //convierto string a objeto date
-  const inicio = new Date(t.fechaInicio);
-  const fin = new Date(t.fecha_fin);
+    const inicio = new Date(t.fechaInicio);
+    const fin = new Date(t.fecha_fin);
 
-  //creo constante meses que es un calculo de años pero calculado en meses con el +1 incluyo el primer mes
-  const meses =
-    (fin.getFullYear() - inicio.getFullYear()) * 12 +
-    (fin.getMonth() - inicio.getMonth());
+    //creo constante meses que es un calculo de años pero calculado en meses con el +1 incluyo el primer mes
+    const meses =
+      (fin.getFullYear() - inicio.getFullYear()) * 12 +
+      (fin.getMonth() - inicio.getMonth());
 
     //devuelve numero de meses por el precio mensual del trastero
-  return meses * t.precio;
-}
+    return meses * t.precio;
+  }
 
   goBack() {
     this.router.navigate(['']);

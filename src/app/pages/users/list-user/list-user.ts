@@ -16,7 +16,7 @@ import { AddUser } from '../add-user/add-user';
 @Component({
   selector: 'app-list-user',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatSnackBarModule, EditUser,  DeleteUser, AddUser],
+  imports: [CommonModule, FormsModule, MatSnackBarModule, EditUser, DeleteUser, AddUser],
   templateUrl: './list-user.html',
   styleUrls: ['./list-user.css'],
 })
@@ -26,8 +26,8 @@ export class ListUser implements OnInit {
   usuarioEditando!: Usuario | null;
   editVisible = false;
   usuarioEliminando!: Usuario | null;
-eliminarVisible = false;
-agregarVisible = false;
+  eliminarVisible = false;
+  agregarVisible = false;
 
   constructor(
     private usersCrud: UsersCrud,
@@ -37,7 +37,7 @@ agregarVisible = false;
     private zone: NgZone,
     private trasteroService: TrasteroService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -61,17 +61,17 @@ agregarVisible = false;
   }
 
   abrirAgregarUsuario() {
-  this.agregarVisible = true;
-}
+    this.agregarVisible = true;
+  }
 
-onUsuarioAgregado() {
-  this.agregarVisible = false;
-  this.cargarUsuarios();
-}
+  onUsuarioAgregado() {
+    this.agregarVisible = false;
+    this.cargarUsuarios();
+  }
 
-cancelarAgregar() {
-  this.agregarVisible = false;
-}
+  cancelarAgregar() {
+    this.agregarVisible = false;
+  }
 
   editarUsuario(user: Usuario) {
     this.usuarioEditando = { ...user };
@@ -89,21 +89,21 @@ cancelarAgregar() {
     this.usuarioEditando = null;
   }
 
- // Abrir modal de eliminación
-abrirEliminarUsuario(user: Usuario) {
-  this.usuarioEliminando = { ...user };
-  this.eliminarVisible = true;
-}
+  // Abrir modal de eliminación
+  abrirEliminarUsuario(user: Usuario) {
+    this.usuarioEliminando = { ...user };
+    this.eliminarVisible = true;
+  }
 
-// Evento emitido desde DeleteUser
-onUsuarioEliminado() {
-  this.eliminarVisible = false;
-  this.usuarioEliminando = null;
-  this.cargarUsuarios(); // Refrescar la lista
-}
+  // Evento emitido desde DeleteUser
+  onUsuarioEliminado() {
+    this.eliminarVisible = false;
+    this.usuarioEliminando = null;
+    this.cargarUsuarios(); // Refrescar la lista
+  }
 
-cancelarEliminar() {
-  this.eliminarVisible = false;
-  this.usuarioEliminando = null;
-}
+  cancelarEliminar() {
+    this.eliminarVisible = false;
+    this.usuarioEliminando = null;
+  }
 }

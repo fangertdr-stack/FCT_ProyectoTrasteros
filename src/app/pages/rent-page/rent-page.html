@@ -4,7 +4,7 @@
     <h2>Contratar Trastero</h2>
 
     <button class="back-btn" (click)="goBack()">
-        ←
+      ←
     </button>
 
     <form>
@@ -39,48 +39,48 @@
         <input type="email" placeholder="Correo electrónico" [(ngModel)]="email" name="email">
       </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Duración del alquiler</mat-label>
+      <mat-form-field appearance="outline">
+        <mat-label>Duración del alquiler</mat-label>
 
-      <mat-select [(value)]="duracionSeleccionada">
+        <mat-select [(value)]="duracionSeleccionada">
 
-        <mat-option value="1">
-          1 mes
-        </mat-option>
+          <mat-option value="1">
+            1 mes
+          </mat-option>
 
-        <mat-option value="3">
-          3 meses
-        </mat-option>
+          <mat-option value="3">
+            3 meses
+          </mat-option>
 
-        <mat-option value="6">
-          6 meses
-        </mat-option>
+          <mat-option value="6">
+            6 meses
+          </mat-option>
 
-      </mat-select>
+        </mat-select>
 
-    </mat-form-field>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Elección de trastero</mat-label>
+      <mat-form-field appearance="outline">
+        <mat-label>Elección de trastero</mat-label>
 
-      <mat-select [(value)]="tamanioSeleccionado">
+        <mat-select [(value)]="tamanioSeleccionado">
 
-        <mat-option value="pequeño">
-          Pequeño
-        </mat-option>
+          <mat-option value="pequeño">
+            Pequeño
+          </mat-option>
 
-        <mat-option value="mediano">
-          Mediano
-        </mat-option>
+          <mat-option value="mediano">
+            Mediano
+          </mat-option>
 
-        <mat-option value="grande">
-          Grande
-        </mat-option>
+          <mat-option value="grande">
+            Grande
+          </mat-option>
 
-      </mat-select>
+        </mat-select>
 
-    </mat-form-field>
-    <br>
+      </mat-form-field>
+      <br>
 
 
 
@@ -88,10 +88,10 @@
 
 
     </form>
-    <mat-checkbox  [(ngModel)]="aceptaNormas">He leído y acepto el
-        <a href="/contrato.html" target="_blank" (click)="contratoAbierto = true">
-          Contrato
-        </a>
+    <mat-checkbox [(ngModel)]="aceptaNormas">He leído y acepto el
+      <a href="/contrato.html" target="_blank" (click)="contratoAbierto = true">
+        Contrato
+      </a>
     </mat-checkbox>
 
   </div>
@@ -105,7 +105,7 @@
     <h3>Código creado</h3>
     <p>Tu trastero asignado es: <strong>{{ trasteroAsignado }}</strong></p>
 
-    <p>Tu código de acceso a su trastero  es: <strong>{{ codigoPago }}</strong></p>
+    <p>Tu código de acceso a su trastero es: <strong>{{ codigoPago }}</strong></p>
     <div class="modal-buttons">
       <button type="button" (click)="cerrarCodigo()">Cerrar</button>
     </div>
