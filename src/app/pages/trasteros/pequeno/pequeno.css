@@ -1,6 +1,6 @@
-/* ========================= */
+
 /* BASE */
-/* ========================= */
+
 
 html, body {
   margin: 0;
@@ -10,9 +10,9 @@ html, body {
   background: #eef2ee;
 }
 
-/* ========================= */
+
 /* PAGE */
-/* ========================= */
+
 
 .detail-page {
   min-height: 100vh;
@@ -21,9 +21,9 @@ html, body {
   padding: 30px 16px;
 }
 
-/* ========================= */
+
 /* WRAPPER */
-/* ========================= */
+
 
 .detail-wrapper {
   width: 100%;
@@ -34,9 +34,9 @@ html, body {
   gap: 18px;
 }
 
-/* ========================= */
+
 /* HEADER */
-/* ========================= */
+
 
 .detail-header {
   display: flex;
@@ -70,9 +70,9 @@ html, body {
   background: #f3f5f2;
 }
 
-/* ========================= */
+
 /* CAROUSEL */
-/* ========================= */
+
 
 .carousel {
   position: relative;
@@ -100,9 +100,9 @@ html, body {
   object-fit: cover;
 }
 
-/* ========================= */
+
 /* NAV */
-/* ========================= */
+
 
 .nav {
   position: absolute;
@@ -129,9 +129,9 @@ html, body {
 .prev { left: 12px; }
 .next { right: 12px; }
 
-/* ========================= */
+
 /* DOTS */
-/* ========================= */
+
 
 .dots {
   position: absolute;
@@ -156,9 +156,9 @@ html, body {
   transform: scale(1.4);
 }
 
-/* ========================= */
+
 /* CARD */
-/* ========================= */
+
 
 .detail-card {
   background: #ffffff;
@@ -193,9 +193,9 @@ html, body {
   font-size: 14px;
 }
 
-/* ========================= */
+
 /* BUTTON */
-/* ========================= */
+
 
 .rent-btn {
   width: 100%;
@@ -217,9 +217,9 @@ html, body {
   transform: translateY(-1px);
 }
 
-/* ========================= */
+
 /* ANIMACION */
-/* ========================= */
+
 
 @keyframes fadeUp {
   from {
