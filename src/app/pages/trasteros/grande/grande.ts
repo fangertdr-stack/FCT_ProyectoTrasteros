@@ -32,8 +32,10 @@ export class Grande {
   }
 
   rent() {
-    this.router.navigate(['/rent']);
-  }
+  this.router.navigate(['/rent'], {
+    queryParams: { tamanio: 'grande' }
+  });
+}
 
   goBack() {
     this.router.navigate(['/']);

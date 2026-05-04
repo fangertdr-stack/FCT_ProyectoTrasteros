@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Trastero } from '../models/trastero';
 import { URL_API } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -58,9 +59,17 @@ export class TrasteroService {
 
   }
 
-  // Devuelve un trastero libre según tamaño
   getTrasteroLibre(tamanio: string): Observable<Trastero | null> {
-    return this.http.get<Trastero | null>(`${this.apiUrl}?estado=libre&tamanio=${tamanio}`);
+    return this.http.get<Trastero[]>(this.apiUrl).pipe(
+      map(trasteros => {
+        const libres = trasteros.filter(t => {
+          const estadoReal = t.estado_real ?? t.estado;
+          return estadoReal === 'libre' && t.tamanio === tamanio;
+        });
+
+        return libres.length > 0 ? libres[0] : null;
+      })
+    );
   }
 
 

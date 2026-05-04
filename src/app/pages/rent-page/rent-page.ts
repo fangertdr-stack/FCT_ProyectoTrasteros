@@ -7,7 +7,7 @@ import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatOption } from "@angular/material/core";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-
+import { ActivatedRoute } from '@angular/router';
 import { TrasteroService } from '../../services/trasteroService';
 import { LoginService } from '../../services/loginService';
 import { NavigationService } from '../../services/navigation';
@@ -51,11 +51,13 @@ export class RentPage implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private trasteroService: TrasteroService,
     private login: LoginService,
     private nav: NavigationService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+
   ) { }
 
   showMessage(message: string, action: string = 'Cerrar'): void {
@@ -82,6 +84,12 @@ export class RentPage implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
+
+    this.route.queryParams.subscribe(params => {
+    if (params['tamanio']) {
+      this.tamanioSeleccionado = params['tamanio'];
+    }
+  });
 
     // Setear el nombre inmediatamente desde localStorage
     this.nombre = this.login.getNombrePublico();
@@ -167,9 +175,8 @@ export class RentPage implements OnInit {
         this.trasteroService.asignarTrastero(data).subscribe({
           next: (resp: any) => {
             if (resp.success) {
-              this.codigoPago = resp.codigo;
-              this.trasteroAsignado = resp.id_trastero;
-              this.codigoGeneradoVisible = true;
+              this.showMessage('Trastero alquilado con éxito');
+              this.nav.goTo('/');
             } else {
               this.showMessage(resp.message ?? "Error al asignar trastero");
             }

@@ -32,8 +32,10 @@ export class Mediano {
   }
 
   rent() {
-    this.router.navigate(['/rent']);
-  }
+  this.router.navigate(['/rent'], {
+    queryParams: { tamanio: 'mediano' }
+  });
+}
 
   goBack() {
     this.router.navigate(['/']);

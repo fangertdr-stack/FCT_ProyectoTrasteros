@@ -4,10 +4,10 @@ export interface Trastero {
   tamanio: 'pequeño' | 'mediano' | 'grande';
   precio: number;
   estado: 'libre' | 'ocupado' | 'mantenimiento';
-
+ estado_real?: string;
   id_usuario?: number;
   usuario?: string;
   fechaInicio?: string;
-  fecha_fin?: string;   
+  fecha_fin?: string;
   mesesContrato?: number;
 }

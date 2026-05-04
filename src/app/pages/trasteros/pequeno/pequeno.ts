@@ -32,8 +32,10 @@ export class Pequeno {
   }
 
   rent() {
-    this.router.navigate(['/rent']);
-  }
+  this.router.navigate(['/rent'], {
+    queryParams: { tamanio: 'pequeño' }
+  });
+}
 
   goBack() {
     this.router.navigate(['/']);
