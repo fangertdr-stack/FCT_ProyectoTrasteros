@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,6 @@ import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { MatOption } from "@angular/material/core";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { ActivatedRoute } from '@angular/router';
 import { TrasteroService } from '../../services/trasteroService';
 import { LoginService } from '../../services/loginService';
 import { NavigationService } from '../../services/navigation';
@@ -28,8 +27,6 @@ import { NavigationService } from '../../services/navigation';
 })
 export class RentPage implements OnInit {
 
-
-
   duracionSeleccionada: number = 1;
   tamanioSeleccionado: string = 'pequeño';
   aceptaNormas: boolean = false;
@@ -39,11 +36,10 @@ export class RentPage implements OnInit {
   codigoGeneradoVisible = false;
   trasteroAsignado: number | null = null;
 
-  usuario: any = null; // <-- Guardaremos los datos del usuario logueado
+  usuario: any = null;
 
-  // Propiedades para el formulario
   nombre: string = '';
-  apellidos: string = ''; // Si no hay apellidos separados, usar parte del nombre
+  apellidos: string = '';
   dni: string = '';
   direccion: string = '';
   telefono: string = '';
@@ -56,8 +52,7 @@ export class RentPage implements OnInit {
     private trasteroService: TrasteroService,
     private login: LoginService,
     private nav: NavigationService,
-    private cdr: ChangeDetectorRef,
-
+    private cdr: ChangeDetectorRef
   ) { }
 
   showMessage(message: string, action: string = 'Cerrar'): void {
@@ -86,59 +81,63 @@ export class RentPage implements OnInit {
     }
 
     this.route.queryParams.subscribe(params => {
-    if (params['tamanio']) {
-      this.tamanioSeleccionado = params['tamanio'];
-    }
-  });
+      if (params['tamanio']) {
+        this.tamanioSeleccionado = params['tamanio'];
+      }
+    });
 
-    // Setear el nombre inmediatamente desde localStorage
     this.nombre = this.login.getNombrePublico();
     this.cdr.detectChanges();
 
-    // Obtener los datos completos del usuario desde el backend
     const token = localStorage.getItem('token');
+    const user = this.login.getUserFromToken();
+    const idUsuario = user?.id_usuario;
 
-console.log('TOKEN RAW:', token);
-console.log('DECODE:', this.login.getUserFromToken());
+    console.log('TOKEN RAW:', token);
+    console.log('DECODE:', user);
+    console.log('ID desde JWT:', idUsuario);
 
-const user = this.login.getUserFromToken();
-const idUsuario = user?.id_usuario;
-
-console.log('ID desde JWT:', idUsuario);
-
-   this.trasteroService.getUsuario(idUsuario).subscribe({
-  next: (res) => {
-
-    console.log('ID usuario:', idUsuario);
-    console.log('Respuesta backend:', res);
-
-    // ❌ CONTROL CORRECTO DEL BACKEND
-    if (!res || res.success === false) {
-      console.warn('Usuario no encontrado:', res);
+    if (!idUsuario) {
+      this.showMessage("Sesión no válida");
+      this.router.navigate(['/login']);
       return;
     }
 
-    const data = res.data;
+    this.trasteroService.getUsuario(idUsuario).subscribe({
+      next: (res) => {
+        console.log('Respuesta backend usuario:', res);
 
-    this.usuario = data;
+        if (!res || res.success === false) {
+          console.warn('Usuario no encontrado:', res);
+          this.showMessage("No se pudieron cargar los datos del usuario");
+          return;
+        }
 
-    this.nombre = data.nombre || '';
-    this.dni = data.dni || '';
-    this.direccion = data.direccion || '';
-    this.telefono = data.telefono || '';
-    this.email = data.email || '';
+        const data = res.data ?? res;
 
-    this.cdr.detectChanges();
-  },
+        if (!data || !data.id_usuario) {
+          console.warn('Respuesta de usuario inválida:', data);
+          this.showMessage("No se pudieron cargar los datos del usuario");
+          return;
+        }
 
-  error: (err) => {
-    console.error(err);
-    this.showMessage("No se pudieron cargar los datos del usuario");
+        this.usuario = data;
+
+        this.nombre = data.nombre || '';
+        this.dni = data.dni || '';
+        this.direccion = data.direccion || '';
+        this.telefono = data.telefono || '';
+        this.email = data.email || '';
+
+        this.cdr.detectChanges();
+      },
+
+      error: (err) => {
+        console.error('Error cargando usuario:', err);
+        this.showMessage("No se pudieron cargar los datos del usuario");
+      }
+    });
   }
-});
-  }
-
-
 
   pagar() {
     if (!this.contratoAbierto) {
@@ -157,7 +156,6 @@ console.log('ID desde JWT:', idUsuario);
       return;
     }
 
-    // Pedir un trastero libre del tamaño seleccionado
     this.trasteroService.getTrasteroLibre(this.tamanioSeleccionado).subscribe({
       next: (trastero) => {
         if (!trastero || !trastero.id_trastero) {
@@ -202,7 +200,6 @@ console.log('ID desde JWT:', idUsuario);
       }
     });
   }
-
 
   cerrarCodigo() {
     this.codigoGeneradoVisible = false;
