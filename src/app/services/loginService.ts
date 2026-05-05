@@ -19,17 +19,7 @@ export class LoginService {
 
   }
 
-  getUser() {
 
-    const id = localStorage.getItem("id_usuario");
-
-    if (!id) return null;
-
-    return {
-      id_usuario: Number(id)
-    };
-
-  }
 
   // Envío las credenciales y me responde si son correctas o no
   login(data: { email: string; password: string }): Observable<any> {
@@ -41,6 +31,19 @@ export class LoginService {
     });
 
   }
+
+  getUserFromToken(): any {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload;
+  } catch (e) {
+    console.error('Token inválido');
+    return null;
+  }
+}
 
   // Metodo para captar el nombre publico y que se indique al iniciar sesion
   getNombrePublico(): string {

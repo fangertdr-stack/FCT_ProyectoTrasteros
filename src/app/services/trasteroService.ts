@@ -48,9 +48,11 @@ export class TrasteroService {
   }
 
   // Traer un usuario por id
-  getUsuario(id_usuario: number): Observable<any> {
-    return this.http.get<any>(`${URL_API}/user.php?id_usuario=${id_usuario}`, { headers: this.getHeaders() });
-  }
+ getUsuario(id_usuario: number): Observable<any> {
+  return this.http.get<any>(
+    `${URL_API}/user.php?id_usuario=${id_usuario}`
+  );
+}
 
   getMisTrasteros(id_usuario: number) {
     return this.http.get<any[]>(

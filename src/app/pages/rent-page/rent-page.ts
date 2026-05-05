@@ -96,37 +96,46 @@ export class RentPage implements OnInit {
     this.cdr.detectChanges();
 
     // Obtener los datos completos del usuario desde el backend
-    const idUsuario = this.login.getUser()?.id_usuario;
-    if (!idUsuario) return;
+    const token = localStorage.getItem('token');
 
-    this.trasteroService.getUsuario(idUsuario).subscribe({
-      next: (userData) => {
-        const rawUser = Array.isArray(userData)
-          ? userData.find((u: any) => Number(u.id_usuario) === idUsuario) || userData[0]
-          : userData?.data ?? userData;
+console.log('TOKEN RAW:', token);
+console.log('DECODE:', this.login.getUserFromToken());
 
-        this.usuario = rawUser;
-        if (!rawUser) {
-          console.warn('No se encontró el usuario correcto en la respuesta del backend');
-          return;
-        }
-        this.nombre = this.nombre || '';
-        this.apellidos = '';
-        this.dni = rawUser.dni || '';
-        this.direccion = rawUser.direccion || '';
-        this.telefono = rawUser.telefono || '';
-        this.email = rawUser.email || '';
+const user = this.login.getUserFromToken();
+const idUsuario = user?.id_usuario;
 
+console.log('ID desde JWT:', idUsuario);
 
-        console.log('Usuario seleccionado:', rawUser);
+   this.trasteroService.getUsuario(idUsuario).subscribe({
+  next: (res) => {
 
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Error al obtener usuario:', err);
-        this.showMessage("No se pudieron cargar los datos del usuario");
-      }
-    });
+    console.log('ID usuario:', idUsuario);
+    console.log('Respuesta backend:', res);
+
+    // ❌ CONTROL CORRECTO DEL BACKEND
+    if (!res || res.success === false) {
+      console.warn('Usuario no encontrado:', res);
+      return;
+    }
+
+    const data = res.data;
+
+    this.usuario = data;
+
+    this.nombre = data.nombre || '';
+    this.dni = data.dni || '';
+    this.direccion = data.direccion || '';
+    this.telefono = data.telefono || '';
+    this.email = data.email || '';
+
+    this.cdr.detectChanges();
+  },
+
+  error: (err) => {
+    console.error(err);
+    this.showMessage("No se pudieron cargar los datos del usuario");
+  }
+});
   }
 
 
