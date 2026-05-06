@@ -29,6 +29,7 @@ export class adminGuard implements CanActivate {
     }
 
     // Usar el rol guardado por el login en localStorage en vez de llamar al backend
+    //tengo que quitar esto y llamar al permissionService para verificar el rol del usuario
     const isAdmin = rol === 'admin' || rol === '1';
     console.log('Admin Guard: ¿Es admin? (basado en rol guardado)', isAdmin);
 

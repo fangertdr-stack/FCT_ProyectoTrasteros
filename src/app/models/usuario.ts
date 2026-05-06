@@ -7,4 +7,6 @@ export interface Usuario {
     dni: string;
     direccion: string;
     telefono: string;
+    cif?: string;
+    razon_social?: string;
 }

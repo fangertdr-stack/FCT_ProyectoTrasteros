@@ -4,7 +4,7 @@
 
     <form (ngSubmit)="agregarUsuario()">
       <div class="form-group">
-        <label>Nombre:</label>
+        <label>Nombre completo:</label>
         <input [(ngModel)]="nuevoUsuario.nombre" name="nombre" required />
       </div>
 
@@ -15,7 +15,7 @@
 
       <div class="form-group">
         <label>Contraseña:</label>
-        <input [(ngModel)]="nuevoUsuario.password" name="nombre" required />
+        <input [(ngModel)]="nuevoUsuario.password" name="password" type="password" required />
       </div>
 
       <div class="form-group">
@@ -31,6 +31,24 @@
       <div class="form-group">
         <label>Teléfono:</label>
         <input [(ngModel)]="nuevoUsuario.telefono" name="telefono" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>CIF:</label>
+        <input
+          [(ngModel)]="nuevoUsuario.cif"
+          name="cif"
+          type="text"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Razón Social:</label>
+        <input
+          [(ngModel)]="nuevoUsuario.razon_social"
+          name="razonsocial"
+          type="text"
+        />
       </div>
 
       <div class="form-group">

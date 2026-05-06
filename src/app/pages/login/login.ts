@@ -25,6 +25,8 @@ export class LoginComponent {
   confirmPassword = '';
   telefono = '';
   direccion = '';
+  cif = '';
+  razonsocial = '';
 
   isRegister = false;
   registerStep = 1;
@@ -123,7 +125,9 @@ export class LoginComponent {
       password: this.password,
       dni: this.dni,
       telefono: this.telefono,
-      direccion: this.direccion
+      direccion: this.direccion,
+      cif: this.cif,
+      razon_social: this.razonsocial
 
     }).subscribe({
       next: (resp: any) => {

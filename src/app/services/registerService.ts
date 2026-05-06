@@ -25,7 +25,16 @@ export class RegisterService {
     return this.http.post(`${URL_API}/register.php`, {}, { headers: this.getHeaders(false) });
   }
 
-  create(data: { nombre: string; email: string; password: string; dni?: string; telefono?: string; direccion?: string }): Observable<any> {
+  create(data: {
+     nombre: string;
+     email: string;
+     password: string;
+     dni?: string;
+     telefono?: string;
+     direccion?: string;
+     cif?: string;
+     razon_social?: string;
+    }): Observable<any> {
 
     // Construir payload solo con campos que tienen valor
     const payload: any = {
@@ -43,6 +52,12 @@ export class RegisterService {
     }
     if (data.direccion && data.direccion.trim()) {
       payload.direccion = data.direccion.trim();
+    }
+    if (data.cif && data.cif.trim()) {
+      payload.cif = data.cif.trim();
+    }
+    if (data.razon_social && data.razon_social.trim()) {
+      payload.razon_social = data.razon_social.trim();
     }
 
     console.log('Enviando registro:', payload);

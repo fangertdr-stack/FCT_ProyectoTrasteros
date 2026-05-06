@@ -22,7 +22,9 @@ export class AddUser {
     rol: 0,
     dni: '',
     direccion: '',
-    telefono: ''
+    telefono: '',
+    cif: '',
+    razon_social: ''
   };
 
   @Output() agregado = new EventEmitter<void>(); // Avisar al padre
@@ -44,7 +46,7 @@ export class AddUser {
       next: () => {
         this.showMessage('Usuario agregado correctamente');
         this.agregado.emit();
-        this.nuevoUsuario = { nombre: '', email: '', password: '', dni: '', rol: 0, direccion: '', telefono: '' }; // reset
+        this.nuevoUsuario = { nombre: '', email: '', password: '', dni: '', rol: 0, direccion: '', telefono: '', cif: '', razon_social: '' }; // reset
       },
       error: () => this.showMessage('Error al agregar usuario', false)
     });

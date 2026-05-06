@@ -27,7 +27,10 @@
               <th>Rol</th>
               <th>Dirección</th>
               <th>Teléfono</th>
+              <th>CIF</th>
+              <th>Razón Social</th>
               <th>Acciones</th>
+
             </tr>
           </thead>
 
@@ -44,7 +47,8 @@
               </td>
               <td>{{user.direccion}}</td>
               <td>{{user.telefono}}</td>
-
+              <td>{{user.cif}}</td>
+              <td>{{user.razon_social}}</td>
               <td>
                 <div class="list-user-actions">
                   <button class="list-user-btn-edit" (click)="editarUsuario(user)">

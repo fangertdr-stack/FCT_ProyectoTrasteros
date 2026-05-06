@@ -369,8 +369,16 @@ body {
   }
 
   .list-user-table td:nth-child(8)::before {
-    content: "Acciones";
-  }
+  content: "CIF";
+}
+
+.list-user-table td:nth-child(9)::before {
+  content: "Razón Social";
+}
+
+.list-user-table td:nth-child(10)::before {
+  content: "Acciones";
+}
 
   .list-user-actions {
     flex-wrap: wrap;
