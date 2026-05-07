@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-contact-page',
@@ -27,8 +27,20 @@ export class ContactPage implements OnInit {
   ngOnInit(): void {
     if (!this.isBrowser()) return;
 
-    this.nombre.set(localStorage.getItem('nombre') ?? '');
-    this.email.set(localStorage.getItem('email') ?? '');
+  const token = localStorage.getItem('token');
+
+  if (!token) return;
+
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+
+    this.nombre.set(payload.nombre ?? '');
+    this.email.set(payload.email ?? '');
+    console.log('Usuario autenticado:', payload);
+  } catch {
+    this.nombre.set('');
+    this.email.set('');
+  }
   }
 
   enviarFormulario(form: NgForm) {
