@@ -13,7 +13,7 @@
       <div class="tabla-wrapper">
         <table class="trasteros-table">
           <thead>
-            <tr  >
+            <tr>
               <th>ID Trastero</th>
               <th>Código Acceso</th>
               <th>Usuario</th>
@@ -57,10 +57,7 @@
                   Editar
                 </button>
 
-                <button
-                  class="btn-liberar"
-                  *ngIf="t.estado==='ocupado'"
-                  (click)="liberar(t)">
+                <button class="btn-liberar" *ngIf="t.estado==='ocupado'" (click)="liberar(t)">
                   Liberar
                 </button>
               </td>
@@ -81,11 +78,11 @@
           Usuario:
 
           <select [(ngModel)]="trasteroSeleccionado.id_usuario">
-  <option [ngValue]="null">Seleccionar usuario</option>
-  <option *ngFor="let u of usuarios" [ngValue]="u.id_usuario">
-    {{ u.nombre }} - {{ u.dni }}
-  </option>
-</select>
+            <option [ngValue]="null">Seleccionar usuario</option>
+            <option *ngFor="let u of usuarios" [ngValue]="u.id_usuario">
+              {{ u.nombre }} - {{ u.dni }}
+            </option>
+          </select>
 
         </label>
 
@@ -97,23 +94,17 @@
 
           <div class="estado-botones">
 
-            <button
-              class="estado-btn libre"
-              [class.activo]="trasteroSeleccionado.estado==='libre'"
+            <button class="estado-btn libre" [class.activo]="trasteroSeleccionado.estado==='libre'"
               (click)="cambiarEstado('libre')">
               Libre
             </button>
 
-            <button
-              class="estado-btn ocupado"
-              [class.activo]="trasteroSeleccionado.estado==='ocupado'"
+            <button class="estado-btn ocupado" [class.activo]="trasteroSeleccionado.estado==='ocupado'"
               (click)="cambiarEstado('ocupado')">
               Ocupado
             </button>
 
-            <button
-              class="estado-btn mantenimiento"
-              [class.activo]="trasteroSeleccionado.estado==='mantenimiento'"
+            <button class="estado-btn mantenimiento" [class.activo]="trasteroSeleccionado.estado==='mantenimiento'"
               (click)="cambiarEstado('mantenimiento')">
               Mantenimiento
             </button>
@@ -126,16 +117,12 @@
         <!-- Precio -->
         <label>
           Precio:
-          <input
-            type="number"
-            [(ngModel)]="trasteroSeleccionado.precio">
+          <input type="number" [(ngModel)]="trasteroSeleccionado.precio">
         </label>
 
 
         <!-- CONTRATO -->
-        <div
-          *ngIf="trasteroSeleccionado.estado==='ocupado'"
-          class="contrato-section">
+        <div *ngIf="trasteroSeleccionado.estado==='ocupado'" class="contrato-section">
 
           <h4>Contrato</h4>
 
@@ -143,9 +130,7 @@
 
             <label class="contrato-field">
               Fecha inicio
-              <input
-                type="date"
-                [(ngModel)]="trasteroSeleccionado.fechaInicio">
+              <input type="date" [(ngModel)]="trasteroSeleccionado.fechaInicio">
             </label>
 
             <label class="contrato-field">
@@ -201,15 +186,11 @@
 
     <div class="confirm-buttons">
 
-      <button
-        class="btn-cancelar"
-        (click)="cerrarModal()">
+      <button class="btn-cancelar" (click)="cerrarModal()">
         Cancelar
       </button>
 
-      <button
-        class="btn-confirmar"
-        (click)="confirmarLiberar()">
+      <button class="btn-confirmar" (click)="confirmarLiberar()">
         Liberar
       </button>
 

@@ -1,3 +1,4 @@
+//interfaz trastero
 export interface Trastero {
   id_trastero: number;
   codigo: string;

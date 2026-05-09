@@ -1,3 +1,4 @@
+//interfaz usuario
 export interface Usuario {
     id_usuario: number;
     nombre: string;
@@ -7,4 +8,6 @@ export interface Usuario {
     dni: string;
     direccion: string;
     telefono: string;
+    cif?: string;
+    razon_social?: string;
 }

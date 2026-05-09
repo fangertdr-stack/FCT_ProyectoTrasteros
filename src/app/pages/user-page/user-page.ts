@@ -41,9 +41,6 @@ export class UserPage implements OnInit {
 
     const userRaw = localStorage.getItem('id_usuario');
 
-
-
-
     console.log('USER RAW:', userRaw);
 
     if (!userRaw) {

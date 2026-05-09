@@ -18,17 +18,23 @@ export class AdminPage implements OnInit {
   constructor(
     private nav: NavigationService,
     private trasteroService: TrasteroService
-  ) {}
+  ) { }
 
+  //declaracion de array tipo Trasetro, usuario y meses disponibles para contrato
   trasteros: Trastero[] = [];
   usuarios: any[] = [];
   mesesDisponibles = [1, 2, 3, 4, 5, 6, 9, 12];
 
+
+  //guarda trastero seleccionado o null
   trasteroSeleccionado: Trastero | null = null;
 
   mostrarModal = false;
+
+  //guarda trastero a liberar o null
   trasteroALiberar: Trastero | null = null;
 
+  // Observable para trasteros
   trastero$: Observable<Trastero[]> | undefined;
 
   ngOnInit(): void {
@@ -36,8 +42,8 @@ export class AdminPage implements OnInit {
 
     this.trastero$ = this.trasteroService.getTrasteros();
     this.trastero$.subscribe(trasteros => {
-  console.log('Trasteros recibidos:', trasteros);
-});
+      console.log('Trasteros recibidos:', trasteros);
+    });
 
     // Cargar usuarios
     this.trasteroService.getUsuarios().subscribe({
@@ -90,26 +96,26 @@ export class AdminPage implements OnInit {
   }
 
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
-  if (!this.trasteroSeleccionado) return;
+    if (!this.trasteroSeleccionado) return;
 
-  this.trasteroSeleccionado.estado = estado;
+    this.trasteroSeleccionado.estado = estado;
 
-  if (estado !== 'ocupado') {
-    this.trasteroSeleccionado.usuario = undefined;
-    this.trasteroSeleccionado.id_usuario = undefined;
-    this.trasteroSeleccionado.fechaInicio = '';
-    this.trasteroSeleccionado.mesesContrato = undefined;
+    if (estado !== 'ocupado') {
+      this.trasteroSeleccionado.usuario = undefined;
+      this.trasteroSeleccionado.id_usuario = undefined;
+      this.trasteroSeleccionado.fechaInicio = '';
+      this.trasteroSeleccionado.mesesContrato = undefined;
+    }
+
+    if (this.trasteroSeleccionado.estado === 'mantenimiento' && estado !== 'mantenimiento') {
+
+      alert('Este trastero está en mantenimiento');
+      return;
+    }
+
+
+
   }
-
-  if (this.trasteroSeleccionado.estado === 'mantenimiento' && estado !== 'mantenimiento') {
-
-    alert('Este trastero está en mantenimiento');
-    return;
-  }
-
-
-
-}
   calcularFechaFin(fechaInicio?: string, meses?: number | string): string | null {
     console.log("Calculando fecha fin seguro...");
     if (!fechaInicio || !meses) return null;
@@ -155,45 +161,46 @@ export class AdminPage implements OnInit {
   }
 
   guardar() {
-  if (!this.trasteroSeleccionado) return;
+    if (!this.trasteroSeleccionado) return;
 
-  if (this.trasteroSeleccionado.estado === 'ocupado') {
-    if (!this.trasteroSeleccionado.id_usuario) {
-      alert("Selecciona un usuario");
-      return;
+    if (this.trasteroSeleccionado.estado === 'ocupado') {
+      if (!this.trasteroSeleccionado.id_usuario) {
+        alert("Selecciona un usuario");
+        return;
+      }
+      if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
+        alert("Completa los datos del contrato");
+        return;
+      }
     }
-    if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
-      alert("Completa los datos del contrato");
-      return;
+
+    // Construir objeto a enviar
+    const data: any = {
+      id_trastero: this.trasteroSeleccionado.id_trastero,
+      estado: this.trasteroSeleccionado.estado,
+      precio_mensual_aplicado: this.trasteroSeleccionado.precio,
+      token: localStorage.getItem('token') || ''
+    };
+
+    if (this.trasteroSeleccionado.estado === 'ocupado') {
+      data.id_usuario = this.trasteroSeleccionado.id_usuario;
+      data.fecha_inicio = this.trasteroSeleccionado.fechaInicio;
+      data.fecha_fin = this.calcularFechaFin(
+        this.trasteroSeleccionado.fechaInicio,
+        this.trasteroSeleccionado.mesesContrato
+      );
     }
+
+    this.trasteroService.asignarTrastero(data).subscribe({
+      next: () => {
+        this.cargarTrasteros();
+        this.trasteroSeleccionado = null;
+      },
+      error: (err) => {
+        console.error("Error guardando contrato", err);
+      }
+    });
   }
-
-  // Construir objeto a enviar
-  const data: any = {
-    id_trastero: this.trasteroSeleccionado.id_trastero,
-    estado: this.trasteroSeleccionado.estado,
-    precio_mensual_aplicado: this.trasteroSeleccionado.precio
-  };
-
-  if (this.trasteroSeleccionado.estado === 'ocupado') {
-    data.id_usuario = this.trasteroSeleccionado.id_usuario;
-    data.fecha_inicio = this.trasteroSeleccionado.fechaInicio;
-    data.fecha_fin = this.calcularFechaFin(
-      this.trasteroSeleccionado.fechaInicio,
-      this.trasteroSeleccionado.mesesContrato
-    );
-  }
-
-  this.trasteroService.asignarTrastero(data).subscribe({
-    next: () => {
-      this.cargarTrasteros();
-      this.trasteroSeleccionado = null;
-    },
-    error: (err) => {
-      console.error("Error guardando contrato", err);
-    }
-  });
-}
 
   liberar(t: Trastero) {
     console.log("Preparando liberar trastero:", t);
@@ -202,23 +209,24 @@ export class AdminPage implements OnInit {
   }
 
   confirmarLiberar() {
-  if (!this.trasteroALiberar) return;
+    if (!this.trasteroALiberar) return;
 
-  console.log("Liberando trastero:", this.trasteroALiberar);
+    console.log("Liberando trastero:", this.trasteroALiberar);
 
-  const idTrastero = this.trasteroALiberar.id_trastero; // guardar id antes
+    // guardar id antes
+    const idTrastero = this.trasteroALiberar.id_trastero;
 
-  this.cerrarModal(); // cerrar modal inmediatamente
+    this.cerrarModal(); // cerrar modal inmediatamente
 
-  this.trasteroService.liberarTrastero(idTrastero).subscribe({
-    next: () => {
-      this.cargarTrasteros(); // recargar trasteros
-    },
-    error: (err) => {
-      console.error("Error liberando trastero", err);
-    }
-  });
-}
+    this.trasteroService.liberarTrastero(idTrastero).subscribe({
+      next: () => {
+        this.cargarTrasteros(); // recargar trasteros
+      },
+      error: (err) => {
+        console.error("Error liberando trastero", err);
+      }
+    });
+  }
 
   cerrarModal() {
     console.log("Cerrando modal");
