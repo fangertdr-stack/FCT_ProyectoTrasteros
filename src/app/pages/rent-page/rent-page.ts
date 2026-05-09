@@ -176,7 +176,8 @@ export class RentPage implements OnInit {
           fecha_inicio: fechaInicio.toISOString().slice(0, 10),
           fecha_fin: fechaFin.toISOString().slice(0, 10),
           precio_mensual_aplicado: trastero.precio,
-          estado: 'ocupado'
+          estado: 'ocupado',
+          token: localStorage.getItem('token') || ''
         };
 
         this.trasteroService.asignarTrastero(data).subscribe({

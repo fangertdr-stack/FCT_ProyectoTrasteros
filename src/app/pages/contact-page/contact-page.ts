@@ -32,11 +32,14 @@ export class ContactPage implements OnInit {
   if (!token) return;
 
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
 
-    this.nombre.set(payload.nombre ?? '');
-    this.email.set(payload.email ?? '');
-    console.log('Usuario autenticado:', payload);
+
+    this.nombre.set(localStorage.getItem('nombre') || '');
+    this.email.set(localStorage.getItem('email') || '');
+    console.log('Usuario autenticado:', {
+      nombre: this.nombre(),
+      email: this.email()
+    });
   } catch {
     this.nombre.set('');
     this.email.set('');

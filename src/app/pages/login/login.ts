@@ -178,6 +178,7 @@ export class LoginComponent {
             localStorage.setItem('id_usuario', payload.id_usuario);
             localStorage.setItem('rol', payload.rol);
             localStorage.setItem('nombre', resp.data.nombre_publico);
+            localStorage.setItem('email', resp.data.email);
 
           }
 

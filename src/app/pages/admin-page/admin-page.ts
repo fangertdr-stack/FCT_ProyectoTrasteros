@@ -178,7 +178,8 @@ export class AdminPage implements OnInit {
     const data: any = {
       id_trastero: this.trasteroSeleccionado.id_trastero,
       estado: this.trasteroSeleccionado.estado,
-      precio_mensual_aplicado: this.trasteroSeleccionado.precio
+      precio_mensual_aplicado: this.trasteroSeleccionado.precio,
+      token: localStorage.getItem('token') || ''
     };
 
     if (this.trasteroSeleccionado.estado === 'ocupado') {
