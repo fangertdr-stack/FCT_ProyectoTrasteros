@@ -71,9 +71,14 @@ export class TrasteroService {
   getTrasteroLibre(tamanio: string): Observable<Trastero | null> {
     return this.http.get<Trastero[]>(this.apiUrl).pipe(
       map(trasteros => {
+        const tamanioBuscado = tamanio.trim().toLowerCase();
+
         const libres = trasteros.filter(t => {
-          const estadoReal = t.estado_real ?? t.estado;
-          return estadoReal === 'libre' && t.tamanio === tamanio;
+          const estado = (t.estado ?? '').trim().toLowerCase();
+          const estadoReal = (t.estado_real ?? t.estado ?? '').trim().toLowerCase();
+          const tamanioTrastero = (t.tamanio ?? '').trim().toLowerCase();
+
+          return estado === 'libre' && estadoReal === 'libre' && tamanioTrastero === tamanioBuscado;
         });
 
         return libres.length > 0 ? libres[0] : null;
