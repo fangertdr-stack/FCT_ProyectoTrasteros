@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NavigationService } from '../../services/navigation';
 import { TrasteroService } from '../../services/trasteroService';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-page',
@@ -17,7 +18,8 @@ export class AdminPage implements OnInit {
 
   constructor(
     private nav: NavigationService,
-    private trasteroService: TrasteroService
+    private trasteroService: TrasteroService,
+    private snackBar: MatSnackBar
   ) { }
 
   //declaracion de array tipo Trasetro, usuario y meses disponibles para contrato
@@ -36,6 +38,15 @@ export class AdminPage implements OnInit {
 
   // Observable para trasteros
   trastero$: Observable<Trastero[]> | undefined;
+
+showMessage(message: string, action: string = 'Cerrar'): void {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+      panelClass: ['snackbar-error']
+    });
+  }
 
   ngOnInit(): void {
     console.log("AdminPage iniciado");
@@ -99,6 +110,12 @@ export class AdminPage implements OnInit {
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
     if (!this.trasteroSeleccionado) return;
 
+    if (estado === 'mantenimiento' && this.trasteroOcupadoSeleccionado) {
+      this.showMessage('No se puede poner en mantenimiento un trastero ocupado. Primero libera el trastero.');
+
+      return;
+    }
+
     this.trasteroSeleccionado.estado = estado;
 
     if (estado !== 'ocupado') {
@@ -110,7 +127,8 @@ export class AdminPage implements OnInit {
 
     if (this.trasteroSeleccionado.estado === 'mantenimiento' && estado !== 'mantenimiento') {
 
-      alert('Este trastero está en mantenimiento');
+      this.showMessage('Trastero puesto en mantenimiento. No se podrá alquilar hasta que se vuelva a poner como libre u ocupado.');
+
       return;
     }
 
@@ -183,6 +201,13 @@ export class AdminPage implements OnInit {
 
   get esContratoExistente(): boolean {
     return this.trasteroSeleccionado?.estado === 'ocupado' && !!this.trasteroSeleccionado.fecha_fin;
+  }
+
+  get trasteroOcupadoSeleccionado(): boolean {
+    const estado = this.trasteroSeleccionado?.estado;
+    const estadoReal = this.trasteroSeleccionado?.estado_real;
+
+    return estado === 'ocupado' || estadoReal === 'ocupado' || !!this.trasteroSeleccionado?.fecha_fin;
   }
 
   get fechaInicioAutomatica(): string {
