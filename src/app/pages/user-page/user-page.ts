@@ -41,7 +41,7 @@ export class UserPage implements OnInit {
 
     const userRaw = localStorage.getItem('id_usuario');
 
-    console.log('USER RAW:', userRaw);
+
 
     if (!userRaw) {
       this.error.set('No hay usuario logueado');
@@ -51,7 +51,7 @@ export class UserPage implements OnInit {
 
     this.usuarioId = Number(userRaw);
 
-    console.log('USER ID:', this.usuarioId);
+
 
     this.loadTrasteros();
   }
@@ -60,7 +60,7 @@ export class UserPage implements OnInit {
 
     if (!this.usuarioId) return;
 
-    console.log('LLAMANDO API...');
+
 
     this.cargando.set(true);
 
@@ -70,7 +70,11 @@ export class UserPage implements OnInit {
 
           console.log('RESPUESTA API:', data);
 
-          this.trastero.set(Array.isArray(data) ? data : []);
+          const trasterosActivos = Array.isArray(data)
+            ? data.filter(t => this.esTrasteroActivo(t))
+            : [];
+
+          this.trastero.set(trasterosActivos);
 
           this.cargando.set(false);
         },
@@ -82,16 +86,43 @@ export class UserPage implements OnInit {
       });
   }
 
+  private esTrasteroActivo(t: Trastero): boolean {
+    const estado = (t.estado ?? '').toLowerCase();
+    const estadoTrastero = (t.estado_real ?? t.estado ?? '').toLowerCase();
+    const estadoAlquiler = (t.estado_alquiler ?? '').toLowerCase();
+    const tieneAlquilerPagado = estado === 'pagado' || estadoAlquiler === 'pagado';
+
+    if (estadoTrastero === 'libre' || estado === 'finalizado' || estadoAlquiler === 'finalizado') {
+      return false;
+    }
+
+    if (t.fecha_fin) {
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0);
+
+      const fechaFin = new Date(t.fecha_fin);
+      fechaFin.setHours(0, 0, 0, 0);
+
+      if (fechaFin < hoy) {
+        return false;
+      }
+    }
+
+    return estadoTrastero === 'ocupado' || tieneAlquilerPagado;
+  }
+
   calcularPrecioTotal(t: Trastero): number {
 
     // valido que las fechas existan para evitar error si no hay fechas devuelve 0 porque se declararon
     //en la interfaz que podia no existir fechas
-    if (!t.fechaInicio || !t.fecha_fin) {
+    const fechaInicio = t.fechaInicio ?? t.fecha_inicio;
+
+    if (!fechaInicio || !t.fecha_fin) {
       return 0
     }
 
     //convierto string a objeto date
-    const inicio = new Date(t.fechaInicio);
+    const inicio = new Date(fechaInicio);
     const fin = new Date(t.fecha_fin);
 
     //creo constante meses que es un calculo de años pero calculado en meses con el +1 incluyo el primer mes

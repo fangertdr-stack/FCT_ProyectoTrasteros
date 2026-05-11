@@ -43,7 +43,7 @@
 
         <p><strong>Tamaño:</strong> {{ t.tamanio }}</p>
         <p><strong>Precio:</strong> {{ t.precio }}€</p>
-        <p><strong>Inicio:</strong> {{ t.fechaInicio }}</p>
+        <p><strong>Inicio:</strong> {{ t.fechaInicio ?? t.fecha_inicio }}</p>
         <p><strong>Fin:</strong> {{ t.fecha_fin }}</p>
         <p><strong>Precio total: {{ calcularPrecioTotal(t) }}€</strong></p>
 

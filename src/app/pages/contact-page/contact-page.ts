@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NavigationService } from '../../services/navigation';
 import { URL_API } from '../../../environments/environment';
 
@@ -102,7 +102,9 @@ export class ContactPage implements OnInit {
 
     if (!idUsuario) return;
 
-    this.http.get<any>(`${URL_API}/user.php?id_usuario=${idUsuario}`).subscribe({
+    this.http.get<any>(`${URL_API}/user.php?id_usuario=${idUsuario}`, {
+      headers: this.getHeaders()
+    }).subscribe({
       next: (usuario) => {
         if (usuario?.nombre) {
           this.nombre.set(usuario.nombre);
@@ -145,5 +147,14 @@ export class ContactPage implements OnInit {
 
   private isValidEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  private getHeaders(): HttpHeaders {
+    const token = this.isBrowser() ? localStorage.getItem('token') : '';
+
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
   }
 }

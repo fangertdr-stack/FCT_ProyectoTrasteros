@@ -6,6 +6,7 @@ export interface Trastero {
   precio: number;
   estado: 'libre' | 'ocupado' | 'mantenimiento';
  estado_real?: string;
+  estado_alquiler?: string;
   id_usuario?: number;
   usuario?: string;
   fecha_inicio?: string;
