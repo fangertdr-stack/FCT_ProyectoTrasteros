@@ -47,13 +47,6 @@ app.use((req, res, next) => {
 });
 
 /**
- * Fallback: serve index.html for any unmatched routes
- */
-app.use((req, res) => {
-  res.sendFile(join(browserDistFolder, 'index.html'));
-});
-
-/**
  * Start the server if this module is the main entry point, or it is ran via PM2.
  * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
  */

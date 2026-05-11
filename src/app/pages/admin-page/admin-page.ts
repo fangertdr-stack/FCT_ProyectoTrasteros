@@ -63,7 +63,8 @@ export class AdminPage implements OnInit {
 
   cargarTrasteros() {
     console.log("Cargando trasteros...");
-    this.trasteroService.getTrasteros().subscribe({
+    this.trastero$ = this.trasteroService.getTrasteros();
+    this.trastero$.subscribe({
       next: (data) => {
         console.log("Trasteros recibidos:", data);
         this.trasteros = data;
@@ -89,7 +90,7 @@ export class AdminPage implements OnInit {
     this.trasteroSeleccionado = {
       ...t,
       id_usuario: t.id_usuario ?? undefined,
-      fechaInicio: t.fechaInicio ?? '', // inicializar como string vacío
+      fechaInicio: t.fechaInicio ?? t.fecha_inicio ?? '', // el backend devuelve fecha_inicio
       mesesContrato: t.mesesContrato ?? undefined // inicializar null
     };
     console.log("Copia para edición:", this.trasteroSeleccionado);
@@ -160,16 +161,70 @@ export class AdminPage implements OnInit {
     return 'rojo';
   }
 
+  private formatearFechaLocal(fecha: Date): string {
+    const year = fecha.getFullYear();
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const day = String(fecha.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  private crearFechaLocal(fecha: string): Date {
+    const [year, month, day] = fecha.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  private sumarMeses(fecha: Date, meses: number): Date {
+    const resultado = new Date(fecha);
+    resultado.setMonth(resultado.getMonth() + meses);
+
+    return resultado;
+  }
+
+  get esContratoExistente(): boolean {
+    return this.trasteroSeleccionado?.estado === 'ocupado' && !!this.trasteroSeleccionado.fecha_fin;
+  }
+
+  get fechaInicioAutomatica(): string {
+    return this.formatearFechaLocal(new Date());
+  }
+
+  get fechaBaseContrato(): string {
+    return this.trasteroSeleccionado?.fecha_fin ?? this.fechaInicioAutomatica;
+  }
+
+  get fechaInicioContrato(): string {
+    return this.trasteroSeleccionado?.fechaInicio
+      ?? this.trasteroSeleccionado?.fecha_inicio
+      ?? this.fechaInicioAutomatica;
+  }
+
+  get fechaFinAutomatica(): string | null {
+    const meses = Number(this.trasteroSeleccionado?.mesesContrato);
+
+    if (!meses) return null;
+
+    const fechaBase = this.esContratoExistente
+      ? this.crearFechaLocal(this.fechaBaseContrato)
+      : new Date();
+
+    return this.formatearFechaLocal(this.sumarMeses(fechaBase, meses));
+  }
+
   guardar() {
     if (!this.trasteroSeleccionado) return;
 
     if (this.trasteroSeleccionado.estado === 'ocupado') {
-      if (!this.trasteroSeleccionado.id_usuario) {
+      if (!this.esContratoExistente && !this.trasteroSeleccionado.id_usuario) {
         alert("Selecciona un usuario");
         return;
       }
-      if (!this.trasteroSeleccionado.fechaInicio || !this.trasteroSeleccionado.mesesContrato) {
-        alert("Completa los datos del contrato");
+      if (!this.trasteroSeleccionado.mesesContrato) {
+        alert("Selecciona los meses del contrato");
+        return;
+      }
+      if (this.esContratoExistente && !this.fechaInicioContrato) {
+        alert("No se pudo leer la fecha de inicio del alquiler actual");
         return;
       }
     }
@@ -183,15 +238,22 @@ export class AdminPage implements OnInit {
     };
 
     if (this.trasteroSeleccionado.estado === 'ocupado') {
-      data.id_usuario = this.trasteroSeleccionado.id_usuario;
-      data.fecha_inicio = this.trasteroSeleccionado.fechaInicio;
-      data.fecha_fin = this.calcularFechaFin(
-        this.trasteroSeleccionado.fechaInicio,
-        this.trasteroSeleccionado.mesesContrato
-      );
+      const mesesContrato = Number(this.trasteroSeleccionado.mesesContrato);
+
+      if (this.trasteroSeleccionado.id_usuario) {
+        data.id_usuario = this.trasteroSeleccionado.id_usuario;
+      }
+
+      data.fecha_inicio = this.esContratoExistente ? this.fechaInicioContrato : this.fechaInicioAutomatica;
+      data.fecha_fin = this.fechaFinAutomatica;
+      data.meses = mesesContrato;
     }
 
-    this.trasteroService.asignarTrastero(data).subscribe({
+    const guardar$ = this.esContratoExistente
+      ? this.trasteroService.prorrogarAlquiler(data)
+      : this.trasteroService.asignarTrastero(data);
+
+    guardar$.subscribe({
       next: () => {
         this.cargarTrasteros();
         this.trasteroSeleccionado = null;

@@ -8,7 +8,9 @@ export interface Trastero {
  estado_real?: string;
   id_usuario?: number;
   usuario?: string;
+  fecha_inicio?: string;
   fechaInicio?: string;
   fecha_fin?: string;
+  importe_total?: number | string;
   mesesContrato?: number;
 }

@@ -20,7 +20,8 @@
               <th>Estado</th>
               <th>Fecha Fin</th>
               <th>Tamaño</th>
-              <th>Precio por mes</th>
+              <th>Precio/mes</th>
+              <th>Total pagado</th>
               <th>Acciones</th>
 
             </tr>
@@ -50,6 +51,12 @@
 
               <td>{{ t.tamanio }}</td>
               <td>{{ t.precio }} €</td>
+              <td>
+                <span *ngIf="t.estado === 'ocupado' && t.importe_total !== null && t.importe_total !== undefined; else sinTotal">
+                  {{ t.importe_total | number:'1.2-2' }} €
+                </span>
+                <ng-template #sinTotal>-</ng-template>
+              </td>
 
 
               <td>
@@ -77,7 +84,7 @@
         <label>
           Usuario:
 
-          <select [(ngModel)]="trasteroSeleccionado.id_usuario">
+          <select [(ngModel)]="trasteroSeleccionado.id_usuario" [disabled]="esContratoExistente">
             <option [ngValue]="null">Seleccionar usuario</option>
             <option *ngFor="let u of usuarios" [ngValue]="u.id_usuario">
               {{ u.nombre }} - {{ u.dni }}
@@ -129,18 +136,23 @@
           <div class="contrato-row">
 
             <label class="contrato-field">
-              Fecha inicio
-              <input type="date" [(ngModel)]="trasteroSeleccionado.fechaInicio">
+              {{ esContratoExistente ? 'Fecha fin actual' : 'Fecha inicio' }}
+              <input type="text" [value]="fechaBaseContrato | date:'dd/MM/yyyy'" readonly>
             </label>
 
             <label class="contrato-field">
-              Meses
+              {{ esContratoExistente ? 'Meses a añadir' : 'Meses' }}
 
               <select [(ngModel)]="trasteroSeleccionado.mesesContrato">
                 <option [ngValue]="undefined">---</option> <!-- opción vacía -->
                 <option *ngFor="let m of mesesDisponibles" [ngValue]="m">{{ m }}</option>
               </select>
 
+            </label>
+
+            <label class="contrato-field">
+              {{ esContratoExistente ? 'Nueva fecha fin' : 'Fecha fin' }}
+              <input type="text" [value]="fechaFinAutomatica ? (fechaFinAutomatica | date:'dd/MM/yyyy') : '-'" readonly>
             </label>
 
           </div>

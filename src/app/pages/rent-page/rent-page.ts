@@ -163,9 +163,10 @@ export class RentPage implements OnInit {
           return;
         }
 
+        const duracionMeses = Number(this.duracionSeleccionada);
         const fechaInicio = new Date();
-        const fechaFin = new Date();
-        fechaFin.setMonth(fechaInicio.getMonth() + this.duracionSeleccionada);
+        const fechaFin = new Date(fechaInicio);
+        fechaFin.setMonth(fechaInicio.getMonth() + duracionMeses);
 
         const data = {
           id_trastero: trastero.id_trastero,
@@ -175,6 +176,7 @@ export class RentPage implements OnInit {
           email: this.usuario.email,
           fecha_inicio: fechaInicio.toISOString().slice(0, 10),
           fecha_fin: fechaFin.toISOString().slice(0, 10),
+          meses: duracionMeses,
           precio_mensual_aplicado: trastero.precio,
           estado: 'ocupado',
           token: localStorage.getItem('token') || ''

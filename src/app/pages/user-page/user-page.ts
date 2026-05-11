@@ -101,6 +101,7 @@ export class UserPage implements OnInit {
 
     //devuelve numero de meses por el precio mensual del trastero
     return meses * t.precio;
+
   }
 
   goBack() {

@@ -14,8 +14,10 @@ export class TrasteroService {
   constructor(private http: HttpClient) { }
 
   private getHeaders() {
+    const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : '';
+
     return new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     });
   }
@@ -26,8 +28,12 @@ export class TrasteroService {
   }
 
   // Actualizar un trastero
-  updateTrastero(trastero: Trastero): Observable<any> {
+  updateTrastero(trastero: Partial<Trastero> & { [key: string]: any }): Observable<any> {
     return this.http.post(`${this.apiUrl}?action=update`, trastero);
+  }
+
+  prorrogarAlquiler(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}?action=prorrogar`, data);
   }
 
   // Traer usuarios para asignar trasteros
