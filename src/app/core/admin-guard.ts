@@ -13,19 +13,24 @@ export class adminGuard implements CanActivate {
     private permissionService: PermissionService
   ) {}
 
+
+  //funcion para proteger ruta y verificar si el usuario es admin, si no lo es redirige a login
   async canActivate(): Promise<boolean> {
     if (!isPlatformBrowser(this.platformId)) {
       return true;
     }
 
+    // Verificar si el token existe en localStorage
     const token = localStorage.getItem('token');
 
+    // Si no hay token, redirigir a login
     if (!token) {
       this.router.navigate(['/login']);
       return false;
     }
 
     try {
+      // Verificar si el usuario es admin
       const isAdmin = await firstValueFrom(this.permissionService.isAdmin());
 
       if (!isAdmin) {

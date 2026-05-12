@@ -10,21 +10,13 @@ export class Auth implements CanActivate {
   constructor(
     private router: Router,
     private permissionService: PermissionService,
-    private snackBar: MatSnackBar
   ) {}
 
   private isBrowser(): boolean {
     return typeof window !== 'undefined';
   }
 
-  private showMessage(message: string, success: boolean = true): void {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
-      panelClass: success ? ['snackbar-success'] : ['snackbar-error']
-    });
-  }
+
 
   async canActivate(): Promise<boolean | UrlTree> {
 
