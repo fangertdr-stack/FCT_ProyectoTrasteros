@@ -155,6 +155,10 @@ export class AdminPage implements OnInit {
     //console.log("Copia para edición:", this.trasteroSeleccionado);
   }
 
+  // Cambia el estado del trastero seleccionado.
+// Si no hay ningún trastero seleccionado, no hace nada.
+// Impide poner en mantenimiento un trastero que está ocupado.
+// Al cambiar a un estado distinto de "ocupado", elimina los datos del alquiler asociados.
   cambiarEstado(estado: 'libre' | 'ocupado' | 'mantenimiento') {
     if (!this.trasteroSeleccionado) return;
 
@@ -180,28 +184,39 @@ export class AdminPage implements OnInit {
       return;
     }
 
-
-
   }
+
+
+// Calcula la fecha de fin del contrato sumando los meses indicados a la fecha de inicio
+// Si falta la fecha de inicio o la duración en meses, devuelve null.
+// La fecha resultante se devuelve en formato "YYYY-MM-DD".
+
   calcularFechaFin(fechaInicio?: string, meses?: number | string): string | null {
     console.log("Calculando fecha fin seguro...");
     if (!fechaInicio || !meses) return null;
 
+    //convierto meses a numero por si viene como string
     const mesesNum = Number(meses);
-    console.log("Meses convertidos a número:", mesesNum);
+    //console.log("Meses convertidos a número:", mesesNum);
 
+    // se separa la fecha en  anios meses y dia y se crea objeto date con los valores y se resta 1 porque empieza a contar desde 0
     const [year, month, day] = fechaInicio.split('-').map(Number);
     const inicio = new Date(year, month - 1, day);
     console.log("Fecha inicio segura (Date):", inicio);
 
+    // se suma los meses a la fecha de inicio usando setMonth
+    // que maneja automáticamente el cambio de año y el número de días de cada mes
     const fin = new Date(inicio);
     fin.setMonth(fin.getMonth() + mesesNum);
     console.log("Fecha fin segura (Date):", fin);
 
+
+    // se formatea la fecha de fin a "YYYY-MM-DD" para enviar al backend
     const y = fin.getFullYear();
     const m = String(fin.getMonth() + 1).padStart(2, '0');
     const d = String(fin.getDate()).padStart(2, '0');
 
+    //console.log("Componentes fecha fin:", { y, m, d });
     const resultado = `${y}-${m}-${d}`;
     console.log("Fecha fin segura enviada al backend:", resultado);
 
@@ -209,7 +224,8 @@ export class AdminPage implements OnInit {
   }
 
 
-  // no se esta usando
+  // no se esta usando pero se hizo para mostrar la fecha en color segun lo que quede para acabar el contrato
+  //  verde >15 dias  amarillo 5-15 dias y rojo <5 dias
   estadoContrato(fechaFin: string | null): 'verde' | 'amarillo' | 'rojo' | null {
     console.log("Evaluando estado contrato para fecha:", fechaFin);
 
@@ -229,6 +245,8 @@ export class AdminPage implements OnInit {
     return 'rojo';
   }
 
+  //funcion para formatear fecha a formato local "YYYY-MM-DD"
+  // para mostrar en el input de fecha y enviar al backend
   private formatearFechaLocal(fecha: Date): string {
     const year = fecha.getFullYear();
     const month = String(fecha.getMonth() + 1).padStart(2, '0');
@@ -237,11 +255,16 @@ export class AdminPage implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+
+  //funcion para crear objeto date con el formato local yyyy-mm-dd para calcular
+  //  fechas sumando meses y mostrar en el input de fecha
   private crearFechaLocal(fecha: string): Date {
     const [year, month, day] = fecha.split('-').map(Number);
     return new Date(year, month - 1, day);
   }
 
+
+  //funcion para sumar meses a una fecha dada y devolver la nueva fecha
   private sumarMeses(fecha: Date, meses: number): Date {
     const resultado = new Date(fecha);
     resultado.setMonth(resultado.getMonth() + meses);
@@ -249,10 +272,15 @@ export class AdminPage implements OnInit {
     return resultado;
   }
 
+
+  // Getters para calcular propiedades derivadas del trastero seleccionado y facilitar la lógica en el template
   get esContratoExistente(): boolean {
     return this.trasteroSeleccionado?.estado === 'ocupado' && !!this.trasteroSeleccionado.fecha_fin;
   }
 
+
+  // Este getter determina si el trastero seleccionado está ocupado, considerando tanto el estado actual
+  //  como el estado real y la fecha de fin del contrato
   get trasteroOcupadoSeleccionado(): boolean {
     const estado = this.trasteroSeleccionado?.estado;
     const estadoReal = this.trasteroSeleccionado?.estado_real;
@@ -260,20 +288,33 @@ export class AdminPage implements OnInit {
     return estado === 'ocupado' || estadoReal === 'ocupado' || !!this.trasteroSeleccionado?.fecha_fin;
   }
 
+
+  // Este getter calcula automáticamente la fecha de inicio para un nuevo contrato que es la fecha actual formateada
   get fechaInicioAutomatica(): string {
     return this.formatearFechaLocal(new Date());
   }
 
+
+  // Este getter determina la fecha base para calcular la fecha de fin del contrato.
+  // Si el contrato ya existe, se usa la fecha de fin del contrato actual para prorrogarlo.
+  // Si no existe, se usa la fecha de inicio automática (hoy) para un nuevo contrato.
   get fechaBaseContrato(): string {
     return this.trasteroSeleccionado?.fecha_fin ?? this.fechaInicioAutomatica;
   }
 
+
+  // Este getter determina la fecha de inicio del contrato que se mostrará en el formulario.
+  // Si el contrato ya existe, se muestra la fecha de inicio actual del contrato.
+  // Si no existe, se muestra la fecha de inicio automática (hoy).
   get fechaInicioContrato(): string {
     return this.trasteroSeleccionado?.fechaInicio
       ?? this.trasteroSeleccionado?.fecha_inicio
       ?? this.fechaInicioAutomatica;
   }
 
+
+  // Este getter calcula automáticamente la fecha de fin del contrato sumando los meses seleccionados a la fecha base.
+  // Si no hay meses seleccionados, devuelve null para que el campo de fecha de fin quede vacío.
   get fechaFinAutomatica(): string | null {
     const meses = Number(this.trasteroSeleccionado?.mesesContrato);
 
@@ -286,6 +327,11 @@ export class AdminPage implements OnInit {
     return this.formatearFechaLocal(this.sumarMeses(fechaBase, meses));
   }
 
+
+  // Función para guardar los cambios del trastero seleccionado.
+  // Valida que se haya seleccionado un usuario y los meses del contrato si el estado es ocupado.
+  // Construye un objeto con los datos a enviar al backend para asignar o prorrogar el alquiler.
+  // Después de guardar, actualiza la tabla localmente sin recargar toda la lista de trasteros.
   guardar() {
     if (!this.trasteroSeleccionado) return;
 
@@ -341,18 +387,21 @@ export class AdminPage implements OnInit {
     });
   }
 
+
+  // Función para preparar la liberación de un trastero. Guarda el trastero a liberar y muestra el modal de confirmación.
   liberar(t: Trastero) {
     console.log("Preparando liberar trastero:", t);
     this.trasteroALiberar = t;
     this.mostrarModal = true;
   }
 
+  // Función para confirmar la liberación del trastero,  llama al servicio para liberar el trastero y recarga la lista de trasteros despues
   confirmarLiberar() {
     if (!this.trasteroALiberar) return;
 
     console.log("Liberando trastero:", this.trasteroALiberar);
 
-    // guardar id antes
+    // Se obtiene el id del trastero a liberar para enviar al backend
     const idTrastero = this.trasteroALiberar.id_trastero;
 
     this.cerrarModal(); // cerrar modal inmediatamente
@@ -367,6 +416,7 @@ export class AdminPage implements OnInit {
     });
   }
 
+  // Función para cerrar el modal de confirmación de liberación y limpiar el trastero a liberar
   cerrarModal() {
     console.log("Cerrando modal");
     this.mostrarModal = false;
