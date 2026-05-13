@@ -13,6 +13,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class DeleteUser {
 
+  // creo una variable de tipo input para recibir el usuario que se va a eliminar desde el componente padre
+  // y dos variables de tipo output para emitir eventos al componente padre cuando se elimina un usuario o se cancela la operacion
   @Input() usuario!: Usuario;       // Usuario a eliminar
   @Output() eliminado = new EventEmitter<void>(); // Emitir cuando se elimina
   @Output() cancel = new EventEmitter<void>();   // Emitir cuando se cancela
@@ -28,6 +30,8 @@ export class DeleteUser {
     });
   }
 
+  // metodo para confirmar la eliminacion del usuario llamando al servicio de usersCrud
+  //  y manejando la respuesta para mostrar mensajes de exito o error
   confirmarEliminacion() {
     if (!this.usuario) return;
 
@@ -40,6 +44,7 @@ export class DeleteUser {
     });
   }
 
+  // metodo para cancelar la eliminacion y emitir el evento de cancelacion al componente padre
   cancelar() {
     this.cancel.emit();
   }

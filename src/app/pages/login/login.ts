@@ -107,7 +107,7 @@ export class LoginComponent {
 
       // Validación y envío del formulario de LOGIN
       if (!this.email || !this.password) {
-        this.errorMessage = 'Completa todos los campos';
+        this.errorMessage = 'Faltan campos obligatorios por rellenar';
         return;
       }
       if (!this.isValidEmail(this.email)) {
@@ -119,11 +119,9 @@ export class LoginComponent {
       return;
     }
 
-    // Validación del formulario de REGISTRO
-    // Se comprueba que todos los campos obligatorios estén rellenos,
-    // que las contraseñas coincidan, que el email sea válido y que la contraseña tenga al menos 6 caracteres
-    if (!this.name || !this.email || !this.dni || !this.password || !this.confirmPassword) {
-      this.errorMessage = 'Completa todos los campos';
+    //  REGISTRO BACKEND
+    if (!this.name || !this.email || !this.dni || !this.telefono || !this.password || !this.confirmPassword) {
+      this.errorMessage = 'Faltan campos obligatorios por rellenar';
       return;
     }
 

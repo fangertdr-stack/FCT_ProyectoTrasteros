@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario';
 import { URL_API } from '../../environments/environment';
 
@@ -10,26 +12,39 @@ import { URL_API } from '../../environments/environment';
 export class UsersCrud {
 
   private apiUrl = `${URL_API}/user.php`;
+  private platformId = inject(PLATFORM_ID);
 
   constructor(private http: HttpClient) { }
 
   private getHeaders() {
-    const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : '';
-
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
+    const token = isPlatformBrowser(this.platformId) ? localStorage.getItem('token') : '';
+    let headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
+
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return headers;
   }
 
   // GET trae usuarios de la bd
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.apiUrl, { headers: this.getHeaders() });
+    if (!isPlatformBrowser(this.platformId)) {
+      return of([]);
+    }
+
+    return this.http.get<Usuario[]>(this.apiUrl, { headers: this.getHeaders() }).pipe(
+      map(usuarios => usuarios.map(usuario => this.normalizarUsuario(usuario)))
+    );
   }
 
   // GET trae usuario por id
   getUsuarioById(id_usuario: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}?id_usuario=${id_usuario}`, { headers: this.getHeaders() });
+    return this.http.get<Usuario>(`${this.apiUrl}?id_usuario=${id_usuario}`, { headers: this.getHeaders() }).pipe(
+      map(usuario => this.normalizarUsuario(usuario))
+    );
   }
 
   // POST crea usuarios
@@ -45,5 +60,13 @@ export class UsersCrud {
   // DELETE borra usuario
   deleteUsuario(id_usuario: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}?id_usuario=${id_usuario}`, { headers: this.getHeaders() });
+  }
+
+  // Normaliza el usuario para asegurar que campos opcionales siempre tengan un valor definido
+  private normalizarUsuario(usuario: Usuario): Usuario {
+    return {
+      ...usuario,
+      razon_social: usuario.razon_social ?? '',
+    };
   }
 }

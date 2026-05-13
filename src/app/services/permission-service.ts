@@ -16,11 +16,17 @@ export class PermissionService {
 
   constructor(private http: HttpClient) { }
 
+
+  //este metodocrea las cabeceras HTTP que se van a enviar al backend cuando haces una petición
   private getHeaders(): HttpHeaders {
+
+    //comprueba que este desde navegador accediendo a localStorage, si no es así (ej: en SSR)
+    //  devuelve solo el header de content-type sin token
     if (!isPlatformBrowser(this.platformId)) {
       return new HttpHeaders({ 'Content-Type': 'application/json' });
     }
 
+    //saca el token y crea cabecera
     const token = localStorage.getItem('token') ?? '';
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -28,6 +34,7 @@ export class PermissionService {
     return headers;
   }
 
+  //comprueba si es admin si esta en el navegador
   isAdmin() {
     // SSR: Retornar false en servidor
     if (!isPlatformBrowser(this.platformId)) {
@@ -48,7 +55,8 @@ export class PermissionService {
         // Si es un número (0 o 1)
         if (typeof res === 'number') return res === 1 || res > 0;
 
-        // Buscar en res.data (estructura ApiUtils - como devuelve tu permission.php)
+        // Buscar en res.data la estructura ApiUtils  como devuelve el permission.php)
+        //meti varias posibles respuestas porque me estaba volviendo un poco loco
         if (res?.data && typeof res.data === 'object') {
           if ('is_admin' in res.data) return res.data.is_admin === true || res.data.is_admin === 1;
           if ('isAdmin' in res.data) return res.data.isAdmin === true || res.data.isAdmin === 1;
@@ -57,7 +65,8 @@ export class PermissionService {
           if ('es_admin' in res.data) return res.data.es_admin === true || res.data.es_admin === 1;
         }
 
-        // Buscar en res directamente (respuestas simples / estructura plana)
+        // Buscar en res directamente
+        //aqui hice lo mismo
         if (res && typeof res === 'object') {
           if ('is_admin' in res) return res.is_admin === true || res.is_admin === 1;
           if ('isAdmin' in res) return res.isAdmin === true || res.isAdmin === 1;

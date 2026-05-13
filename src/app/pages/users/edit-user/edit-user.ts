@@ -14,6 +14,8 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class EditUser {
 
+  // creo una variable de tipo input para recibir el usuario que se va a editar desde el componente padre
+  // y dos variables de tipo output para emitir eventos al componente padre cuando se guarda un usuario o se cancela la operacion
   @Input() usuario!: Usuario;       // Usuario a editar
   @Output() guardado = new EventEmitter<void>(); // Emitir cuando se guarda
   @Output() cancel = new EventEmitter<void>();   // Emitir cuando se cancela
@@ -29,18 +31,21 @@ export class EditUser {
     });
   }
 
+  // metodo para guardar los cambios del usuario llamando al servicio de usersCrud
+  //  y manejando la respuesta para mostrar mensajes de exito o error
   guardarCambios() {
     if (!this.usuario) return;
 
     this.usersCrud.updateUsuario(this.usuario).subscribe({
       next: () => {
         this.showMessage('Usuario actualizado correctamente');
-        this.guardado.emit(); // Avisamos al componente padre
+        this.guardado.emit();
       },
       error: () => this.showMessage('Error al actualizar usuario', false)
     });
   }
 
+  // metodo para cancelar la edicion y emitir el evento de cancelacion al componente padre
   cancelarEdicion() {
     this.cancel.emit();
   }

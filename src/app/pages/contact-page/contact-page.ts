@@ -72,7 +72,7 @@ export class ContactPage implements OnInit {
 
     // Validación extra del email por si se cargó mal desde el token o localStorage
     if (!this.isValidEmail(this.email())) {
-      this.errorMessage.set('No se pudo recuperar tu email. Cierra sesión y vuelve a iniciar sesión.');
+      this.errorMessage.set('No se pudo enviar tu email. Debes iniciar sesión o registrarte.');
       return;
     }
 

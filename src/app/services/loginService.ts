@@ -32,6 +32,10 @@ export class LoginService {
 
   }
 
+  // Metodo para obtener los datos del usuario a partir del token almacenado en localStorage
+  // busca el token guardado en localStorage, lo decodifica y devuelve el payload con los datos del usuario
+  // token split coge la parte del payload del token, lo decodifica de base64 y lo parsea a un objeto JSON
+  //y lo convierte de JSON a objeto javascript
   getUserFromToken(): any {
   const token = localStorage.getItem('token');
   if (!token) return null;
@@ -50,6 +54,7 @@ export class LoginService {
     return localStorage.getItem('nombre') || '';
   }
 
+  // Metodo para verificar si el usuario es admin o no, se llama al backend para verificar el rol del usuario
   isAdmin() {
     return this.http.get(`${URL_API}/permission.php`, { headers: this.getHeaders() });
   }
