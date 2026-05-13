@@ -2,7 +2,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Usuario } from '../../../models/usuario';
-import { UsersCrud } from '../../../services/users-crud';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { RegisterService } from '../../../services/registerService';
 
@@ -56,7 +55,10 @@ export class AddUser {
         this.agregado.emit();
         this.nuevoUsuario = { nombre: '', email: '', password: '', dni: '', rol: 0, direccion: '', telefono: '', cif: '', razon_social: '' };
       },
-      error: () => this.showMessage('Error al agregar usuario', false)
+      error: error => {
+        console.error('Error al agregar usuario:', error);
+        this.showMessage(error?.error?.error ?? 'Error al agregar usuario', false);
+      }
     });
   }
 

@@ -24,6 +24,16 @@
       </div>
 
       <div class="form-group">
+        <label>CIF:</label>
+        <input [(ngModel)]="usuario.cif" name="cif" type="text" />
+      </div>
+
+      <div class="form-group">
+        <label>RazÃ³n Social:</label>
+        <input [(ngModel)]="usuario.razon_social" name="razon_social" type="text" />
+      </div>
+
+      <div class="form-group">
         <label>Rol:</label>
         <select [(ngModel)]="usuario.rol" name="rol" required>
           <option [value]="0">Usuario</option>
