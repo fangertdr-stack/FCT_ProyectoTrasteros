@@ -62,6 +62,7 @@ export class UsersCrud {
     return this.http.delete(`${this.apiUrl}?id_usuario=${id_usuario}`, { headers: this.getHeaders() });
   }
 
+  // Normaliza el usuario para asegurar que campos opcionales siempre tengan un valor definido
   private normalizarUsuario(usuario: Usuario): Usuario {
     return {
       ...usuario,

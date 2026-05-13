@@ -49,6 +49,17 @@ export class AddUser {
   // metodo para agregar un nuevo usuario llamando al servicio de registro
   //  y manejando la respuesta para mostrar mensajes de exito o error
   agregarUsuario() {
+    if (
+      !this.nuevoUsuario.nombre.trim() ||
+      !this.nuevoUsuario.email.trim() ||
+      !this.nuevoUsuario.password.trim() ||
+      !this.nuevoUsuario.dni.trim() ||
+      !this.nuevoUsuario.telefono.trim()
+    ) {
+      this.showMessage('Faltan campos obligatorios por rellenar', false);
+      return;
+    }
+
     this.register.create(this.nuevoUsuario).subscribe({
       next: () => {
         this.showMessage('Usuario agregado correctamente');

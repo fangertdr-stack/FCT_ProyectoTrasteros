@@ -29,27 +29,23 @@ export class RegisterService {
      nombre: string;
      email: string;
      password: string;
-     dni?: string;
-     telefono?: string;
+     dni: string;
+     telefono: string;
      direccion?: string;
      cif?: string;
      razon_social?: string;
     }): Observable<any> {
 
-    // Construir payload solo con campos que tienen valor
+    // Construir payload solo con campos que tienen valor obligatorios
     const payload: any = {
       nombre: data.nombre,
       email: data.email,
-      password: data.password
+      password: data.password,
+      dni: data.dni.trim(),
+      telefono: data.telefono.trim()
     };
 
     // Agregar campos opcionales solo si tienen valor
-    if (data.dni && data.dni.trim()) {
-      payload.dni = data.dni.trim();
-    }
-    if (data.telefono && data.telefono.trim()) {
-      payload.telefono = data.telefono.trim();
-    }
     if (data.direccion && data.direccion.trim()) {
       payload.direccion = data.direccion.trim();
     }

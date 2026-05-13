@@ -53,7 +53,7 @@ export class TrasteroService {
 
   }
 
-  // Traer un usuario por id
+  // trae un usuario por id
  getUsuario(id_usuario: number): Observable<any> {
   return this.http.get<any>(
     `${URL_API}/user.php?id_usuario=${id_usuario}`,
@@ -61,6 +61,7 @@ export class TrasteroService {
   );
 }
 
+//hace un get de los trasteros de un usuario para mostrarlos en su pagina de usuario
   getMisTrasteros(id_usuario: number) {
     return this.http.get<any[]>(
       `${URL_API}/userPage.php?id_usuario=${id_usuario}`, { headers: this.getHeaders() }
@@ -68,6 +69,7 @@ export class TrasteroService {
 
   }
 
+  //es un get con trasteros libres de un tamaño concreto para mostrar en la pagina de alquiler
   getTrasteroLibre(tamanio: string): Observable<Trastero | null> {
     return this.http.get<Trastero[]>(this.apiUrl).pipe(
       map(trasteros => {

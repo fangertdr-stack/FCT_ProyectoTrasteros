@@ -84,7 +84,7 @@ export class LoginComponent {
 
       //  LOGIN BACKEND
       if (!this.email || !this.password) {
-        this.errorMessage = 'Completa todos los campos';
+        this.errorMessage = 'Faltan campos obligatorios por rellenar';
         return;
       }
       if (!this.isValidEmail(this.email)) {
@@ -97,8 +97,8 @@ export class LoginComponent {
     }
 
     //  REGISTRO BACKEND
-    if (!this.name || !this.email || !this.dni || !this.password || !this.confirmPassword) {
-      this.errorMessage = 'Completa todos los campos';
+    if (!this.name || !this.email || !this.dni || !this.telefono || !this.password || !this.confirmPassword) {
+      this.errorMessage = 'Faltan campos obligatorios por rellenar';
       return;
     }
 
