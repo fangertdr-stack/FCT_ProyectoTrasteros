@@ -23,15 +23,15 @@ export const routes: Routes = [
 
   { path: 'admin', component: AdminPage, canActivate: [adminGuard] },
 
-  { path: 'users', component: ListUser },
+  { path: 'users', component: ListUser, canActivate: [adminGuard] },
 
-  { path: 'edit-user/:id', component: EditUser },
+  { path: 'edit-user/:id', component: EditUser, canActivate: [adminGuard] },
 
   { path: 'rent', component: RentPage },
 
   { path: 'contact', component: ContactPage },
 
-  {path: 'user-page', component: UserPage},
+  {path: 'user-page', component: UserPage, canActivate: [adminGuard]},
 
   {path: 'pequeno', component: Pequeno},
   {path: 'mediano', component: Mediano},

@@ -40,6 +40,7 @@ export class ContactPage implements OnInit {
   ngOnInit(): void {
     if (!this.isBrowser()) return;
 
+
     const token = localStorage.getItem('token');
 
     if (!token) return;
