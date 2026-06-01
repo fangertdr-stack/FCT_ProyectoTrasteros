@@ -31,7 +31,7 @@ export const routes: Routes = [
 
   { path: 'contact', component: ContactPage },
 
-  {path: 'user-page', component: UserPage, canActivate: [adminGuard]},
+  {path: 'user-page', component: UserPage},
 
   {path: 'pequeno', component: Pequeno},
   {path: 'mediano', component: Mediano},
